@@ -1,6 +1,6 @@
 ## Project Info
 #### # ====================================
-#### # Author:		Andrea, Yeison X and William
+#### # Author:		Andrea, Yeison and William
 #### # Description:	Health Connect
 #### # Client:		Doctors
 #### # ====================================
