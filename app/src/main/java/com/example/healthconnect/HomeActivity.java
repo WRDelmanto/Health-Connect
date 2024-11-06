@@ -1,0 +1,105 @@
+package com.example.healthconnect;
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class HomeActivity extends AppCompatActivity implements HomeActivityPatientAdapter.OnItemClickListener {
+    @SuppressLint("SetTextI18n")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_home);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        // Summary
+        ImageView doctorImage = findViewById(R.id.home_activity_doctor_picture);
+        TextView doctorName = findViewById(R.id.home_activity_doctor_name);
+        TextView appointmentsCounter = findViewById(R.id.home_activity_doctor_appointments_counter);
+        TextView nextAppointment = findViewById(R.id.home_activity_doctor_next_appointment);
+
+        // Main Categories
+        LinearLayout appointmentsScheduling = findViewById(R.id.home_activity_appointments_scheduling_layout);
+        LinearLayout patientsRecords = findViewById(R.id.home_activity_patients_records_layout);
+        LinearLayout consultationHistory = findViewById(R.id.home_activity_consultation_history_layout);
+
+        // Upcoming Appointments
+        RecyclerView upcomingAppointments = findViewById(R.id.home_activity_upcoming_appointments_list);
+
+        // TODO: Set the doctor's image
+        doctorImage.setImageResource(R.drawable.default_profile_picture);
+
+        // TODO: Set the doctor's name
+        doctorName.setText("Dr. Patricia Fernandez");
+
+        // TODO: Set the number of appointments
+        appointmentsCounter.setText("Appointments today: " + "12");
+
+        // TODO: Set the next appointment
+        nextAppointment.setText("Next appointment: " + "09:30 AM");
+
+        doctorImage.setOnClickListener(v -> {
+            // TODO: Handle the click event
+        });
+
+        appointmentsScheduling.setOnClickListener(v -> {
+            // TODO: Handle the click event
+        });
+
+        patientsRecords.setOnClickListener(v -> {
+            // TODO: Handle the click event
+        });
+
+        consultationHistory.setOnClickListener(v -> {
+            // TODO: Handle the click event
+        });
+
+        // TODO: Set the upcoming appointments list
+        // Mock patients data
+        List<Patient> patients = new ArrayList<>();
+
+        // TODO: Replace the mock data with the actual data
+        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30 AM"));
+        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00 AM"));
+        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20 AM"));
+        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40 AM"));
+        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30 AM"));
+        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00 AM"));
+        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20 AM"));
+        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40 AM"));
+        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30 AM"));
+        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00 AM"));
+        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20 AM"));
+        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40 AM"));
+
+        HomeActivityPatientAdapter adapter = new HomeActivityPatientAdapter(patients, this);
+        upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
+        upcomingAppointments.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(Patient patient) {
+        // TODO: Handle the click event
+        String message = "Clicked on " + patient.getName() + "'s appointment at " + patient.getAppointmentTime();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+}

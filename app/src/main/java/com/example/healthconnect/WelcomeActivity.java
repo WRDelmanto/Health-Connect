@@ -1,5 +1,6 @@
 package com.example.healthconnect;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -10,7 +11,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class WelcomeActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +24,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         AppCompatButton continueButton = findViewById(R.id.welcome_activity_continue_button);
         continueButton.setOnClickListener(v -> {
-            // TODO: Start the next activity
+            startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
             finish();
         });
     }
