@@ -1,6 +1,9 @@
-package com.example.healthconnect.appointmentscheduling;
+package com.example.healthconnect.patientrecords;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,12 +22,12 @@ import com.example.healthconnect.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppointmentSchedulingActivity extends AppCompatActivity implements AppointmentSchedulingActivityPatientAdapter.OnItemClickListener {
+public class PatientRecordsActivity extends AppCompatActivity implements PatientRecordsActivityPatientAdapter.OnItemClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_appointment_scheduling);
+        setContentView(R.layout.activity_patient_records);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -34,14 +37,35 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
 
-        // Upcoming Appointments
-        RecyclerView upcomingAppointments = findViewById(R.id.appointment_scheduling_activity_appointments_list);
+        EditText searchBar = findViewById(R.id.patient_records_activity_search_bar);
+
+        // Patients
+        RecyclerView patientsList = findViewById(R.id.patient_records_activity_patient_list);
 
         // Setting the icon and text for the status bar
-        statusBarIcon.setImageResource(R.drawable.appointments_scheduling_icon);
-        statusBarTitle.setText(getString(R.string.appointments_scheduling));
+        statusBarIcon.setImageResource(R.drawable.patient_records_icon);
+        statusBarTitle.setText(getString(R.string.patients_records));
 
-        // TODO: Set the upcoming appointments list
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Do nothing
+            }
+
+            @Override
+            public void afterTextChanged(Editable searchInput) {
+                if (!searchInput.toString().isEmpty()) {
+                    // TODO: Implement search functionality
+                }
+            }
+        });
+
+        // TODO: Set the patient list
         // Mock patients data
         List<Patient> patients = new ArrayList<>();
 
@@ -59,15 +83,15 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
         patients.add(new Patient("Ms. Emma Liu ", 56, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:20"));
         patients.add(new Patient("Mr.  Daniel  Grant", 35, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:40"));
 
-        AppointmentSchedulingActivityPatientAdapter adapter = new AppointmentSchedulingActivityPatientAdapter(patients, this);
-        upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
-        upcomingAppointments.setAdapter(adapter);
+        PatientRecordsActivityPatientAdapter adapter = new PatientRecordsActivityPatientAdapter(patients, this);
+        patientsList.setLayoutManager(new LinearLayoutManager(this));
+        patientsList.setAdapter(adapter);
     }
 
     @Override
     public void onItemClick(Patient patient) {
         // TODO: Handle the click event
-        String message = "Clicked on " + patient.getName() + "'s appointment at " + patient.getAppointmentTime();
+        String message = "Clicked on " + patient.getName();
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

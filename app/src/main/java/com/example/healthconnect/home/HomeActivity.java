@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healthconnect.Patient;
 import com.example.healthconnect.R;
 import com.example.healthconnect.appointmentscheduling.AppointmentSchedulingActivity;
+import com.example.healthconnect.patientrecords.PatientRecordsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,9 +69,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
 
         appointmentsScheduling.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentSchedulingActivity.class)));
 
-        patientsRecords.setOnClickListener(v -> {
-            // TODO: Handle the click event
-        });
+        patientsRecords.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, PatientRecordsActivity.class)));
 
         consultationHistory.setOnClickListener(v -> {
             // TODO: Handle the click event
@@ -81,18 +80,18 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
         List<Patient> patients = new ArrayList<>();
 
         // TODO: Replace the mock data with the actual data
-        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30"));
-        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00"));
-        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20"));
-        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40"));
-        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30"));
-        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00"));
-        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20"));
-        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40"));
-        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30"));
-        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00"));
-        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20"));
-        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40"));
+        patients.add(new Patient("Mr. Adam Smith", 72, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "09:30"));
+        patients.add(new Patient("Ms. Alice Chang", 12, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "New patient", "10:00"));
+        patients.add(new Patient("Ms. Emma Liu ", 56, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:20"));
+        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:40"));
+        patients.add(new Patient("Mr. Adam Smith", 72, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "09:30"));
+        patients.add(new Patient("Ms. Alice Chang", 12, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "New patient", "10:00"));
+        patients.add(new Patient("Ms. Emma Liu ", 56, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:20"));
+        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:40"));
+        patients.add(new Patient("Mr. Adam Smith", 72, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "09:30"));
+        patients.add(new Patient("Ms. Alice Chang", 12, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "New patient", "10:00"));
+        patients.add(new Patient("Ms. Emma Liu ", 56, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:20"));
+        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:40"));
 
         HomeActivityPatientAdapter adapter = new HomeActivityPatientAdapter(patients, this);
         upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));

@@ -109,7 +109,7 @@
                 android:layout_height="86dp"
                 android:background="@drawable/home_activity_main_category_background"
                 android:backgroundTint="@color/bondi_blue"
-                android:contentDescription="@string/home_activity_appointments_scheduling_content_description"
+                android:contentDescription="@string/appointments_scheduling"
                 android:scaleType="centerCrop"
                 android:src="@drawable/appointments_scheduling_icon" />
 
@@ -141,9 +141,9 @@
                 android:layout_height="86dp"
                 android:background="@drawable/home_activity_main_category_background"
                 android:backgroundTint="@color/bondi_blue"
-                android:contentDescription="@string/home_activity_patients_records_content_description"
+                android:contentDescription="@string/patients_records"
                 android:scaleType="centerCrop"
-                android:src="@drawable/patients_records_icon" />
+                android:src="@drawable/patient_records_icon" />
 
             <TextView
                 android:id="@+id/home_activity_patients_records_message"
@@ -173,7 +173,7 @@
                 android:layout_height="86dp"
                 android:background="@drawable/home_activity_main_category_background"
                 android:backgroundTint="@color/bondi_blue"
-                android:contentDescription="@string/home_activity_consultation_history_content_description"
+                android:contentDescription="@string/consultation_history"
                 android:scaleType="centerCrop"
                 android:src="@drawable/consultation_history_icon" />
 
