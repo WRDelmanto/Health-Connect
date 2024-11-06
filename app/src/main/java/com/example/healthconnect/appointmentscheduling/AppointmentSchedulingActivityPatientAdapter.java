@@ -1,18 +1,20 @@
-package com.example.healthconnect;
+package com.example.healthconnect.appointmentscheduling;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healthconnect.Patient;
+import com.example.healthconnect.R;
+
 import java.util.List;
 
-public class HomeActivityPatientAdapter extends RecyclerView.Adapter<HomeActivityPatientAdapter.PatientViewHolder> {
+public class AppointmentSchedulingActivityPatientAdapter extends RecyclerView.Adapter<AppointmentSchedulingActivityPatientAdapter.PatientViewHolder> {
 
     private List<Patient> patientList;
     private OnItemClickListener listener;
@@ -22,7 +24,7 @@ public class HomeActivityPatientAdapter extends RecyclerView.Adapter<HomeActivit
     }
 
     // Constructor to pass in the patient data
-    public HomeActivityPatientAdapter(List<Patient> patientList, OnItemClickListener listener) {
+    public AppointmentSchedulingActivityPatientAdapter(List<Patient> patientList, OnItemClickListener listener) {
         this.patientList = patientList;
         this.listener = listener;
     }
@@ -32,7 +34,7 @@ public class HomeActivityPatientAdapter extends RecyclerView.Adapter<HomeActivit
     public PatientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate the layout for each item in the RecyclerView
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.home_activity_patient_item, parent, false);
+                .inflate(R.layout.appointment_scheduling_activity_patient_item, parent, false);
         return new PatientViewHolder(view);
     }
 
@@ -54,9 +56,6 @@ public class HomeActivityPatientAdapter extends RecyclerView.Adapter<HomeActivit
             holder.appointmentDate.setBackgroundTintList(AppCompatResources.getColorStateList(holder.itemView.getContext(), R.color.bondi_blue)); // Assuming pastel_blue is defined in colors.xml
         }
 
-        // Set default or profile image (here you could use a profile image, or default)
-        holder.patientImage.setImageResource(R.drawable.default_profile_picture);
-
         // Set item click listener
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
@@ -74,7 +73,6 @@ public class HomeActivityPatientAdapter extends RecyclerView.Adapter<HomeActivit
     public static class PatientViewHolder extends RecyclerView.ViewHolder {
 
         // Declare the views we will use to bind data
-        ImageView patientImage;
         TextView patientName;
         TextView patientAge;
         TextView appointmentType;
@@ -84,11 +82,10 @@ public class HomeActivityPatientAdapter extends RecyclerView.Adapter<HomeActivit
             super(itemView);
 
             // Initialize the views
-            patientImage = itemView.findViewById(R.id.home_activity_patient_item_image);
-            patientName = itemView.findViewById(R.id.home_activity_patient_item_patient_name);
-            patientAge = itemView.findViewById(R.id.home_activity_patient_item_patient_age);
-            appointmentType = itemView.findViewById(R.id.home_activity_patient_item_appointment_type);
-            appointmentDate = itemView.findViewById(R.id.home_activity_patient_item_appointment_date);
+            patientName = itemView.findViewById(R.id.appointment_scheduling_activity_patient_item_patient_name);
+            patientAge = itemView.findViewById(R.id.appointment_scheduling_activity_patient_item_patient_age);
+            appointmentType = itemView.findViewById(R.id.appointment_scheduling_activity_patient_item_appointment_type);
+            appointmentDate = itemView.findViewById(R.id.appointment_scheduling_activity_patient_item_appointment_date);
         }
     }
 }

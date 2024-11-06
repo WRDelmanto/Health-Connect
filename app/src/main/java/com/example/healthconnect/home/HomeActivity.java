@@ -1,6 +1,7 @@
-package com.example.healthconnect;
+package com.example.healthconnect.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +15,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.healthconnect.Patient;
+import com.example.healthconnect.R;
+import com.example.healthconnect.appointmentscheduling.AppointmentSchedulingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +66,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
             // TODO: Handle the click event
         });
 
-        appointmentsScheduling.setOnClickListener(v -> {
-            // TODO: Handle the click event
-        });
+        appointmentsScheduling.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentSchedulingActivity.class)));
 
         patientsRecords.setOnClickListener(v -> {
             // TODO: Handle the click event
@@ -78,18 +81,18 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
         List<Patient> patients = new ArrayList<>();
 
         // TODO: Replace the mock data with the actual data
-        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30 AM"));
-        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00 AM"));
-        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20 AM"));
-        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40 AM"));
-        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30 AM"));
-        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00 AM"));
-        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20 AM"));
-        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40 AM"));
-        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30 AM"));
-        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00 AM"));
-        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20 AM"));
-        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40 AM"));
+        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30"));
+        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00"));
+        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20"));
+        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40"));
+        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30"));
+        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00"));
+        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20"));
+        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40"));
+        patients.add(new Patient("Mr. Adam Smith", 72, "Regular appointment", "09:30"));
+        patients.add(new Patient("Ms. Alice Chang", 12, "New patient", "10:00"));
+        patients.add(new Patient("Ms. Emma Liu ", 56, "Regular appointment", "10:20"));
+        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Regular appointment", "10:40"));
 
         HomeActivityPatientAdapter adapter = new HomeActivityPatientAdapter(patients, this);
         upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
