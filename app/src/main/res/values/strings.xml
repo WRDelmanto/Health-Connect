@@ -6,6 +6,9 @@
     <string name="appointments_scheduling">Appointment Scheduling</string>
     <string name="patients_records">Patients Records</string>
     <string name="consultation_history">Consultation History</string>
+    <string name="name">Name*</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
 
     <!-- Welcome Activity -->
     <string name="welcome_activity_title">Health\nConnect</string>
@@ -21,4 +24,9 @@
 
     <!-- Search Bar -->
     <string name="search_bar_title">Filter by name</string>
+
+    <!-- Doctor Profile Activity -->
+    <string name="doctor_profile_activity_doctor_profile">Doctor Profile</string>
+    <string name="doctor_profile_activity_doctor_picture">Doctor Picture</string>
+    <string name="doctor_profile_activity_doctor_name_hint">Adam Smith</string>
 </resources>

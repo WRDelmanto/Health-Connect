@@ -3,6 +3,7 @@ package com.example.healthconnect.home;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healthconnect.Patient;
 import com.example.healthconnect.R;
 import com.example.healthconnect.appointmentscheduling.AppointmentSchedulingActivity;
+import com.example.healthconnect.doctorprofile.DoctorProfileActivity;
 import com.example.healthconnect.patientrecords.PatientRecordsActivity;
+import com.example.healthconnect.utils.FastSharedPreference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
 
         // Summary
         ImageView doctorImage = findViewById(R.id.home_activity_doctor_picture);
+        ImageButton editButton = findViewById(R.id.home_activity_edit_doctor_info);
         TextView doctorName = findViewById(R.id.home_activity_doctor_name);
         TextView appointmentsCounter = findViewById(R.id.home_activity_doctor_appointments_counter);
         TextView nextAppointment = findViewById(R.id.home_activity_doctor_next_appointment);
@@ -55,7 +59,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
         doctorImage.setImageResource(R.drawable.default_profile_picture);
 
         // TODO: Set the doctor's name
-        doctorName.setText("Dr. Patricia Fernandez");
+        doctorName.setText("Dr. " + FastSharedPreference.get(this, "doctor_name", ""));
 
         // TODO: Set the number of appointments
         appointmentsCounter.setText("Appointments today: " + "12");
@@ -66,6 +70,8 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
         doctorImage.setOnClickListener(v -> {
             // TODO: Handle the click event
         });
+
+        editButton.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, DoctorProfileActivity.class)));
 
         appointmentsScheduling.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentSchedulingActivity.class)));
 
