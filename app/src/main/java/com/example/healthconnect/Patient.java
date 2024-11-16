@@ -1,22 +1,30 @@
 package com.example.healthconnect;
 
-public class Patient {
+import java.io.Serializable;
+
+public class Patient implements Serializable {
+    private int id;
     private String name;
     private int age;
     private String gender;
     private String phoneNumber;
     private String email;
-    private String appointmentType;
-    private String appointmentTime;
 
-    public Patient(String name, int age, String gender, String phoneNumber, String email, String appointmentType, String appointmentTime) {
+    public Patient(int id, String name, int age, String gender, String phoneNumber, String email) {
+        this.id = id;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.appointmentType = appointmentType;
-        this.appointmentTime = appointmentTime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -57,22 +65,6 @@ public class Patient {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAppointmentType() {
-        return appointmentType;
-    }
-
-    public void setAppointmentType(String appointmentType) {
-        this.appointmentType = appointmentType;
-    }
-
-    public String getAppointmentTime() {
-        return appointmentTime;
-    }
-
-    public void setAppointmentTime(String appointmentTime) {
-        this.appointmentTime = appointmentTime;
     }
 }
 

@@ -65,6 +65,7 @@
         android:background="@drawable/rounded_button"
         android:backgroundTint="@color/bondi_blue"
         android:text="@string/save"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

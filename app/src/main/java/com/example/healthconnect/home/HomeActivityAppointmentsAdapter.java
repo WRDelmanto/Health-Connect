@@ -10,47 +10,47 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.Patient;
+import com.example.healthconnect.Appointment;
 import com.example.healthconnect.R;
 
 import java.util.List;
 
-public class HomeActivityPatientAdapter extends RecyclerView.Adapter<HomeActivityPatientAdapter.PatientViewHolder> {
+public class HomeActivityAppointmentsAdapter extends RecyclerView.Adapter<HomeActivityAppointmentsAdapter.AppointmentViewHolder> {
 
-    private List<Patient> patientList;
+    private List<Appointment> appointmentList;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(Patient patient);
+        void onItemClick(Appointment appointment);
     }
 
     // Constructor to pass in the patient data
-    public HomeActivityPatientAdapter(List<Patient> patientList, OnItemClickListener listener) {
-        this.patientList = patientList;
+    public HomeActivityAppointmentsAdapter(List<Appointment> appointmentList, OnItemClickListener listener) {
+        this.appointmentList = appointmentList;
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public PatientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AppointmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate the layout for each item in the RecyclerView
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.home_activity_patient_item, parent, false);
-        return new PatientViewHolder(view);
+                .inflate(R.layout.home_activity_appointment_item, parent, false);
+        return new AppointmentViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PatientViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AppointmentViewHolder holder, int position) {
         // Get the current patient object from the list
-        Patient patient = patientList.get(position);
+        Appointment appointment = appointmentList.get(position);
 
         // Set data for the patient item view
-        holder.patientName.setText(patient.getName());
-        holder.patientAge.setText(patient.getAge() + " years-old");
-        holder.appointmentType.setText(patient.getAppointmentType());
+        holder.patientName.setText(appointment.getPatient().getName());
+        holder.patientAge.setText(appointment.getPatient().getAge() + " years-old");
+        holder.appointmentType.setText(appointment.getAppointmentType());
 
         // TODO: Adjust background color for even or odd items
-        holder.appointmentDate.setText(patient.getAppointmentTime());
+        holder.appointmentDate.setText(appointment.getAppointmentTime());
         if (position % 2 == 0) {
             holder.appointmentDate.setBackgroundTintList(AppCompatResources.getColorStateList(holder.itemView.getContext(), R.color.pastel_green));
         } else {
@@ -63,18 +63,18 @@ public class HomeActivityPatientAdapter extends RecyclerView.Adapter<HomeActivit
         // Set item click listener
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onItemClick(patient);  // Trigger the click listener with the clicked patient
+                listener.onItemClick(appointment);  // Trigger the click listener with the clicked patient
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return patientList.size();
+        return appointmentList.size();
     }
 
     // ViewHolder class for the individual item in the RecyclerView
-    public static class PatientViewHolder extends RecyclerView.ViewHolder {
+    public static class AppointmentViewHolder extends RecyclerView.ViewHolder {
 
         // Declare the views we will use to bind data
         ImageView patientImage;
@@ -83,15 +83,15 @@ public class HomeActivityPatientAdapter extends RecyclerView.Adapter<HomeActivit
         TextView appointmentType;
         TextView appointmentDate;
 
-        public PatientViewHolder(View itemView) {
+        public AppointmentViewHolder(View itemView) {
             super(itemView);
 
             // Initialize the views
-            patientImage = itemView.findViewById(R.id.home_activity_patient_item_image);
-            patientName = itemView.findViewById(R.id.home_activity_patient_item_patient_name);
-            patientAge = itemView.findViewById(R.id.home_activity_patient_item_patient_age);
-            appointmentType = itemView.findViewById(R.id.home_activity_patient_item_appointment_type);
-            appointmentDate = itemView.findViewById(R.id.home_activity_patient_item_appointment_date);
+            patientImage = itemView.findViewById(R.id.home_activity_appointment_item_image);
+            patientName = itemView.findViewById(R.id.home_activity_appointment_item_patient_name);
+            patientAge = itemView.findViewById(R.id.home_activity_appointment_item_patient_age);
+            appointmentType = itemView.findViewById(R.id.home_activity_appointment_item_appointment_type);
+            appointmentDate = itemView.findViewById(R.id.home_activity_appointment_item_appointment_date);
         }
     }
 }

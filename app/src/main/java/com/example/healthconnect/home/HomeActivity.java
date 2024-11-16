@@ -1,5 +1,7 @@
 package com.example.healthconnect.home;
 
+import static com.example.healthconnect.MockAppointments.getMockAppointments;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +9,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,17 +18,17 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.Patient;
+import com.example.healthconnect.Appointment;
 import com.example.healthconnect.R;
+import com.example.healthconnect.appointment.AppointmentActivity;
 import com.example.healthconnect.appointmentscheduling.AppointmentSchedulingActivity;
 import com.example.healthconnect.doctorprofile.DoctorProfileActivity;
 import com.example.healthconnect.patientrecords.PatientRecordsActivity;
 import com.example.healthconnect.utils.FastSharedPreference;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements HomeActivityPatientAdapter.OnItemClickListener {
+public class HomeActivity extends AppCompatActivity implements HomeActivityAppointmentsAdapter.OnItemClickListener {
     ImageView doctorImage;
     TextView doctorName;
     TextView appointmentsCounter;
@@ -75,24 +76,9 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
         });
 
         // TODO: Set the upcoming appointments list
-        // Mock patients data
-        List<Patient> patients = new ArrayList<>();
+        List<Appointment> appointments = getMockAppointments();
 
-        // TODO: Replace the mock data with the actual data
-        patients.add(new Patient("Mr. Adam Smith", 72, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "09:30"));
-        patients.add(new Patient("Ms. Alice Chang", 12, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "New patient", "10:00"));
-        patients.add(new Patient("Ms. Emma Liu ", 56, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:20"));
-        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:40"));
-        patients.add(new Patient("Mr. Adam Smith", 72, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "09:30"));
-        patients.add(new Patient("Ms. Alice Chang", 12, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "New patient", "10:00"));
-        patients.add(new Patient("Ms. Emma Liu ", 56, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:20"));
-        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:40"));
-        patients.add(new Patient("Mr. Adam Smith", 72, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "09:30"));
-        patients.add(new Patient("Ms. Alice Chang", 12, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "New patient", "10:00"));
-        patients.add(new Patient("Ms. Emma Liu ", 56, "Female", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:20"));
-        patients.add(new Patient("Mr.  Daniel  Grant", 35, "Male", "(604) 555 - 5555", "smith.adam@gmail.com", "Regular appointment", "10:40"));
-
-        HomeActivityPatientAdapter adapter = new HomeActivityPatientAdapter(patients, this);
+        HomeActivityAppointmentsAdapter adapter = new HomeActivityAppointmentsAdapter(appointments, this);
         upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
         upcomingAppointments.setAdapter(adapter);
     }
@@ -114,9 +100,9 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
     }
 
     @Override
-    public void onItemClick(Patient patient) {
-        // TODO: Handle the click event
-        String message = "Clicked on " + patient.getName() + "'s appointment at " + patient.getAppointmentTime();
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    public void onItemClick(Appointment appointment) {
+        Intent intent = new Intent(HomeActivity.this, AppointmentActivity.class);
+        intent.putExtra("appointment", appointment);
+        startActivity(intent);
     }
 }
