@@ -121,6 +121,7 @@
                 android:background="@drawable/home_activity_main_category_background"
                 android:backgroundTint="@color/bondi_blue"
                 android:contentDescription="@string/appointments_scheduling"
+                android:padding="6dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/calendar_icon" />
 
@@ -153,6 +154,7 @@
                 android:background="@drawable/home_activity_main_category_background"
                 android:backgroundTint="@color/bondi_blue"
                 android:contentDescription="@string/patients_records"
+                android:padding="6dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/patient_records_icon" />
 
@@ -185,6 +187,7 @@
                 android:background="@drawable/home_activity_main_category_background"
                 android:backgroundTint="@color/bondi_blue"
                 android:contentDescription="@string/consultation_history"
+                android:padding="6dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/consultation_history_icon" />
 

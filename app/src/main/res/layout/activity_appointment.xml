@@ -151,7 +151,9 @@
             android:paddingHorizontal="10dp"
             android:text="@string/cancel"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/appointment_activity_save_button"
@@ -162,6 +164,8 @@
             android:backgroundTint="@color/bondi_blue"
             android:text="@string/save"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
