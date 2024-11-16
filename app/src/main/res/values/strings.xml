@@ -12,7 +12,6 @@
 
     <!-- Welcome Activity -->
     <string name="welcome_activity_title">Health\nConnect</string>
-    <string name="welcome_activity_continue_button">Continue</string>
 
     <!-- Home Activity -->
     <string name="home_activity_doctor_picture">Doctor picture</string>

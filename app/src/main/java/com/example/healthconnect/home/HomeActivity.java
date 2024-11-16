@@ -28,6 +28,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements HomeActivityPatientAdapter.OnItemClickListener {
+    ImageView doctorImage;
+    TextView doctorName;
+    TextView appointmentsCounter;
+    TextView nextAppointment;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +46,11 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
         });
 
         // Summary
-        ImageView doctorImage = findViewById(R.id.home_activity_doctor_picture);
+        doctorImage = findViewById(R.id.home_activity_doctor_picture);
         ImageButton editButton = findViewById(R.id.home_activity_edit_doctor_info);
-        TextView doctorName = findViewById(R.id.home_activity_doctor_name);
-        TextView appointmentsCounter = findViewById(R.id.home_activity_doctor_appointments_counter);
-        TextView nextAppointment = findViewById(R.id.home_activity_doctor_next_appointment);
+        doctorName = findViewById(R.id.home_activity_doctor_name);
+        appointmentsCounter = findViewById(R.id.home_activity_doctor_appointments_counter);
+        nextAppointment = findViewById(R.id.home_activity_doctor_next_appointment);
 
         // Main Categories
         LinearLayout appointmentsScheduling = findViewById(R.id.home_activity_appointments_scheduling_layout);
@@ -54,18 +59,6 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
 
         // Upcoming Appointments
         RecyclerView upcomingAppointments = findViewById(R.id.home_activity_upcoming_appointments_list);
-
-        // TODO: Set the doctor's image
-        doctorImage.setImageResource(R.drawable.default_profile_picture);
-
-        // TODO: Set the doctor's name
-        doctorName.setText("Dr. " + FastSharedPreference.get(this, "doctor_name", ""));
-
-        // TODO: Set the number of appointments
-        appointmentsCounter.setText("Appointments today: " + "12");
-
-        // TODO: Set the next appointment
-        nextAppointment.setText("Next appointment: " + "09:30 AM");
 
         doctorImage.setOnClickListener(v -> {
             // TODO: Handle the click event
@@ -102,6 +95,22 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityPatie
         HomeActivityPatientAdapter adapter = new HomeActivityPatientAdapter(patients, this);
         upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
         upcomingAppointments.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // TODO: Set the doctor's image
+        doctorImage.setImageResource(R.drawable.default_profile_picture);
+
+        doctorName.setText("Dr. " + FastSharedPreference.get(this, "doctor_name", ""));
+
+        // TODO: Set the number of appointments
+        appointmentsCounter.setText("Appointments today: " + "12");
+
+        // TODO: Set the next appointment
+        nextAppointment.setText("Next appointment: " + "09:30 AM");
     }
 
     @Override
