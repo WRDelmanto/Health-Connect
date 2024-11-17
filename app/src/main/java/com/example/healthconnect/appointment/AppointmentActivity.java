@@ -1,5 +1,6 @@
 package com.example.healthconnect.appointment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.Appointment;
 import com.example.healthconnect.R;
+import com.example.healthconnect.currentappointment.CurrentAppointmentActivity;
 
 public class AppointmentActivity extends AppCompatActivity {
     @Override
@@ -61,10 +63,13 @@ public class AppointmentActivity extends AppCompatActivity {
         });
 
         startAppointment.setOnClickListener(v -> {
-            // TODO: Update the appointment to the database
+            // TODO: Update the appointment info to the database
             String patientName = patientNameInput.getText().toString();
 
-            // TODO: Open the appointment activity
+            Intent intent = new Intent(AppointmentActivity.this, CurrentAppointmentActivity.class);
+            intent.putExtra("appointment", appointment);
+            startActivity(intent);
+
             finish();
         });
 

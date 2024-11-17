@@ -11,8 +11,9 @@ public class Appointment implements Serializable {
     private String notes;
     private String medicines;
     private String exams;
+    private boolean isDone;
 
-    public Appointment(int id, Patient patient, String appointmentType, String appointmentDate, String appointmentTime, String notes, String medicines, String exams) {
+    public Appointment(int id, Patient patient, String appointmentType, String appointmentDate, String appointmentTime, String notes, String medicines, String exams, boolean isDone) {
         this.id = id;
         this.patient = patient;
         this.appointmentType = appointmentType;
@@ -21,6 +22,7 @@ public class Appointment implements Serializable {
         this.notes = notes;
         this.medicines = medicines;
         this.exams = exams;
+        this.isDone = isDone;
     }
 
     public int getId() {
@@ -85,5 +87,13 @@ public class Appointment implements Serializable {
 
     public void setExams(String exams) {
         this.exams = exams;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
     }
 }

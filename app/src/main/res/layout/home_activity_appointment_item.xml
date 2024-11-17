@@ -67,5 +67,4 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:backgroundTint="@color/pastel_green"
         tools:text="09:30" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
