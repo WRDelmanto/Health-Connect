@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.Appointment;
 import com.example.healthconnect.R;
-import com.example.healthconnect.currentappointment.CurrentAppointmentActivity;
+import com.example.healthconnect.currentAppointment.CurrentAppointmentActivity;
 
 public class AppointmentActivity extends AppCompatActivity {
     @Override

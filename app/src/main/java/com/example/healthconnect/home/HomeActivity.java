@@ -21,10 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healthconnect.Appointment;
 import com.example.healthconnect.R;
 import com.example.healthconnect.appointment.AppointmentActivity;
-import com.example.healthconnect.appointmenthistory.AppointmentHistoryActivity;
-import com.example.healthconnect.appointmentscheduling.AppointmentSchedulingActivity;
-import com.example.healthconnect.doctorprofile.DoctorProfileActivity;
-import com.example.healthconnect.patientrecords.PatientRecordsActivity;
+import com.example.healthconnect.appointmentHistory.AppointmentHistoryActivity;
+import com.example.healthconnect.appointmentScheduling.AppointmentSchedulingActivity;
+import com.example.healthconnect.doctorProfile.DoctorProfileActivity;
+import com.example.healthconnect.patientRecords.PatientRecordsActivity;
 import com.example.healthconnect.utils.FastSharedPreferences;
 
 import java.util.List;

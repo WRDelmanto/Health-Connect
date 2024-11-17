@@ -1,4 +1,4 @@
-package com.example.healthconnect.doctorprofile;
+package com.example.healthconnect.doctorProfile;
 
 import android.os.Bundle;
 import android.widget.EditText;

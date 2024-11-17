@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".appointmenthistory.AppointmentHistoryActivity">
+    tools:context=".appointmentHistory.AppointmentHistoryActivity">
 
     <include
         android:id="@+id/appointment_history_activity_status_bar"

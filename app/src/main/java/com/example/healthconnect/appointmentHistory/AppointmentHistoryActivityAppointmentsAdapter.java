@@ -1,12 +1,12 @@
-package com.example.healthconnect.appointmentscheduling;
+package com.example.healthconnect.appointmentHistory;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthconnect.Appointment;
@@ -14,7 +14,7 @@ import com.example.healthconnect.R;
 
 import java.util.List;
 
-public class AppointmentSchedulingActivityAppoitmentsAdapter extends RecyclerView.Adapter<AppointmentSchedulingActivityAppoitmentsAdapter.AppointmentViewHolder> {
+public class AppointmentHistoryActivityAppointmentsAdapter extends RecyclerView.Adapter<AppointmentHistoryActivityAppointmentsAdapter.AppointmentViewHolder> {
 
     private List<Appointment> appointmentList;
     private OnItemClickListener listener;
@@ -24,7 +24,7 @@ public class AppointmentSchedulingActivityAppoitmentsAdapter extends RecyclerVie
     }
 
     // Constructor to pass in the patient data
-    public AppointmentSchedulingActivityAppoitmentsAdapter(List<Appointment> appointmentList, OnItemClickListener listener) {
+    public AppointmentHistoryActivityAppointmentsAdapter(List<Appointment> appointmentList, OnItemClickListener listener) {
         this.appointmentList = appointmentList;
         this.listener = listener;
     }
@@ -34,7 +34,7 @@ public class AppointmentSchedulingActivityAppoitmentsAdapter extends RecyclerVie
     public AppointmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate the layout for each item in the RecyclerView
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_appointment_scheduling_item, parent, false);
+                .inflate(R.layout.activity_appointment_history_item, parent, false);
         return new AppointmentViewHolder(view);
     }
 
@@ -45,15 +45,11 @@ public class AppointmentSchedulingActivityAppoitmentsAdapter extends RecyclerVie
 
         // Set data for the patient item view
         holder.patientName.setText(appointment.getPatient().getName());
-        holder.patientAge.setText(appointment.getPatient().getAge() + " years-old");
-        holder.appointmentType.setText(appointment.getAppointmentType());
+        holder.patientGenderAge.setText(appointment.getPatient().getGender() + ", " + appointment.getPatient().getAge() + " years-old");
+        holder.appointmentTypeDateTime.setText("Last appointment: " + appointment.getAppointmentDate() + " - " + appointment.getAppointmentTime());
 
-        holder.appointmentDate.setText(appointment.getAppointmentTime());
-        if (position % 2 == 0) {
-            holder.appointmentDate.setBackgroundTintList(AppCompatResources.getColorStateList(holder.itemView.getContext(), R.color.pastel_green));
-        } else {
-            holder.appointmentDate.setBackgroundTintList(AppCompatResources.getColorStateList(holder.itemView.getContext(), R.color.bondi_blue)); // Assuming pastel_blue is defined in colors.xml
-        }
+        // Set default or profile image (here you could use a profile image, or default)
+        holder.patientImage.setImageResource(R.drawable.default_profile_picture);
 
         // Set item click listener
         holder.itemView.setOnClickListener(v -> {
@@ -72,19 +68,19 @@ public class AppointmentSchedulingActivityAppoitmentsAdapter extends RecyclerVie
     public static class AppointmentViewHolder extends RecyclerView.ViewHolder {
 
         // Declare the views we will use to bind data
+        ImageView patientImage;
         TextView patientName;
-        TextView patientAge;
-        TextView appointmentType;
-        TextView appointmentDate;
+        TextView patientGenderAge;
+        TextView appointmentTypeDateTime;
 
         public AppointmentViewHolder(View itemView) {
             super(itemView);
 
             // Initialize the views
-            patientName = itemView.findViewById(R.id.activity_appointment_scheduling_item_patient_name);
-            patientAge = itemView.findViewById(R.id.activity_appointment_scheduling_item_patient_age);
-            appointmentType = itemView.findViewById(R.id.activity_appointment_scheduling_item_appointment_type);
-            appointmentDate = itemView.findViewById(R.id.activity_appointment_scheduling_item_appointment_time);
+            patientImage = itemView.findViewById(R.id.activity_appointment_history_item_patient_picture);
+            patientName = itemView.findViewById(R.id.activity_appointment_history_item_patient_name);
+            patientGenderAge = itemView.findViewById(R.id.activity_appointment_history_item_patient_gender_age);
+            appointmentTypeDateTime = itemView.findViewById(R.id.activity_appointment_history_item_appointment_type_date_time);
         }
     }
 }

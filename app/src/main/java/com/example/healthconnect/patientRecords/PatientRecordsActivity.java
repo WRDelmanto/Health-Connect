@@ -1,4 +1,4 @@
-package com.example.healthconnect.patientrecords;
+package com.example.healthconnect.patientRecords;
 
 import static com.example.healthconnect.MockPatients.getMockPatients;
 

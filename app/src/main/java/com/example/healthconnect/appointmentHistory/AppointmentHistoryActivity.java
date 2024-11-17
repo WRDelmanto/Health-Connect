@@ -1,9 +1,9 @@
-package com.example.healthconnect.appointmentscheduling;
+package com.example.healthconnect.appointmentHistory;
 
 import static com.example.healthconnect.MockAppointments.getMockAppointments;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,16 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthconnect.Appointment;
 import com.example.healthconnect.R;
-import com.example.healthconnect.appointment.AppointmentActivity;
 
 import java.util.List;
 
-public class AppointmentSchedulingActivity extends AppCompatActivity implements AppointmentSchedulingActivityAppoitmentsAdapter.OnItemClickListener {
+public class AppointmentHistoryActivity extends AppCompatActivity implements AppointmentHistoryActivityAppointmentsAdapter.OnItemClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_appointment_scheduling);
+        setContentView(R.layout.activity_appointment_history);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -36,25 +35,23 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
 
-        // Upcoming Appointments
-        RecyclerView upcomingAppointments = findViewById(R.id.appointment_scheduling_activity_appointments_list);
+        statusBarIcon.setImageResource(R.drawable.appointment_history_icon);
+        statusBarTitle.setText(getString(R.string.appointment_history));
 
-        // Setting the icon and text for the status bar
-        statusBarIcon.setImageResource(R.drawable.calendar_icon);
-        statusBarTitle.setText(getString(R.string.appointments_scheduling));
+        EditText searchBar = findViewById(R.id.search_bar_input);
+
+        RecyclerView patientList = findViewById(R.id.appointment_history_activity_patient_list);
 
         // TODO: Set the upcoming appointments list
         List<Appointment> appointments = getMockAppointments();
 
-        AppointmentSchedulingActivityAppoitmentsAdapter adapter = new AppointmentSchedulingActivityAppoitmentsAdapter(appointments, this);
-        upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
-        upcomingAppointments.setAdapter(adapter);
+        AppointmentHistoryActivityAppointmentsAdapter adapter = new AppointmentHistoryActivityAppointmentsAdapter(appointments, this);
+        patientList.setLayoutManager(new LinearLayoutManager(this));
+        patientList.setAdapter(adapter);
     }
 
     @Override
     public void onItemClick(Appointment appointment) {
-        Intent intent = new Intent(AppointmentSchedulingActivity.this, AppointmentActivity.class);
-        intent.putExtra("appointment", appointment);
-        startActivity(intent);
+        // TODO: Go to Patient Profile Activity
     }
 }

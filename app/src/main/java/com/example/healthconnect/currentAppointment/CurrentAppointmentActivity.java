@@ -1,4 +1,4 @@
-package com.example.healthconnect.currentappointment;
+package com.example.healthconnect.currentAppointment;
 
 import android.os.Bundle;
 import android.widget.EditText;

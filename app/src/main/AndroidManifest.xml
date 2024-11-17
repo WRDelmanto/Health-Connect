@@ -13,22 +13,22 @@
         android:theme="@style/Theme.HealthConnect"
         tools:targetApi="31">
         <activity
-            android:name=".appointmenthistory.AppointmentHistoryActivity"
+            android:name=".appointmentHistory.AppointmentHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".currentappointment.CurrentAppointmentActivity"
+            android:name=".currentAppointment.CurrentAppointmentActivity"
             android:exported="false" />
         <activity
             android:name=".appointment.AppointmentActivity"
             android:exported="false" />
         <activity
-            android:name=".doctorprofile.DoctorProfileActivity"
+            android:name=".doctorProfile.DoctorProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".patientrecords.PatientRecordsActivity"
+            android:name=".patientRecords.PatientRecordsActivity"
             android:exported="false" />
         <activity
-            android:name=".appointmentscheduling.AppointmentSchedulingActivity"
+            android:name=".appointmentScheduling.AppointmentSchedulingActivity"
             android:exported="false" />
         <activity
             android:name=".home.HomeActivity"
