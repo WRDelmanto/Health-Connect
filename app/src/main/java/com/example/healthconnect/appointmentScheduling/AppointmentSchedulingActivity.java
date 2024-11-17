@@ -38,6 +38,7 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
 
         // Upcoming Appointments
         RecyclerView upcomingAppointments = findViewById(R.id.appointment_scheduling_activity_appointments_list);
+        ImageView addAppointment = findViewById(R.id.appointment_scheduling_activity_add_appointment);
 
         // Setting the icon and text for the status bar
         statusBarIcon.setImageResource(R.drawable.calendar_icon);
@@ -49,13 +50,18 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
         AppointmentSchedulingActivityAppoitmentsAdapter adapter = new AppointmentSchedulingActivityAppoitmentsAdapter(appointments, this);
         upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
         upcomingAppointments.setAdapter(adapter);
+
+        addAppointment.setOnClickListener(v -> {
+            Intent intent = new Intent(AppointmentSchedulingActivity.this, AppointmentActivity.class);
+            intent.putExtra("isNewAppointment", true);
+            startActivity(intent);
+        });
     }
 
     @Override
     public void onItemClick(Appointment appointment) {
         Intent intent = new Intent(AppointmentSchedulingActivity.this, AppointmentActivity.class);
         intent.putExtra("appointment", appointment);
-        intent.putExtra("isNewAppointment", true);
         startActivity(intent);
     }
 }

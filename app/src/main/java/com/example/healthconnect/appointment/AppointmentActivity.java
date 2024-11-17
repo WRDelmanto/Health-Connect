@@ -56,9 +56,11 @@ public class AppointmentActivity extends AppCompatActivity {
         boolean isNewAppointment = getIntent().getBooleanExtra("isNewAppointment", false);
 
         if (isNewAppointment) {
+            patientNameInput.setEnabled(true);
             cancelAppointment.setVisibility(GONE);
             cancelButton.setVisibility(VISIBLE);
         } else {
+            patientNameInput.setEnabled(false);
             cancelAppointment.setVisibility(VISIBLE);
             cancelButton.setVisibility(GONE);
         }
