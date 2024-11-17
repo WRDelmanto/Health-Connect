@@ -1,5 +1,8 @@
 package com.example.healthconnect.appointment;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -49,6 +52,16 @@ public class AppointmentActivity extends AppCompatActivity {
         // TODO: Get the appointment date and time from the database or date (today) and time (now)
         date.setText(appointment != null ? appointment.getAppointmentDate() : "Today");
         time.setText(appointment != null ? appointment.getAppointmentTime() : "Now");
+
+        boolean isNewAppointment = getIntent().getBooleanExtra("isNewAppointment", false);
+
+        if (isNewAppointment) {
+            cancelAppointment.setVisibility(GONE);
+            cancelButton.setVisibility(VISIBLE);
+        } else {
+            cancelAppointment.setVisibility(VISIBLE);
+            cancelButton.setVisibility(GONE);
+        }
 
         date.setOnClickListener(v -> {
             // TODO: Show a date picker dialog

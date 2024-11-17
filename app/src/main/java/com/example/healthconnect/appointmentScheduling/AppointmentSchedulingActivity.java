@@ -55,6 +55,7 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
     public void onItemClick(Appointment appointment) {
         Intent intent = new Intent(AppointmentSchedulingActivity.this, AppointmentActivity.class);
         intent.putExtra("appointment", appointment);
+        intent.putExtra("isNewAppointment", true);
         startActivity(intent);
     }
 }
