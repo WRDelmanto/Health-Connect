@@ -2,6 +2,7 @@ package com.example.healthconnect.appointment;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.example.healthconnect.utils.ConfirmationDialog.showConfirmationDialog;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -73,9 +74,20 @@ public class AppointmentActivity extends AppCompatActivity {
             // TODO: Show a time picker dialog
         });
 
-        cancelAppointment.setOnClickListener(v -> {
-            // TODO: Open dialog to delete the appointment from the database
-        });
+        cancelAppointment.setOnClickListener(v -> showConfirmationDialog(
+                this,
+                "Cancel Appointment",
+                "Are you sure you want to cancel this appointment?",
+                "Yes",
+                "No",
+                () -> {
+                    // TODO: Delete the appointment from the database
+                    finish();
+                },
+                () -> {
+                    // Do nothing
+                }
+        ));
 
         startAppointment.setOnClickListener(v -> {
             // TODO: Update the appointment info to the database
@@ -95,8 +107,16 @@ public class AppointmentActivity extends AppCompatActivity {
             finish();
         });
 
-        cancelButton.setOnClickListener(v -> {
-            // TODO: Open dialog to cancel the appointment creation
-        });
+        cancelButton.setOnClickListener(v -> showConfirmationDialog(
+                this,
+                "Cancel Appointment",
+                "Are you sure you want to cancel this appointment?",
+                "Yes",
+                "No",
+                () -> finish(),
+                () -> {
+                    // Do nothing
+                }
+        ));
     }
 }
