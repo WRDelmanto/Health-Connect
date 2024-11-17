@@ -2,7 +2,6 @@ package com.example.healthconnect.appointmenthistory;
 
 import static com.example.healthconnect.MockAppointments.getMockAppointments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,10 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthconnect.Appointment;
 import com.example.healthconnect.R;
-import com.example.healthconnect.appointment.AppointmentActivity;
-import com.example.healthconnect.appointmentscheduling.AppointmentSchedulingActivity;
-import com.example.healthconnect.appointmentscheduling.AppointmentSchedulingActivityAppoitmentsAdapter;
-import com.example.healthconnect.home.HomeActivityAppointmentsAdapter;
 
 import java.util.List;
 
@@ -43,7 +38,8 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements App
         statusBarIcon.setImageResource(R.drawable.appointment_history_icon);
         statusBarTitle.setText(getString(R.string.appointment_history));
 
-        EditText filterInput = findViewById(R.id.appointment_history_activity_filter_input);
+        EditText searchBar = findViewById(R.id.search_bar_input);
+
         RecyclerView patientList = findViewById(R.id.appointment_history_activity_patient_list);
 
         // TODO: Set the upcoming appointments list

@@ -38,14 +38,14 @@ public class PatientRecordsActivity extends AppCompatActivity implements Patient
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
 
+        // Setting the icon and text for the status bar
+        statusBarIcon.setImageResource(R.drawable.patient_records_icon);
+        statusBarTitle.setText(getString(R.string.patients_records));
+
         EditText searchBar = findViewById(R.id.search_bar_input);
 
         // Patients
         RecyclerView patientsList = findViewById(R.id.patient_records_activity_patient_list);
-
-        // Setting the icon and text for the status bar
-        statusBarIcon.setImageResource(R.drawable.patient_records_icon);
-        statusBarTitle.setText(getString(R.string.patients_records));
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
