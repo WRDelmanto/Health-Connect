@@ -2,6 +2,7 @@ package com.example.healthconnect.patientRecords;
 
 import static com.example.healthconnect.MockPatients.getMockPatients;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthconnect.Patient;
 import com.example.healthconnect.R;
+import com.example.healthconnect.appointment.AppointmentActivity;
+import com.example.healthconnect.home.HomeActivity;
+import com.example.healthconnect.patientProfile.PatientProfileActivity;
 
 import java.util.List;
 
@@ -76,8 +80,8 @@ public class PatientRecordsActivity extends AppCompatActivity implements Patient
 
     @Override
     public void onItemClick(Patient patient) {
-        // TODO: Handle the click event
-        String message = "Clicked on " + patient.getName();
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(PatientRecordsActivity.this, PatientProfileActivity.class);
+        intent.putExtra("patient", patient);
+        startActivity(intent);
     }
 }

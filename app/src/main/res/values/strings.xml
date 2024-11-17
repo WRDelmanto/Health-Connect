@@ -21,6 +21,7 @@
     <string name="previous_appointment">Previous Appointment</string>
     <string name="current_appointment">Current Appointment</string>
     <string name="filter_by_name">Filter by Name</string>
+    <string name="patient_profile">Patient Profile</string>
 
     <!-- Welcome Activity -->
     <string name="welcome_activity_title">Health\nConnect</string>
