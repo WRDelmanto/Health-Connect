@@ -35,6 +35,8 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
     TextView appointmentsCounter;
     TextView nextAppointment;
 
+    List<Appointment> appointments;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +64,6 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
         // Upcoming Appointments
         RecyclerView upcomingAppointments = findViewById(R.id.home_activity_upcoming_appointments_list);
 
-        doctorImage.setOnClickListener(v -> {
-            // TODO: Handle the click event
-        });
-
         editButton.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, DoctorProfileActivity.class)));
 
         appointmentsScheduling.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentSchedulingActivity.class)));
@@ -74,8 +72,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
 
         appointmentHistory.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentHistoryActivity.class)));
 
-        // TODO: Set the upcoming appointments list
-        List<Appointment> appointments = getMockAppointments();
+        appointments = getMockAppointments();
 
         HomeActivityAppointmentsAdapter adapter = new HomeActivityAppointmentsAdapter(appointments, this);
         upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
@@ -88,14 +85,10 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
 
         // TODO: Set the doctor's image
         doctorImage.setImageResource(R.drawable.default_profile_picture);
-
         doctorName.setText("Dr. " + FastSharedPreferences.get(this, "doctor_name", ""));
 
-        // TODO: Set the number of appointments
-        appointmentsCounter.setText("Appointments today: " + "12");
-
-        // TODO: Set the next appointment
-        nextAppointment.setText("Next appointment: " + "09:30 AM");
+        appointmentsCounter.setText("Appointments today: " + appointments.size());
+        nextAppointment.setText("Next appointment: " + appointments.get(0).getAppointmentTime());
     }
 
     @Override
