@@ -35,7 +35,7 @@ public class HomeActivityAppointmentsAdapter extends RecyclerView.Adapter<HomeAc
     public AppointmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate the layout for each item in the RecyclerView
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.home_activity_appointment_item, parent, false);
+                .inflate(R.layout.activity_home_item, parent, false);
         return new AppointmentViewHolder(view);
     }
 
@@ -87,11 +87,11 @@ public class HomeActivityAppointmentsAdapter extends RecyclerView.Adapter<HomeAc
             super(itemView);
 
             // Initialize the views
-            patientImage = itemView.findViewById(R.id.home_activity_appointment_item_image);
-            patientName = itemView.findViewById(R.id.home_activity_appointment_item_patient_name);
-            patientAge = itemView.findViewById(R.id.home_activity_appointment_item_patient_age);
-            appointmentType = itemView.findViewById(R.id.home_activity_appointment_item_appointment_type);
-            appointmentDate = itemView.findViewById(R.id.home_activity_appointment_item_appointment_date);
+            patientImage = itemView.findViewById(R.id.activity_home_item_patient_picture);
+            patientName = itemView.findViewById(R.id.activity_home_item_patient_name);
+            patientAge = itemView.findViewById(R.id.activity_home_item_patient_age);
+            appointmentType = itemView.findViewById(R.id.activity_home_item_appointment_type);
+            appointmentDate = itemView.findViewById(R.id.activity_home_item_appointment_date);
         }
     }
 }

@@ -174,28 +174,28 @@
             android:layout_weight="1" />
 
         <LinearLayout
-            android:id="@+id/home_activity_consultation_history_layout"
+            android:id="@+id/home_activity_appointment_history_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/home_activity_consultation_history"
+                android:id="@+id/home_activity_appointment_history"
                 android:layout_width="86dp"
                 android:layout_height="86dp"
                 android:background="@drawable/home_activity_main_category_background"
                 android:backgroundTint="@color/bondi_blue"
-                android:contentDescription="@string/consultation_history"
+                android:contentDescription="@string/appointment_history"
                 android:padding="6dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/consultation_history_icon" />
+                android:src="@drawable/appointment_history_icon" />
 
             <TextView
                 android:id="@+id/home_activity_consultation_history_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/home_activity_consultation_history"
+                android:text="@string/home_activity_appointment_history"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -229,5 +229,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/home_activity_upcoming_appointments"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@id/home_activity_upcoming_appointments" />
 </androidx.constraintlayout.widget.ConstraintLayout>

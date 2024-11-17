@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healthconnect.Appointment;
 import com.example.healthconnect.R;
 import com.example.healthconnect.appointment.AppointmentActivity;
+import com.example.healthconnect.appointmenthistory.AppointmentHistoryActivity;
 import com.example.healthconnect.appointmentscheduling.AppointmentSchedulingActivity;
 import com.example.healthconnect.doctorprofile.DoctorProfileActivity;
 import com.example.healthconnect.patientrecords.PatientRecordsActivity;
@@ -56,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
         // Main Categories
         LinearLayout appointmentsScheduling = findViewById(R.id.home_activity_appointments_scheduling_layout);
         LinearLayout patientsRecords = findViewById(R.id.home_activity_patients_records_layout);
-        LinearLayout consultationHistory = findViewById(R.id.home_activity_consultation_history_layout);
+        LinearLayout appointmentHistory = findViewById(R.id.home_activity_appointment_history_layout);
 
         // Upcoming Appointments
         RecyclerView upcomingAppointments = findViewById(R.id.home_activity_upcoming_appointments_list);
@@ -71,9 +72,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
 
         patientsRecords.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, PatientRecordsActivity.class)));
 
-        consultationHistory.setOnClickListener(v -> {
-            // TODO: Handle the click event
-        });
+        appointmentHistory.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentHistoryActivity.class)));
 
         // TODO: Set the upcoming appointments list
         List<Appointment> appointments = getMockAppointments();

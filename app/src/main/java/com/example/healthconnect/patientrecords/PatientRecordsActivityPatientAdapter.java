@@ -34,7 +34,7 @@ public class PatientRecordsActivityPatientAdapter extends RecyclerView.Adapter<P
     public PatientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate the layout for each item in the RecyclerView
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.patient_records_activity_patient_item, parent, false);
+                .inflate(R.layout.activity_patient_records_item, parent, false);
         return new PatientViewHolder(view);
     }
 
@@ -77,10 +77,10 @@ public class PatientRecordsActivityPatientAdapter extends RecyclerView.Adapter<P
             super(itemView);
 
             // Initialize the views
-            patientImage = itemView.findViewById(R.id.patient_records_activity_patient_item_image);
-            patientName = itemView.findViewById(R.id.patient_records_activity_patient_item_patient_name);
-            patientGenderAge = itemView.findViewById(R.id.patient_records_activity_patient_item_patient_gender_age);
-            patientPhoneNumberEmail = itemView.findViewById(R.id.patient_records_activity_patient_item_phone_number_email);
+            patientImage = itemView.findViewById(R.id.activity_patient_records_item_patient_picture);
+            patientName = itemView.findViewById(R.id.activity_patient_records_item_patient_name);
+            patientGenderAge = itemView.findViewById(R.id.activity_patient_records_item_patient_gender_age);
+            patientPhoneNumberEmail = itemView.findViewById(R.id.activity_patient_records_item_patient_phone_number_email);
         }
     }
 }

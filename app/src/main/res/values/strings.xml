@@ -5,7 +5,7 @@
     <string name="patient_picture">Patient picture</string>
     <string name="appointments_scheduling">Appointment Scheduling</string>
     <string name="patients_records">Patients Records</string>
-    <string name="consultation_history">Consultation History</string>
+    <string name="appointment_history">Appointment History</string>
     <string name="name">Name*</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
@@ -20,6 +20,7 @@
     <string name="exams">Exams</string>
     <string name="previous_appointment">Previous Appointment</string>
     <string name="current_appointment">Current Appointment</string>
+    <string name="filter_by_name">Filter by Name</string>
 
     <!-- Welcome Activity -->
     <string name="welcome_activity_title">Health\nConnect</string>
@@ -29,7 +30,7 @@
     <string name="home_activity_welcome_back">Welcome back</string>
     <string name="home_activity_appointments_scheduling">Appointment\nScheduling</string>
     <string name="home_activity_patients_records">Patients\nRecords</string>
-    <string name="home_activity_consultation_history">Consultation\nHistory</string>
+    <string name="home_activity_appointment_history">Appointment\nHistory</string>
     <string name="home_activity_upcoming_appointments">Upcoming Appointments</string>
 
     <!-- Search Bar -->
