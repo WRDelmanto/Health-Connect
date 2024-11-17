@@ -13,7 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.R;
-import com.example.healthconnect.utils.FastSharedPreference;
+import com.example.healthconnect.utils.FastSharedPreferences;
 
 public class DoctorProfileActivity extends AppCompatActivity {
     String doctorName;
@@ -43,14 +43,14 @@ public class DoctorProfileActivity extends AppCompatActivity {
         doctorPicture.setImageResource(R.drawable.default_profile_picture);
 
         // Load doctor name from shared preferences
-        doctorName = (String) FastSharedPreference.get(this, "doctor_name", "");
+        doctorName = (String) FastSharedPreferences.get(this, "doctor_name", "");
         doctorNameInput.setText(doctorName);
 
         saveButton.setOnClickListener(v -> {
             // TODO: Save picture to database
 
             doctorName = doctorNameInput.getText().toString();
-            FastSharedPreference.put(this, "doctor_name", doctorName);
+            FastSharedPreferences.put(this, "doctor_name", doctorName);
 
             // Exit to home screen
             finish();

@@ -24,7 +24,7 @@ import com.example.healthconnect.appointment.AppointmentActivity;
 import com.example.healthconnect.appointmentscheduling.AppointmentSchedulingActivity;
 import com.example.healthconnect.doctorprofile.DoctorProfileActivity;
 import com.example.healthconnect.patientrecords.PatientRecordsActivity;
-import com.example.healthconnect.utils.FastSharedPreference;
+import com.example.healthconnect.utils.FastSharedPreferences;
 
 import java.util.List;
 
@@ -90,7 +90,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
         // TODO: Set the doctor's image
         doctorImage.setImageResource(R.drawable.default_profile_picture);
 
-        doctorName.setText("Dr. " + FastSharedPreference.get(this, "doctor_name", ""));
+        doctorName.setText("Dr. " + FastSharedPreferences.get(this, "doctor_name", ""));
 
         // TODO: Set the number of appointments
         appointmentsCounter.setText("Appointments today: " + "12");

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-public class FastSharedPreference {
+public class FastSharedPreferences {
     private static SharedPreferences sharedPreferences;
 
     private static void configure(Context context) {
