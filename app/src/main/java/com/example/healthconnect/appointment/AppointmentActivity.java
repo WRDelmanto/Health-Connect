@@ -1,9 +1,11 @@
 package com.example.healthconnect.appointment;
 
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.example.healthconnect.utils.ConfirmationDialog.showConfirmationDialog;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -22,11 +24,13 @@ import com.example.healthconnect.R;
 import com.example.healthconnect.currentAppointment.CurrentAppointmentActivity;
 
 public class AppointmentActivity extends AppCompatActivity {
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_appointment);
+        setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

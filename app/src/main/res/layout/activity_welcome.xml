@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="serif"
         android:maxLines="2"
-        android:text="@string/welcome_activity_title"
+        android:text="@string/health_connect_two_lines"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="40sp"

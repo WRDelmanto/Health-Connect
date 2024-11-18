@@ -9,14 +9,18 @@ public class Patient implements Serializable {
     private String gender;
     private String phoneNumber;
     private String email;
+    private double height;
+    private double weight;
 
-    public Patient(int id, String name, int age, String gender, String phoneNumber, String email) {
+    public Patient(int id, String name, int age, String gender, String phoneNumber, String email, double height, double weight) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.height = height;
+        this.weight = weight;
     }
 
     public int getId() {
@@ -65,6 +69,22 @@ public class Patient implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 }
 

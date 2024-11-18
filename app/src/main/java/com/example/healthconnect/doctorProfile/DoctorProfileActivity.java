@@ -1,5 +1,8 @@
 package com.example.healthconnect.doctorProfile;
 
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,11 +21,13 @@ import com.example.healthconnect.utils.FastSharedPreferences;
 public class DoctorProfileActivity extends AppCompatActivity {
     String doctorName;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_doctor_profile);
+        setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -34,7 +39,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
         // Setting the icon and text for the status bar
         statusBarIcon.setImageResource(R.drawable.doctor_profile_icon);
-        statusBarTitle.setText(getString(R.string.doctor_profile_activity_doctor_profile));
+        statusBarTitle.setText(getString(R.string.doctor_profile));
 
         ImageView doctorPicture = findViewById(R.id.doctor_profile_activity_doctor_picture);
         EditText doctorNameInput = findViewById(R.id.doctor_profile_activity_doctor_name);

@@ -1,7 +1,9 @@
 package com.example.healthconnect.patientRecords;
 
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import static com.example.healthconnect.MockPatients.getMockPatients;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,7 +11,6 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,18 +22,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthconnect.Patient;
 import com.example.healthconnect.R;
-import com.example.healthconnect.appointment.AppointmentActivity;
-import com.example.healthconnect.home.HomeActivity;
 import com.example.healthconnect.patientProfile.PatientProfileActivity;
 
 import java.util.List;
 
 public class PatientRecordsActivity extends AppCompatActivity implements PatientRecordsActivityPatientAdapter.OnItemClickListener {
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_patient_records);
+        setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

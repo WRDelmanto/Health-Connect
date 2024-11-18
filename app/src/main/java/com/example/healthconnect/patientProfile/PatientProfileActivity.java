@@ -1,5 +1,6 @@
 package com.example.healthconnect.patientProfile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,7 +58,9 @@ public class PatientProfileActivity extends AppCompatActivity {
         patientGender.setText(patient != null ? "Gender\n" + patient.getGender() : "");
 
         editButton.setOnClickListener(v -> {
-            // TODO: Start the editable patient profile activity
+            Intent intent = new Intent(PatientProfileActivity.this, EditablePatientProfileActivity.class);
+            intent.putExtra("patient", patient);
+            startActivity(intent);
         });
 
         appointmentHistoryButton.setOnClickListener(v -> {

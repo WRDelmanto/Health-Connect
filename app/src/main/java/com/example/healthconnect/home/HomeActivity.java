@@ -1,5 +1,6 @@
 package com.example.healthconnect.home;
 
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import static com.example.healthconnect.MockAppointments.getMockAppointments;
 
 import android.annotation.SuppressLint;
@@ -37,12 +38,13 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
 
     List<Appointment> appointments;
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
+        setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
