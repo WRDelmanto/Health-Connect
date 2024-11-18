@@ -1,7 +1,7 @@
 package com.example.healthconnect.patientRecords;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-import static com.example.healthconnect.MockPatients.getMockPatients;
+import static com.example.healthconnect.utils.database.MockPatients.getMockPatients;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.Patient;
+import com.example.healthconnect.utils.database.Patient;
 import com.example.healthconnect.R;
 import com.example.healthconnect.patientProfile.PatientProfileActivity;
 

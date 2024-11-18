@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.Appointment;
+import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.R;
 
 import java.util.List;

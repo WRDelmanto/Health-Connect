@@ -15,7 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.healthconnect.Patient;
+import com.example.healthconnect.utils.database.Patient;
 import com.example.healthconnect.R;
 
 public class EditablePatientProfileActivity extends AppCompatActivity {

@@ -19,7 +19,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.healthconnect.Appointment;
+import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.R;
 import com.example.healthconnect.currentAppointment.CurrentAppointmentActivity;
 

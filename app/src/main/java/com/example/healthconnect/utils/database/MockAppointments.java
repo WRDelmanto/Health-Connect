@@ -1,4 +1,4 @@
-package com.example.healthconnect;
+package com.example.healthconnect.utils.database;
 
 import java.util.ArrayList;
 import java.util.List;
