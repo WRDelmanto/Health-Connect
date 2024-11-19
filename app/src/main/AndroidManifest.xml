@@ -13,6 +13,9 @@
         android:theme="@style/Theme.HealthConnect"
         tools:targetApi="31">
         <activity
+            android:name=".patientHistory.PatientHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".patientProfile.EditablePatientProfileActivity"
             android:exported="false" />
         <activity

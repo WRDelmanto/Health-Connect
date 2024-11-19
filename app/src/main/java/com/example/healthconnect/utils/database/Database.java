@@ -269,7 +269,7 @@ public class Database extends SQLiteOpenHelper {
         return todayAppointments;
     }
 
-    public static List<Appointment> getAllDoneAppointments() {
+    public static List<Appointment> getDoneAppointments() {
         List<Appointment> doneAppointments = new ArrayList<>();
         SQLiteDatabase database = instance.getReadableDatabase();
 
@@ -306,6 +306,43 @@ public class Database extends SQLiteOpenHelper {
         return doneAppointments;
     }
 
+    public static List<Appointment> getDoneAppointmentsByPatientId(Patient patient) {
+        List<Appointment> patientAppointments = new ArrayList<>();
+        SQLiteDatabase database = instance.getReadableDatabase();
+
+        // Query to get appointments for a specific patient that are marked as "done" (is_done = 1)
+        Cursor cursor = database.query(
+                "appointments", // Table name
+                null, // Select all columns
+                "patient_id = ? AND is_done = ?", // WHERE clause
+                new String[]{String.valueOf(patient.getId()), "1"}, // WHERE arguments (patient's ID and is_done = 1)
+                null, // GROUP BY
+                null, // HAVING
+                "appointment_date ASC, appointment_time ASC" // ORDER BY (date and time)
+        );
+
+        if (cursor.moveToFirst()) {
+            do {
+                Appointment appointment = new Appointment(
+                        cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                        getPatientById(cursor.getInt(cursor.getColumnIndexOrThrow("patient_id"))), // Assuming you have a method to get Patient by ID
+                        cursor.getString(cursor.getColumnIndexOrThrow("appointment_type")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("appointment_date")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("appointment_time")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("notes")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("medicines")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("exams")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("is_done")) == 1
+                );
+                patientAppointments.add(appointment);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        database.close();
+
+        return patientAppointments;
+    }
 
     public static long addAppointment(Appointment appointment) {
         SQLiteDatabase database = getInstance().getWritableDatabase();

@@ -3,6 +3,7 @@ package com.example.healthconnect.appointmentHistory;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthconnect.R;
+import com.example.healthconnect.patientHistory.PatientHistoryActivity;
 import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.utils.database.Database;
 
@@ -46,7 +48,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements App
 
         RecyclerView patientList = findViewById(R.id.appointment_history_activity_patient_list);
 
-        List<Appointment> appointments = Database.getAllDoneAppointments();
+        List<Appointment> appointments = Database.getDoneAppointments();
 
         AppointmentHistoryActivityAppointmentsAdapter adapter = new AppointmentHistoryActivityAppointmentsAdapter(appointments, this);
         patientList.setLayoutManager(new LinearLayoutManager(this));
@@ -55,6 +57,8 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements App
 
     @Override
     public void onItemClick(Appointment appointment) {
-        // TODO: Go to Patient History Activity
+        Intent intent = new Intent(AppointmentHistoryActivity.this, PatientHistoryActivity.class);
+        intent.putExtra("patient", appointment.getPatient());
+        startActivity(intent);
     }
 }

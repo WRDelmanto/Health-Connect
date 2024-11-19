@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.R;
+import com.example.healthconnect.patientHistory.PatientHistoryActivity;
 import com.example.healthconnect.utils.database.Database;
 import com.example.healthconnect.utils.database.Patient;
 
@@ -68,7 +69,9 @@ public class PatientProfileActivity extends AppCompatActivity {
         });
 
         appointmentHistoryButton.setOnClickListener(v -> {
-            // TODO: Start the appointment history activity
+            Intent intent = new Intent(PatientProfileActivity.this, PatientHistoryActivity.class);
+            intent.putExtra("patient", patient);
+            startActivity(intent);
         });
     }
 
