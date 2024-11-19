@@ -109,12 +109,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:autofillHints="false"
+        android:gravity="start|bottom"
         android:inputType="textMultiLine"
         android:minHeight="128dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/current_appointment_activity_notes_title"
-        tools:ignore="LabelFor" />
+        tools:ignore="LabelFor"
+        tools:text="Notes" />
 
     <TextView
         android:id="@+id/current_appointment_activity_medicines_title"
@@ -136,12 +138,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:autofillHints="false"
+        android:gravity="start|bottom"
         android:inputType="textMultiLine"
         android:minHeight="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/current_appointment_activity_medicines_title"
-        tools:ignore="LabelFor" />
+        tools:ignore="LabelFor"
+        tools:text="Medicines" />
 
     <TextView
         android:id="@+id/current_appointment_activity_exams_title"
@@ -163,12 +167,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:autofillHints="false"
+        android:gravity="start|bottom"
         android:inputType="textMultiLine"
         android:minHeight="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/current_appointment_activity_exams_title"
-        tools:ignore="LabelFor" />
+        tools:ignore="LabelFor"
+        tools:text="Exams" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/current_appointment_activity_save_button"

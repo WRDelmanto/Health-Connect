@@ -3,6 +3,7 @@ package com.example.healthconnect.currentAppointment;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,8 +17,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.R;
+import com.example.healthconnect.patientProfile.PatientProfileActivity;
+import com.example.healthconnect.utils.database.Appointment;
+import com.example.healthconnect.utils.database.Database;
 
 public class CurrentAppointmentActivity extends AppCompatActivity {
     @SuppressLint("SourceLockedOrientationActivity")
@@ -61,12 +64,21 @@ public class CurrentAppointmentActivity extends AppCompatActivity {
         exams.setText(appointment != null ? appointment.getExams() : "");
 
         patientInfo.setOnClickListener(v -> {
-            // TODO: Open patient activity
+            Intent intent = new Intent(CurrentAppointmentActivity.this, PatientProfileActivity.class);
+            assert appointment != null;
+            intent.putExtra("patient", appointment.getPatient());
+            startActivity(intent);
         });
 
         save.setOnClickListener(v -> {
-            // TODO: Save to database
-            // TODO: Update appointment to database (isDone = true)
+            if (appointment != null) {
+                appointment.setNotes(notes.getText().toString());
+                appointment.setMedicines(medicines.getText().toString());
+                appointment.setExams(exams.getText().toString());
+                appointment.setDone(true);
+
+                Database.updateAppointment(appointment);
+            }
 
             finish();
         });

@@ -15,8 +15,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.healthconnect.utils.database.Patient;
 import com.example.healthconnect.R;
+import com.example.healthconnect.utils.database.Database;
+import com.example.healthconnect.utils.database.Patient;
 
 public class EditablePatientProfileActivity extends AppCompatActivity {
     @SuppressLint("SourceLockedOrientationActivity")
@@ -53,15 +54,26 @@ public class EditablePatientProfileActivity extends AppCompatActivity {
         patientName.setText(patient != null ? patient.getName() : "");
         patientGender.setText(patient != null ? patient.getGender() : "");
         patientEmail.setText(patient != null ? patient.getEmail() : "");
-        patientDateOfBirth.setText(patient != null ? String.valueOf(patient.getAge()) : "");
+        patientDateOfBirth.setText(patient != null ? String.valueOf(patient.getDateOfBirth()) : "");
         patientPhoneNumber.setText(patient != null ? patient.getPhoneNumber() : "");
-        patientHeight.setText(patient != null ? String.valueOf(patient.getHeight()) : "");
-        patientWeight.setText(patient != null ? String.valueOf(patient.getWeight()) : "");
+        patientHeight.setText(patient != null ? String.format("%.2f", patient.getHeight()) : "");
+        patientWeight.setText(patient != null ? String.format("%.2f", patient.getWeight()) : "");
 
         patientPicture.setImageResource(R.drawable.default_profile_picture);
 
         saveButton.setOnClickListener(v -> {
-            // TODO: Save patient to the database
+            if (patient != null) {
+                patient.setName(patientName.getText().toString());
+                patient.setGender(patientGender.getText().toString());
+                patient.setEmail(patientEmail.getText().toString());
+                patient.setDateOfBirth(Integer.parseInt(patientDateOfBirth.getText().toString()));
+                patient.setPhoneNumber(patientPhoneNumber.getText().toString());
+                patient.setHeight(Double.parseDouble(patientHeight.getText().toString()));
+                patient.setWeight(Double.parseDouble(patientWeight.getText().toString()));
+
+                Database.updatePatient(patient);
+            }
+
             finish();
         });
     }

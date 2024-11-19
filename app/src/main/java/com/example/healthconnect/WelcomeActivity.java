@@ -14,6 +14,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.home.HomeActivity;
+import com.example.healthconnect.utils.database.Database;
+import com.example.healthconnect.utils.database.MockDataGenerator;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -29,6 +31,13 @@ public class WelcomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Database.initializeInstance(this);
+
+        // Generate mock data (only if needed)
+        if (Database.getAllPatients().isEmpty()) {
+            MockDataGenerator.generateMockData();
+        }
 
         final int COUNTDOWN_TIMER_IN_SECONDS = 3;
 

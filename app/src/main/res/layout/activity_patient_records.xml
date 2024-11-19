@@ -35,4 +35,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/patient_records_activity_search_bar" />
+
+    <ImageView
+        android:id="@+id/patient_records_activity_add_appointment"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/white"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/add_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/pastel_green" />
 </androidx.constraintlayout.widget.ConstraintLayout>

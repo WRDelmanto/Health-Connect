@@ -1,7 +1,6 @@
 package com.example.healthconnect.appointmentScheduling;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-import static com.example.healthconnect.utils.database.MockAppointments.getMockAppointments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -17,9 +16,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.R;
 import com.example.healthconnect.appointment.AppointmentActivity;
+import com.example.healthconnect.utils.database.Appointment;
+import com.example.healthconnect.utils.database.Database;
 
 import java.util.List;
 
@@ -48,8 +48,7 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
         statusBarIcon.setImageResource(R.drawable.calendar_icon);
         statusBarTitle.setText(getString(R.string.appointments_scheduling));
 
-        // TODO: Set the upcoming appointments list
-        List<Appointment> appointments = getMockAppointments();
+        List<Appointment> appointments = Database.getAllAppointments();
 
         AppointmentSchedulingActivityAppoitmentsAdapter adapter = new AppointmentSchedulingActivityAppoitmentsAdapter(appointments, this);
         upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));

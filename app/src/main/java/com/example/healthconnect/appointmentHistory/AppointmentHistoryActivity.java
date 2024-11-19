@@ -1,7 +1,6 @@
 package com.example.healthconnect.appointmentHistory;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-import static com.example.healthconnect.utils.database.MockAppointments.getMockAppointments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -17,8 +16,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.R;
+import com.example.healthconnect.utils.database.Appointment;
+import com.example.healthconnect.utils.database.Database;
 
 import java.util.List;
 
@@ -46,8 +46,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements App
 
         RecyclerView patientList = findViewById(R.id.appointment_history_activity_patient_list);
 
-        // TODO: Set the upcoming appointments list
-        List<Appointment> appointments = getMockAppointments();
+        List<Appointment> appointments = Database.getAllDoneAppointments();
 
         AppointmentHistoryActivityAppointmentsAdapter adapter = new AppointmentHistoryActivityAppointmentsAdapter(appointments, this);
         patientList.setLayoutManager(new LinearLayoutManager(this));
@@ -56,6 +55,6 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements App
 
     @Override
     public void onItemClick(Appointment appointment) {
-        // TODO: Go to Patient Profile Activity
+        // TODO: Go to Patient History Activity
     }
 }

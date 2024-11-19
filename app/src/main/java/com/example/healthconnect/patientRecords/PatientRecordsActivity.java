@@ -1,7 +1,6 @@
 package com.example.healthconnect.patientRecords;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-import static com.example.healthconnect.utils.database.MockPatients.getMockPatients;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,9 +19,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.utils.database.Patient;
 import com.example.healthconnect.R;
+import com.example.healthconnect.patientProfile.EditablePatientProfileActivity;
 import com.example.healthconnect.patientProfile.PatientProfileActivity;
+import com.example.healthconnect.utils.database.Database;
+import com.example.healthconnect.utils.database.Patient;
 
 import java.util.List;
 
@@ -48,9 +49,8 @@ public class PatientRecordsActivity extends AppCompatActivity implements Patient
         statusBarTitle.setText(getString(R.string.patients_records));
 
         EditText searchBar = findViewById(R.id.search_bar_input);
-
-        // Patients
         RecyclerView patientsList = findViewById(R.id.patient_records_activity_patient_list);
+        ImageView addPatientButton = findViewById(R.id.patient_records_activity_add_appointment);
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -71,8 +71,10 @@ public class PatientRecordsActivity extends AppCompatActivity implements Patient
             }
         });
 
+        addPatientButton.setOnClickListener(view -> startActivity(new Intent(PatientRecordsActivity.this, EditablePatientProfileActivity.class)));
+
         // TODO: Set the patient list
-        List<Patient> patients = getMockPatients();
+        List<Patient> patients = Database.getAllPatients();
 
         PatientRecordsActivityPatientAdapter adapter = new PatientRecordsActivityPatientAdapter(patients, this);
         patientsList.setLayoutManager(new LinearLayoutManager(this));

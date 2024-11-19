@@ -1,7 +1,6 @@
 package com.example.healthconnect.home;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-import static com.example.healthconnect.utils.database.MockAppointments.getMockAppointments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.R;
 import com.example.healthconnect.appointment.AppointmentActivity;
 import com.example.healthconnect.appointmentHistory.AppointmentHistoryActivity;
@@ -27,6 +25,8 @@ import com.example.healthconnect.appointmentScheduling.AppointmentSchedulingActi
 import com.example.healthconnect.doctorProfile.DoctorProfileActivity;
 import com.example.healthconnect.patientRecords.PatientRecordsActivity;
 import com.example.healthconnect.utils.FastSharedPreferences;
+import com.example.healthconnect.utils.database.Appointment;
+import com.example.healthconnect.utils.database.Database;
 
 import java.util.List;
 
@@ -74,7 +74,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
 
         appointmentHistory.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentHistoryActivity.class)));
 
-        appointments = getMockAppointments();
+        appointments = Database.getTodayAppointments();
 
         HomeActivityAppointmentsAdapter adapter = new HomeActivityAppointmentsAdapter(appointments, this);
         upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
@@ -89,8 +89,28 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
         doctorImage.setImageResource(R.drawable.default_profile_picture);
         doctorName.setText("Dr. " + FastSharedPreferences.get(this, "doctor_name", ""));
 
+        appointments.clear();
+        appointments.addAll(Database.getTodayAppointments());
+
+        // Notify the adapter about the data change
+        RecyclerView.Adapter adapter = ((RecyclerView) findViewById(R.id.home_activity_upcoming_appointments_list)).getAdapter();
+
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+
         appointmentsCounter.setText("Appointments today: " + appointments.size());
-        nextAppointment.setText("Next appointment: " + appointments.get(0).getAppointmentTime());
+        if (!appointments.isEmpty()) {
+            nextAppointment.setText("Next appointment: " + appointments.get(0).getAppointmentTime());
+        } else {
+            nextAppointment.setText("Next appointment: None");
+        }
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        // Do nothing
     }
 
     @Override
