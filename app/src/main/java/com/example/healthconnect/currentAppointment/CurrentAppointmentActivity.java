@@ -1,6 +1,8 @@
 package com.example.healthconnect.currentAppointment;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -18,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.R;
+import com.example.healthconnect.patientHistory.PatientHistoryActivity;
 import com.example.healthconnect.patientProfile.PatientProfileActivity;
 import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.utils.database.Database;
@@ -52,6 +55,10 @@ public class CurrentAppointmentActivity extends AppCompatActivity {
         EditText medicines = findViewById(R.id.current_appointment_activity_medicines);
         EditText exams = findViewById(R.id.current_appointment_activity_exams);
         AppCompatButton save = findViewById(R.id.current_appointment_activity_save_button);
+        TextView previousAppointmentTitle = findViewById(R.id.current_appointment_activity_previous_appointment_title);
+        ConstraintLayout previousAppointmentLayout = findViewById(R.id.current_appointment_activity_previous_appointment_info_layout);
+        TextView previousAppointmentDateTime = findViewById(R.id.current_appointment_activity_previous_appointment_date_time);
+        TextView previousAppointmentType = findViewById(R.id.current_appointment_activity_previous_appointment_type);
 
         Appointment appointment = (Appointment) getIntent().getSerializableExtra("appointment");
         patientPicture.setImageResource(R.drawable.default_profile_picture);
@@ -62,6 +69,23 @@ public class CurrentAppointmentActivity extends AppCompatActivity {
         notes.setText(appointment != null ? appointment.getNotes() : "");
         medicines.setText(appointment != null ? appointment.getMedicines() : "");
         exams.setText(appointment != null ? appointment.getExams() : "");
+
+        Appointment previousAppointment = null;
+
+        if (appointment != null) {
+            previousAppointment = Database.getPreviousDoneAppointmentByPatientId(appointment.getPatient());
+        }
+
+        if (previousAppointment != null) {
+            previousAppointmentTitle.setVisibility(VISIBLE);
+            previousAppointmentLayout.setVisibility(VISIBLE);
+
+            previousAppointmentDateTime.setText(previousAppointment.getAppointmentDate() + " - " + previousAppointment.getAppointmentTime());
+            previousAppointmentType.setText(previousAppointment.getAppointmentType());
+        } else {
+            previousAppointmentTitle.setVisibility(GONE);
+            previousAppointmentLayout.setVisibility(GONE);
+        }
 
         patientInfo.setOnClickListener(v -> {
             Intent intent = new Intent(CurrentAppointmentActivity.this, PatientProfileActivity.class);
@@ -81,6 +105,13 @@ public class CurrentAppointmentActivity extends AppCompatActivity {
             }
 
             finish();
+        });
+
+        previousAppointmentLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(CurrentAppointmentActivity.this, PatientHistoryActivity.class);
+            assert appointment != null;
+            intent.putExtra("patient", appointment.getPatient());
+            startActivity(intent);
         });
     }
 }

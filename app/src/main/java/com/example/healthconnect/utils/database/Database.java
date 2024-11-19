@@ -135,7 +135,7 @@ public class Database extends SQLiteOpenHelper {
 
         cursor.close();
 
-        return patient; // Returns null if no patient is found
+        return patient;
     }
 
     public static long addPatient(Patient patient) {
@@ -153,7 +153,7 @@ public class Database extends SQLiteOpenHelper {
         long patientId = database.insert("patients", null, values);
         database.close();
 
-        return patientId; // Return the ID of the inserted patient
+        return patientId;
     }
 
     public static void updatePatient(Patient patient) {
@@ -205,10 +205,8 @@ public class Database extends SQLiteOpenHelper {
                 String exams = cursor.getString(cursor.getColumnIndexOrThrow("exams"));
                 boolean isDone = cursor.getInt(cursor.getColumnIndexOrThrow("is_done")) == 1;
 
-                // Fetch the associated patient
                 Patient patient = getPatientById(patientId);
 
-                // Create the appointment object
                 Appointment appointment = new Appointment(
                         appointmentId,
                         patient,
@@ -240,7 +238,7 @@ public class Database extends SQLiteOpenHelper {
                 "appointments",
                 null,
                 "appointment_date = ? AND is_done = ?",
-                new String[]{today, "0"}, // "0" represents false in SQLite
+                new String[]{today, "0"},
                 null,
                 null,
                 "appointment_time ASC"
@@ -277,7 +275,7 @@ public class Database extends SQLiteOpenHelper {
                 "appointments",
                 null,
                 "is_done = ?",
-                new String[]{"1"}, // "1" represents true in SQLite
+                new String[]{"1"},
                 null,
                 null,
                 "appointment_date ASC, appointment_time ASC"
@@ -310,22 +308,21 @@ public class Database extends SQLiteOpenHelper {
         List<Appointment> patientAppointments = new ArrayList<>();
         SQLiteDatabase database = instance.getReadableDatabase();
 
-        // Query to get appointments for a specific patient that are marked as "done" (is_done = 1)
         Cursor cursor = database.query(
-                "appointments", // Table name
-                null, // Select all columns
-                "patient_id = ? AND is_done = ?", // WHERE clause
-                new String[]{String.valueOf(patient.getId()), "1"}, // WHERE arguments (patient's ID and is_done = 1)
-                null, // GROUP BY
-                null, // HAVING
-                "appointment_date ASC, appointment_time ASC" // ORDER BY (date and time)
+                "appointments",
+                null,
+                "patient_id = ? AND is_done = ?",
+                new String[]{String.valueOf(patient.getId()), "1"},
+                null,
+                null,
+                "appointment_date ASC, appointment_time ASC"
         );
 
         if (cursor.moveToFirst()) {
             do {
                 Appointment appointment = new Appointment(
                         cursor.getInt(cursor.getColumnIndexOrThrow("id")),
-                        getPatientById(cursor.getInt(cursor.getColumnIndexOrThrow("patient_id"))), // Assuming you have a method to get Patient by ID
+                        getPatientById(cursor.getInt(cursor.getColumnIndexOrThrow("patient_id"))),
                         cursor.getString(cursor.getColumnIndexOrThrow("appointment_type")),
                         cursor.getString(cursor.getColumnIndexOrThrow("appointment_date")),
                         cursor.getString(cursor.getColumnIndexOrThrow("appointment_time")),
@@ -342,6 +339,41 @@ public class Database extends SQLiteOpenHelper {
         database.close();
 
         return patientAppointments;
+    }
+
+    public static Appointment getPreviousDoneAppointmentByPatientId(Patient patient) {
+        Appointment previousAppointment = null;
+        SQLiteDatabase database = instance.getReadableDatabase();
+
+        Cursor cursor = database.query(
+                "appointments",
+                null,
+                "patient_id = ? AND is_done = ?",
+                new String[]{String.valueOf(patient.getId()), "1"},
+                null,
+                null,
+                "appointment_date DESC, appointment_time DESC",
+                "1"
+        );
+
+        if (cursor.moveToFirst()) {
+            previousAppointment = new Appointment(
+                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    getPatientById(cursor.getInt(cursor.getColumnIndexOrThrow("patient_id"))), // Assuming you have a method to get Patient by ID
+                    cursor.getString(cursor.getColumnIndexOrThrow("appointment_type")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("appointment_date")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("appointment_time")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("notes")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("medicines")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("exams")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("is_done")) == 1
+            );
+        }
+
+        cursor.close();
+        database.close();
+
+        return previousAppointment;
     }
 
     public static long addAppointment(Appointment appointment) {
@@ -362,7 +394,7 @@ public class Database extends SQLiteOpenHelper {
 
         database.close();
 
-        return id; // Returns the ID of the inserted appointment or -1 if the operation failed
+        return id;
     }
 
     public static void updateAppointment(Appointment appointment) {
