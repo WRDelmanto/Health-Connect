@@ -190,7 +190,7 @@ public class Database extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                "appointment_date ASC, appointment_time ASC"
+                "appointment_date DESC, appointment_time DESC"
         );
 
         if (cursor.moveToFirst()) {
@@ -241,7 +241,7 @@ public class Database extends SQLiteOpenHelper {
                 new String[]{today, "0"},
                 null,
                 null,
-                "appointment_time ASC"
+                "appointment_time DESC"
         );
 
         if (cursor.moveToFirst()) {
@@ -278,7 +278,7 @@ public class Database extends SQLiteOpenHelper {
                 new String[]{"1"},
                 null,
                 null,
-                "appointment_date ASC, appointment_time ASC"
+                "appointment_date DESC, appointment_time DESC"
         );
 
         if (cursor.moveToFirst()) {
@@ -315,7 +315,7 @@ public class Database extends SQLiteOpenHelper {
                 new String[]{String.valueOf(patient.getId()), "1"},
                 null,
                 null,
-                "appointment_date ASC, appointment_time ASC"
+                "appointment_date DESC, appointment_time DESC"
         );
 
         if (cursor.moveToFirst()) {

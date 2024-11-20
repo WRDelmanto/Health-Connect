@@ -1,5 +1,6 @@
 package com.example.healthconnect.patientRecords;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.utils.database.Patient;
 import com.example.healthconnect.R;
+import com.example.healthconnect.utils.database.Patient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PatientRecordsActivityPatientAdapter extends RecyclerView.Adapter<PatientRecordsActivityPatientAdapter.PatientViewHolder> {
 
     private List<Patient> patientList;
+    private List<Patient> patientListFull;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
@@ -26,7 +29,25 @@ public class PatientRecordsActivityPatientAdapter extends RecyclerView.Adapter<P
     // Constructor to pass in the patient data
     public PatientRecordsActivityPatientAdapter(List<Patient> patientList, OnItemClickListener listener) {
         this.patientList = patientList;
+        this.patientListFull = new ArrayList<>(patientList);
         this.listener = listener;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filter(String query) {
+        patientList.clear();
+
+        if (query.isEmpty()) {
+            patientList.addAll(patientListFull);
+        } else {
+            for (Patient patient : patientListFull) {
+                if (patient.getName().toLowerCase().contains(query.toLowerCase())) {
+                    patientList.add(patient);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
     }
 
     @NonNull

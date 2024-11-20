@@ -1,5 +1,6 @@
 package com.example.healthconnect.appointmentHistory;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.R;
+import com.example.healthconnect.utils.database.Appointment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentHistoryActivityAppointmentsAdapter extends RecyclerView.Adapter<AppointmentHistoryActivityAppointmentsAdapter.AppointmentViewHolder> {
 
     private List<Appointment> appointmentList;
+    private List<Appointment> appointmentListFull;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
@@ -26,7 +29,25 @@ public class AppointmentHistoryActivityAppointmentsAdapter extends RecyclerView.
     // Constructor to pass in the patient data
     public AppointmentHistoryActivityAppointmentsAdapter(List<Appointment> appointmentList, OnItemClickListener listener) {
         this.appointmentList = appointmentList;
+        this.appointmentListFull = new ArrayList<>(appointmentList);
         this.listener = listener;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filter(String query) {
+        appointmentList.clear();
+
+        if (query.isEmpty()) {
+            appointmentList.addAll(appointmentListFull);
+        } else {
+            for (Appointment appointment : appointmentListFull) {
+                if (appointment.getPatient().getName().toLowerCase().contains(query.toLowerCase())) {
+                    appointmentList.add(appointment);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
     }
 
     @NonNull

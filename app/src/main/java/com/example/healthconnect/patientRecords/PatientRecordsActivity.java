@@ -52,6 +52,14 @@ public class PatientRecordsActivity extends AppCompatActivity implements Patient
         RecyclerView patientsList = findViewById(R.id.patient_records_activity_patient_list);
         ImageView addPatientButton = findViewById(R.id.patient_records_activity_add_appointment);
 
+        addPatientButton.setOnClickListener(view -> startActivity(new Intent(PatientRecordsActivity.this, EditablePatientProfileActivity.class)));
+
+        List<Patient> patients = Database.getAllPatients();
+
+        PatientRecordsActivityPatientAdapter adapter = new PatientRecordsActivityPatientAdapter(patients, this);
+        patientsList.setLayoutManager(new LinearLayoutManager(this));
+        patientsList.setAdapter(adapter);
+
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -64,21 +72,10 @@ public class PatientRecordsActivity extends AppCompatActivity implements Patient
             }
 
             @Override
-            public void afterTextChanged(Editable searchInput) {
-                if (!searchInput.toString().isEmpty()) {
-                    // TODO: Implement search functionality
-                }
+            public void afterTextChanged(Editable editable) {
+                adapter.filter(editable.toString());
             }
         });
-
-        addPatientButton.setOnClickListener(view -> startActivity(new Intent(PatientRecordsActivity.this, EditablePatientProfileActivity.class)));
-
-        // TODO: Set the patient list
-        List<Patient> patients = Database.getAllPatients();
-
-        PatientRecordsActivityPatientAdapter adapter = new PatientRecordsActivityPatientAdapter(patients, this);
-        patientsList.setLayoutManager(new LinearLayoutManager(this));
-        patientsList.setAdapter(adapter);
     }
 
     @Override
