@@ -8,6 +8,16 @@
     android:background="@drawable/gradient_background"
     tools:context=".WelcomeActivity">
 
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:contentDescription="@null"
+        android:src="@drawable/welcome_screen_health_connect"
+        android:translationX="-20dp"
+        android:translationY="-10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/welcome_activity_title"
         android:layout_width="wrap_content"

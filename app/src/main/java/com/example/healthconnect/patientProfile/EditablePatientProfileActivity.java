@@ -52,7 +52,7 @@ public class EditablePatientProfileActivity extends AppCompatActivity {
 
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
-        statusBarIcon.setImageResource(R.drawable.patient_records_icon);
+        statusBarIcon.setImageResource(R.drawable.patient_white);
         statusBarTitle.setText(getString(R.string.patient_profile));
 
         Calendar calendar = Calendar.getInstance();

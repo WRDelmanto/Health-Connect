@@ -42,8 +42,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements App
 
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
-
-        statusBarIcon.setImageResource(R.drawable.appointment_history_icon);
+        statusBarIcon.setImageResource(R.drawable.stethoscope_white);
         statusBarTitle.setText(getString(R.string.appointment_history));
 
         EditText searchBar = findViewById(R.id.search_bar_input);

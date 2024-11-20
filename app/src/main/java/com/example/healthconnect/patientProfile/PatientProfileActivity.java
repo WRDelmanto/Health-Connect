@@ -1,5 +1,6 @@
 package com.example.healthconnect.patientProfile;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -42,9 +43,7 @@ public class PatientProfileActivity extends AppCompatActivity {
 
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
-
-        // Setting the icon and text for the status bar
-        statusBarIcon.setImageResource(R.drawable.patient_records_icon);
+        statusBarIcon.setImageResource(R.drawable.patient_white);
         statusBarTitle.setText(getString(R.string.patient_profile));
 
         ImageView editButton = findViewById(R.id.patient_profile_activity_edit_patient_info);
@@ -75,6 +74,7 @@ public class PatientProfileActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onResume() {
         super.onResume();
@@ -91,6 +91,7 @@ public class PatientProfileActivity extends AppCompatActivity {
         patientGender.setText("Gender\n" + patient.getGender());
     }
 
+    @SuppressLint("DefaultLocale")
     private String formatMeasurement(double value) {
         if (value == (int) value) {
             return String.format("%d", (int) value);

@@ -64,26 +64,22 @@
         app:layout_constraintTop_toBottomOf="@id/activity_patient_history_item_appointment_info_layout">
 
         <LinearLayout
-            android:id="@+id/activity_patient_history_item_appointment_notes_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/activity_patient_history_item_appointment_notes_title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/activity_patient_history_item_appointment_notes_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:contentDescription="@null"
-                    android:src="@drawable/edit_icon" />
+                    android:src="@drawable/exams_black" />
 
                 <TextView
-                    android:id="@+id/activity_patient_history_item_appointment_notes_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="12dp"
@@ -98,30 +94,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="6dp"
-                android:text="Notes" />
+                tools:text="Notes" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/activity_patient_history_item_appointment_medicines_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/activity_patient_history_item_appointment_medicines_title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/activity_patient_history_item_appointment_medicines_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:contentDescription="@null"
-                    android:src="@drawable/edit_icon" />
+                    android:src="@drawable/medicine_black" />
 
                 <TextView
-                    android:id="@+id/activity_patient_history_item_appointment_medicines_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="12dp"
@@ -136,30 +128,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="6dp"
-                android:text="Medicines" />
+                tools:text="Medicines" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/activity_patient_history_item_appointment_exams_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/activity_patient_history_item_appointment_exams_title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/activity_patient_history_item_appointment_exams_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:contentDescription="@null"
-                    android:src="@drawable/edit_icon" />
+                    android:src="@drawable/stethoscope_black" />
 
                 <TextView
-                    android:id="@+id/activity_patient_history_item_appointment_exams_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="12dp"
@@ -174,7 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="6dp"
-                android:text="Exams" />
+                tools:text="Exams" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

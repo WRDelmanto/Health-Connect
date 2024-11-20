@@ -1,5 +1,6 @@
 package com.example.healthconnect.patientHistory;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import com.example.healthconnect.utils.database.Patient;
 import java.util.List;
 
 public class PatientHistoryActivity extends AppCompatActivity implements PatientHistoryActivityAppointmentsAdapter.OnItemClickListener {
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +38,7 @@ public class PatientHistoryActivity extends AppCompatActivity implements Patient
 
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
-
-        // Setting the icon and text for the status bar
-        statusBarIcon.setImageResource(R.drawable.current_appointment_icon);
+        statusBarIcon.setImageResource(R.drawable.stethoscope_white);
         statusBarTitle.setText(getString(R.string.patients_history));
 
         ConstraintLayout patientInfoLayout = findViewById(R.id.patient_history_activity_patient_info_layout);
@@ -51,7 +51,7 @@ public class PatientHistoryActivity extends AppCompatActivity implements Patient
         Patient patient = (Patient) getIntent().getSerializableExtra("patient");
 
         patientPicture.setImageResource(R.drawable.default_profile_picture);
-        patientName.setText(patient.getName());
+        patientName.setText(patient != null ? patient.getName() : "");
         patientAge.setText(patient.getAge() + " years-old");
 
         List<Appointment> appointments = Database.getDoneAppointmentsByPatientId(patient);

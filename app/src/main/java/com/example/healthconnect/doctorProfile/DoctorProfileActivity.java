@@ -36,9 +36,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
-
-        // Setting the icon and text for the status bar
-        statusBarIcon.setImageResource(R.drawable.doctor_profile_icon);
+        statusBarIcon.setImageResource(R.drawable.doctor_white);
         statusBarTitle.setText(getString(R.string.doctor_profile));
 
         ImageView doctorPicture = findViewById(R.id.doctor_profile_activity_doctor_picture);
@@ -47,7 +45,6 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
         doctorPicture.setImageResource(R.drawable.default_profile_picture);
 
-        // Load doctor name from shared preferences
         doctorName = (String) FastSharedPreferences.get(this, "doctor_name", "");
         doctorNameInput.setText(doctorName);
 
@@ -57,7 +54,6 @@ public class DoctorProfileActivity extends AppCompatActivity {
             doctorName = doctorNameInput.getText().toString();
             FastSharedPreferences.put(this, "doctor_name", doctorName);
 
-            // Exit to home screen
             finish();
         });
     }

@@ -1,5 +1,6 @@
 package com.example.healthconnect.appointmentScheduling;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,21 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.R;
+import com.example.healthconnect.utils.database.Appointment;
 
 import java.util.List;
 
 public class AppointmentSchedulingActivityAppoitmentsAdapter extends RecyclerView.Adapter<AppointmentSchedulingActivityAppoitmentsAdapter.AppointmentViewHolder> {
 
-    private List<Appointment> appointmentList;
-    private OnItemClickListener listener;
+    private final List<Appointment> appointmentList;
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Appointment appointment);
     }
 
-    // Constructor to pass in the patient data
     public AppointmentSchedulingActivityAppoitmentsAdapter(List<Appointment> appointmentList, OnItemClickListener listener) {
         this.appointmentList = appointmentList;
         this.listener = listener;
@@ -32,12 +32,12 @@ public class AppointmentSchedulingActivityAppoitmentsAdapter extends RecyclerVie
     @NonNull
     @Override
     public AppointmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the layout for each item in the RecyclerView
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_appointment_scheduling_item, parent, false);
         return new AppointmentViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull AppointmentViewHolder holder, int position) {
         // Get the current patient object from the list
@@ -55,10 +55,9 @@ public class AppointmentSchedulingActivityAppoitmentsAdapter extends RecyclerVie
             holder.appointmentDate.setBackgroundTintList(AppCompatResources.getColorStateList(holder.itemView.getContext(), R.color.bondi_blue)); // Assuming pastel_blue is defined in colors.xml
         }
 
-        // Set item click listener
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onItemClick(appointment);  // Trigger the click listener with the clicked patient
+                listener.onItemClick(appointment);
             }
         });
     }
@@ -68,10 +67,7 @@ public class AppointmentSchedulingActivityAppoitmentsAdapter extends RecyclerVie
         return appointmentList.size();
     }
 
-    // ViewHolder class for the individual item in the RecyclerView
     public static class AppointmentViewHolder extends RecyclerView.ViewHolder {
-
-        // Declare the views we will use to bind data
         TextView patientName;
         TextView patientAge;
         TextView appointmentType;
@@ -80,7 +76,6 @@ public class AppointmentSchedulingActivityAppoitmentsAdapter extends RecyclerVie
         public AppointmentViewHolder(View itemView) {
             super(itemView);
 
-            // Initialize the views
             patientName = itemView.findViewById(R.id.activity_appointment_scheduling_item_patient_name);
             patientAge = itemView.findViewById(R.id.activity_appointment_scheduling_item_patient_age);
             appointmentType = itemView.findViewById(R.id.activity_appointment_scheduling_item_appointment_type);

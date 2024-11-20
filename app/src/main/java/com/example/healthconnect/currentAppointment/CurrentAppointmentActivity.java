@@ -26,7 +26,7 @@ import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.utils.database.Database;
 
 public class CurrentAppointmentActivity extends AppCompatActivity {
-    @SuppressLint("SourceLockedOrientationActivity")
+    @SuppressLint({"SourceLockedOrientationActivity", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +41,7 @@ public class CurrentAppointmentActivity extends AppCompatActivity {
 
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
-
-        statusBarIcon.setImageResource(R.drawable.current_appointment_icon);
+        statusBarIcon.setImageResource(R.drawable.stethoscope_white);
         statusBarTitle.setText(getString(R.string.current_appointment));
 
         ConstraintLayout patientInfo = findViewById(R.id.current_appointment_activity_patient_info_layout);

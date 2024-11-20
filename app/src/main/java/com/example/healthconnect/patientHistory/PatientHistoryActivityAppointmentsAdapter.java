@@ -3,6 +3,7 @@ package com.example.healthconnect.patientHistory;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,10 @@ import com.example.healthconnect.utils.database.Appointment;
 import java.util.List;
 
 public class PatientHistoryActivityAppointmentsAdapter extends RecyclerView.Adapter<PatientHistoryActivityAppointmentsAdapter.AppointmentViewHolder> {
-    private List<Appointment> appointmentList;
-    private OnItemClickListener listener;
+    private final List<Appointment> appointmentList;
+    private final OnItemClickListener listener;
 
-    private boolean[] isExpanded;
+    private final boolean[] isExpanded;
 
     public interface OnItemClickListener {
         void onItemClick(Appointment appointment);
@@ -42,6 +43,7 @@ public class PatientHistoryActivityAppointmentsAdapter extends RecyclerView.Adap
         return new AppointmentViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull AppointmentViewHolder holder, int position) {
         Appointment appointment = appointmentList.get(position);

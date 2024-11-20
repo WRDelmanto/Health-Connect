@@ -19,9 +19,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.R;
 import com.example.healthconnect.currentAppointment.CurrentAppointmentActivity;
+import com.example.healthconnect.utils.database.Appointment;
 
 public class AppointmentActivity extends AppCompatActivity {
     @SuppressLint("SourceLockedOrientationActivity")
@@ -39,15 +39,14 @@ public class AppointmentActivity extends AppCompatActivity {
 
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
-
-        statusBarIcon.setImageResource(R.drawable.calendar_icon);
+        statusBarIcon.setImageResource(R.drawable.scheduling_white);
         statusBarTitle.setText(getString(R.string.appointment));
 
         EditText patientNameInput = findViewById(R.id.appointment_activity_patient_name);
         AppCompatButton date = findViewById(R.id.appointment_activity_appointment_date);
         AppCompatButton time = findViewById(R.id.appointment_activity_appointment_time);
-        AppCompatButton cancelAppointment = findViewById(R.id.appointment_activity_cancel_appointment);
-        AppCompatButton startAppointment = findViewById(R.id.appointment_activity_start_appointment);
+        ImageView cancelAppointment = findViewById(R.id.appointment_activity_cancel_appointment);
+        ImageView startAppointment = findViewById(R.id.appointment_activity_start_appointment);
         AppCompatButton cancelButton = findViewById(R.id.appointment_activity_cancel_button);
         AppCompatButton saveButton = findViewById(R.id.appointment_activity_save_button);
 

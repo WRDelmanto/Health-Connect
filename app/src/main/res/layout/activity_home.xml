@@ -31,7 +31,6 @@
             tools:src="@drawable/default_profile_picture" />
 
         <LinearLayout
-            android:id="@+id/home_activity_summary_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="20dp"
@@ -42,7 +41,6 @@
             app:layout_constraintTop_toTopOf="@id/home_activity_doctor_picture">
 
             <TextView
-                android:id="@+id/home_activity_welcome_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/welcome_back"
@@ -115,18 +113,15 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/home_activity_appointments_scheduling"
                 android:layout_width="86dp"
                 android:layout_height="86dp"
                 android:background="@drawable/home_activity_main_category_background"
-                android:backgroundTint="@color/bondi_blue"
                 android:contentDescription="@string/appointments_scheduling"
                 android:padding="6dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/calendar_icon" />
+                android:src="@drawable/card_appointment_scheduling" />
 
             <TextView
-                android:id="@+id/home_activity_appointments_scheduling_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/appointments_scheduling_two_lines"
@@ -148,18 +143,15 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/home_activity_patients_records"
                 android:layout_width="86dp"
                 android:layout_height="86dp"
                 android:background="@drawable/home_activity_main_category_background"
-                android:backgroundTint="@color/bondi_blue"
                 android:contentDescription="@string/patients_records"
                 android:padding="6dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/patient_records_icon" />
+                android:src="@drawable/card_patients_records" />
 
             <TextView
-                android:id="@+id/home_activity_patients_records_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/patients_records_two_lines"
@@ -181,18 +173,15 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/home_activity_appointment_history"
                 android:layout_width="86dp"
                 android:layout_height="86dp"
                 android:background="@drawable/home_activity_main_category_background"
-                android:backgroundTint="@color/bondi_blue"
                 android:contentDescription="@string/appointment_history"
                 android:padding="6dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/appointment_history_icon" />
+                android:src="@drawable/card_appointment_history" />
 
             <TextView
-                android:id="@+id/home_activity_consultation_history_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/appointment_history_two_lines"

@@ -24,7 +24,6 @@
         tools:text="09:30" />
 
     <LinearLayout
-        android:id="@+id/activity_appointment_scheduling_item_patient_info_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"

@@ -39,14 +39,11 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
 
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
+        statusBarIcon.setImageResource(R.drawable.scheduling_white);
+        statusBarTitle.setText(getString(R.string.appointments_scheduling));
 
-        // Upcoming Appointments
         RecyclerView upcomingAppointments = findViewById(R.id.appointment_scheduling_activity_appointments_list);
         ImageView addAppointment = findViewById(R.id.appointment_scheduling_activity_add_appointment);
-
-        // Setting the icon and text for the status bar
-        statusBarIcon.setImageResource(R.drawable.calendar_icon);
-        statusBarTitle.setText(getString(R.string.appointments_scheduling));
 
         List<Appointment> appointments = Database.getAllAppointments();
 

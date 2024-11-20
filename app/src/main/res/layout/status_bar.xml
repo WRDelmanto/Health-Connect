@@ -13,7 +13,7 @@
         android:layout_height="64dp"
         android:layout_marginStart="20dp"
         android:contentDescription="@null"
-        tools:src="@drawable/calendar_icon" />
+        tools:src="@drawable/scheduling_white" />
 
     <TextView
         android:id="@+id/status_bar_title"
