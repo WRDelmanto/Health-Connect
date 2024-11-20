@@ -57,7 +57,7 @@
 
     <TextView
         android:id="@+id/editable_patient_profile_activity_patient_gender_title"
-        android:layout_width="wrap_content"
+        android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
@@ -68,17 +68,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editable_patient_profile_activity_patient_picture" />
 
-    <EditText
+    <Spinner
         android:id="@+id/editable_patient_profile_activity_patient_gender"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="6dp"
-        android:autofillHints="false"
-        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="@id/editable_patient_profile_activity_patient_name"
         app:layout_constraintEnd_toEndOf="@id/editable_patient_profile_activity_patient_gender_title"
         app:layout_constraintStart_toStartOf="@id/editable_patient_profile_activity_patient_gender_title"
-        app:layout_constraintTop_toBottomOf="@id/editable_patient_profile_activity_patient_gender_title"
-        tools:ignore="LabelFor" />
+        app:layout_constraintTop_toBottomOf="@id/editable_patient_profile_activity_patient_gender_title" />
 
     <TextView
         android:id="@+id/editable_patient_profile_activity_patient_email_title"
@@ -113,23 +111,25 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:text="@string/patient_date_of_birth_title"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@id/editable_patient_profile_activity_patient_Phone_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editable_patient_profile_activity_patient_email" />
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/editable_patient_profile_activity_patient_date_of_birth"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:autofillHints="false"
-        android:inputType="date"
+        android:background="@drawable/rounded_button"
+        android:text="@string/select_date"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/editable_patient_profile_activity_patient_date_of_birth_title"
         app:layout_constraintStart_toStartOf="@id/editable_patient_profile_activity_patient_date_of_birth_title"
-        app:layout_constraintTop_toBottomOf="@id/editable_patient_profile_activity_patient_date_of_birth_title"
-        tools:ignore="LabelFor" />
+        app:layout_constraintTop_toBottomOf="@id/editable_patient_profile_activity_patient_date_of_birth_title" />
 
     <TextView
         android:id="@+id/editable_patient_profile_activity_patient_Phone_title"
@@ -139,6 +139,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:text="@string/patient_phone_number_title"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -152,10 +153,13 @@
         android:layout_marginTop="6dp"
         android:autofillHints="false"
         android:inputType="phone"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@id/editable_patient_profile_activity_patient_date_of_birth"
         app:layout_constraintEnd_toEndOf="@id/editable_patient_profile_activity_patient_Phone_title"
         app:layout_constraintStart_toStartOf="@id/editable_patient_profile_activity_patient_Phone_title"
         app:layout_constraintTop_toBottomOf="@id/editable_patient_profile_activity_patient_Phone_title"
-        tools:ignore="LabelFor" />
+        tools:ignore="LabelFor"
+        tools:text="+1 (123) 123-1234" />
 
     <TextView
         android:id="@+id/editable_patient_profile_activity_patient_height_title"
@@ -165,6 +169,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:text="@string/patient_height_title"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@id/editable_patient_profile_activity_patient_weight_title"
@@ -178,10 +183,12 @@
         android:layout_marginTop="6dp"
         android:autofillHints="false"
         android:inputType="numberDecimal"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@id/editable_patient_profile_activity_patient_height_title"
         app:layout_constraintStart_toStartOf="@id/editable_patient_profile_activity_patient_height_title"
         app:layout_constraintTop_toBottomOf="@id/editable_patient_profile_activity_patient_height_title"
-        tools:ignore="LabelFor" />
+        tools:ignore="LabelFor"
+        tools:text="12.56" />
 
     <TextView
         android:id="@+id/editable_patient_profile_activity_patient_weight_title"
@@ -191,6 +198,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:text="@string/patient_weight_title"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -204,10 +212,12 @@
         android:layout_marginTop="6dp"
         android:autofillHints="false"
         android:inputType="numberDecimal"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@id/editable_patient_profile_activity_patient_weight_title"
         app:layout_constraintStart_toStartOf="@id/editable_patient_profile_activity_patient_weight_title"
         app:layout_constraintTop_toBottomOf="@id/editable_patient_profile_activity_patient_weight_title"
-        tools:ignore="LabelFor" />
+        tools:ignore="LabelFor"
+        tools:text="12.56" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/editable_patient_profile_activity_save_button"

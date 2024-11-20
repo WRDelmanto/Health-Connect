@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">HealthConnect</string>
 
-    <!-- General -->
     <string name="patient_picture">Patient picture</string>
     <string name="appointments_scheduling">Appointment Scheduling</string>
     <string name="patients_records">Patients Records</string>
@@ -14,8 +13,6 @@
     <string name="appointment">Appointment</string>
     <string name="appointment_date">Appointment Date*</string>
     <string name="appointment_time">Appointment Time*</string>
-    <string name="cancel_appointment">Cancel\nAppointment</string>
-    <string name="start_appointment">Start\nAppointment</string>
     <string name="notes">Notes</string>
     <string name="appointment_notes">Appointment Notes</string>
     <string name="medicines">Medicines</string>
@@ -36,7 +33,10 @@
     <string name="upcoming_appointments">Upcoming Appointments</string>
     <string name="doctor_profile">Doctor Profile</string>
     <string name="menu_arrow">Menu Arrow</string>
+    <string name="select_date">Select Date</string>
 
+    <string name="cancel_appointment">Cancel\nAppointment</string>
+    <string name="start_appointment">Start\nAppointment</string>
     <string name="health_connect_two_lines">Health\nConnect</string>
     <string name="appointments_scheduling_two_lines">Appointment\nScheduling</string>
     <string name="patients_records_two_lines">Patients\nRecords</string>
