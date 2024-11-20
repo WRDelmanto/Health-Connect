@@ -86,8 +86,16 @@ public class PatientProfileActivity extends AppCompatActivity {
         patientEmail.setText(patient.getEmail());
         patientPhoneNumber.setText(patient.getPhoneNumber());
         patientBirthDate.setText(patient.getAge() + " years-old");
-        patientHeight.setText("Height\n" + String.format("%.2f", patient.getHeight()) + " cm");
-        patientWeight.setText("Weight\n" + String.format("%.2f", patient.getWeight()) + " Kg");
+        patientHeight.setText("Height\n" + formatMeasurement(patient.getHeight()) + " cm");
+        patientWeight.setText("Weight\n" + formatMeasurement(patient.getWeight()) + " Kg");
         patientGender.setText("Gender\n" + patient.getGender());
+    }
+
+    private String formatMeasurement(double value) {
+        if (value == (int) value) {
+            return String.format("%d", (int) value);
+        } else {
+            return String.format("%.2f", value);
+        }
     }
 }

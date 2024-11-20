@@ -98,11 +98,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/patient_profile_activity_patient_birth_date">
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/patient_profile_activity_patient_height"
             android:layout_width="100dp"
@@ -145,11 +140,6 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             tools:text="Gender\nMale" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
