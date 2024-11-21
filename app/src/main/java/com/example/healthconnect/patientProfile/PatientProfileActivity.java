@@ -23,7 +23,7 @@ public class PatientProfileActivity extends AppCompatActivity {
     TextView patientName;
     TextView patientEmail;
     TextView patientPhoneNumber;
-    TextView patientBirthDate;
+    TextView patientDateOfBirthAge;
     TextView patientHeight;
     TextView patientWeight;
     TextView patientGender;
@@ -52,7 +52,7 @@ public class PatientProfileActivity extends AppCompatActivity {
         patientName = findViewById(R.id.patient_profile_activity_patient_name);
         patientEmail = findViewById(R.id.patient_profile_activity_patient_email);
         patientPhoneNumber = findViewById(R.id.patient_profile_activity_patient_phone_number);
-        patientBirthDate = findViewById(R.id.patient_profile_activity_patient_birth_date);
+        patientDateOfBirthAge = findViewById(R.id.patient_profile_activity_patient_birth_date_age);
         patientHeight = findViewById(R.id.patient_profile_activity_patient_height);
         patientWeight = findViewById(R.id.patient_profile_activity_patient_weight);
         patientGender = findViewById(R.id.patient_profile_activity_patient_gender);
@@ -74,7 +74,7 @@ public class PatientProfileActivity extends AppCompatActivity {
         });
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     protected void onResume() {
         super.onResume();
@@ -85,10 +85,18 @@ public class PatientProfileActivity extends AppCompatActivity {
         patientName.setText(patient.getName());
         patientEmail.setText(patient.getEmail());
         patientPhoneNumber.setText(patient.getPhoneNumber());
-        patientBirthDate.setText(patient.getAge() + " years-old");
         patientHeight.setText("Height\n" + formatMeasurement(patient.getHeight()) + " cm");
         patientWeight.setText("Weight\n" + formatMeasurement(patient.getWeight()) + " Kg");
         patientGender.setText("Gender\n" + patient.getGender());
+
+        int tempDateOfBirth = patient != null ? patient.getDateOfBirth() : 0;
+
+        String dateOfBirth = String.format("%04d-%02d-%02d",
+                tempDateOfBirth / 10000,
+                (tempDateOfBirth % 10000) / 100,
+                tempDateOfBirth % 100);
+
+        patientDateOfBirthAge.setText(dateOfBirth + " (" + patient.getAge() + " years-old )");
     }
 
     @SuppressLint("DefaultLocale")

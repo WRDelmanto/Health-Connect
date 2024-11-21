@@ -77,7 +77,7 @@
         tools:text="(604) 555-5555" />
 
     <TextView
-        android:id="@+id/patient_profile_activity_patient_birth_date"
+        android:id="@+id/patient_profile_activity_patient_birth_date_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/patient_profile_activity_patient_phone_number"
-        tools:text="December, 12, 1951" />
+        tools:text="1951-12-15 (65 years-old)" />
 
     <LinearLayout
         android:id="@+id/patient_profile_activity_patient_info"
@@ -96,7 +96,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/patient_profile_activity_patient_birth_date">
+        app:layout_constraintTop_toBottomOf="@id/patient_profile_activity_patient_birth_date_age">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/patient_profile_activity_patient_height"
