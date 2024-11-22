@@ -64,7 +64,7 @@ public class CurrentAppointmentActivity extends AppCompatActivity {
         patientName.setText(appointment != null ? appointment.getPatient().getName() : "");
         patientAge.setText(appointment != null ? appointment.getPatient().getAge() + " years-old" : "");
         appointmentType.setText(appointment != null ? appointment.getAppointmentType() : "");
-        appointmentTime.setText(appointment != null ? appointment.getAppointmentTime() : "");
+        appointmentTime.setText(appointment != null ? appointment.getAppointmentTime() : 0);
         notes.setText(appointment != null ? appointment.getNotes() : "");
         medicines.setText(appointment != null ? appointment.getMedicines() : "");
         exams.setText(appointment != null ? appointment.getExams() : "");

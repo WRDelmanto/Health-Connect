@@ -57,14 +57,20 @@ public class AppointmentHistoryActivityAppointmentsAdapter extends RecyclerView.
         return new AppointmentViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     public void onBindViewHolder(@NonNull AppointmentViewHolder holder, int position) {
         Appointment appointment = appointmentList.get(position);
 
         holder.patientName.setText(appointment.getPatient().getName());
         holder.patientGenderAge.setText(appointment.getPatient().getGender() + ", " + appointment.getPatient().getAge() + " years-old");
-        holder.appointmentTypeDateTime.setText("Last appointment: " + appointment.getAppointmentDate() + " - " + appointment.getAppointmentTime());
+        String date = String.format("%04d-%02d-%02d",
+                appointment.getAppointmentDate() / 10000,
+                (appointment.getAppointmentDate() % 10000) / 100,
+                appointment.getAppointmentDate() % 100);
+        int hour = appointment.getAppointmentTime() / 100;
+        int minute = appointment.getAppointmentTime() % 100;
+        holder.appointmentTypeDateTime.setText(appointment.getAppointmentType() + " | " + date + " - " + String.format("%02d:%02d", hour, minute));
 
         holder.patientImage.setImageResource(R.drawable.default_profile_picture);
 

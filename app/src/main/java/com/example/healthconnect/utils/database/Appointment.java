@@ -6,14 +6,14 @@ public class Appointment implements Serializable {
     private int id;
     private Patient patient;
     private String appointmentType;
-    private String appointmentDate;
-    private String appointmentTime;
+    private int appointmentDate;
+    private int appointmentTime;
     private String notes;
     private String medicines;
     private String exams;
     private boolean isDone;
 
-    public Appointment(int id, Patient patient, String appointmentType, String appointmentDate, String appointmentTime, String notes, String medicines, String exams, boolean isDone) {
+    public Appointment(int id, Patient patient, String appointmentType, int appointmentDate, int appointmentTime, String notes, String medicines, String exams, boolean isDone) {
         this.id = id;
         this.patient = patient;
         this.appointmentType = appointmentType;
@@ -49,19 +49,19 @@ public class Appointment implements Serializable {
         this.appointmentType = appointmentType;
     }
 
-    public String getAppointmentDate() {
+    public int getAppointmentDate() {
         return appointmentDate;
     }
 
-    public void setAppointmentDate(String appointmentDate) {
+    public void setAppointmentDate(int appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 
-    public String getAppointmentTime() {
+    public int getAppointmentTime() {
         return appointmentTime;
     }
 
-    public void setAppointmentTime(String appointmentTime) {
+    public void setAppointmentTime(int appointmentTime) {
         this.appointmentTime = appointmentTime;
     }
 

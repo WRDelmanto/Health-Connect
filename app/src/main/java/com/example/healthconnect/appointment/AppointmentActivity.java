@@ -6,6 +6,8 @@ import static android.view.View.VISIBLE;
 import static com.example.healthconnect.utils.ConfirmationDialog.showConfirmationDialog;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -22,9 +24,21 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.healthconnect.R;
 import com.example.healthconnect.currentAppointment.CurrentAppointmentActivity;
 import com.example.healthconnect.utils.database.Appointment;
+import com.example.healthconnect.utils.database.Database;
+
+import java.util.Calendar;
 
 public class AppointmentActivity extends AppCompatActivity {
-    @SuppressLint("SourceLockedOrientationActivity")
+    EditText patientNameInput;
+    AppCompatButton date;
+    AppCompatButton time;
+
+    Appointment appointment;
+
+    String appointmentDate;
+    String appointmentTime;
+
+    @SuppressLint({"SourceLockedOrientationActivity", "DefaultLocale"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,20 +56,51 @@ public class AppointmentActivity extends AppCompatActivity {
         statusBarIcon.setImageResource(R.drawable.scheduling_white);
         statusBarTitle.setText(getString(R.string.appointment));
 
-        EditText patientNameInput = findViewById(R.id.appointment_activity_patient_name);
-        AppCompatButton date = findViewById(R.id.appointment_activity_appointment_date);
-        AppCompatButton time = findViewById(R.id.appointment_activity_appointment_time);
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        patientNameInput = findViewById(R.id.appointment_activity_patient_name);
+        date = findViewById(R.id.appointment_activity_appointment_date);
+        time = findViewById(R.id.appointment_activity_appointment_time);
         ImageView cancelAppointment = findViewById(R.id.appointment_activity_cancel_appointment);
         ImageView startAppointment = findViewById(R.id.appointment_activity_start_appointment);
         AppCompatButton cancelButton = findViewById(R.id.appointment_activity_cancel_button);
         AppCompatButton saveButton = findViewById(R.id.appointment_activity_save_button);
 
-        Appointment appointment = (Appointment) getIntent().getSerializableExtra("appointment");
+        appointment = (Appointment) getIntent().getSerializableExtra("appointment");
         patientNameInput.setText(appointment != null ? appointment.getPatient().getName() : "");
 
-        // TODO: Get the appointment date and time from the database or date (today) and time (now)
-        date.setText(appointment != null ? appointment.getAppointmentDate() : "Today");
-        time.setText(appointment != null ? appointment.getAppointmentTime() : "Now");
+        int tempAppointmentDate = appointment != null ? appointment.getAppointmentDate() : 0;
+
+        if (tempAppointmentDate == 0) {
+            appointmentDate = String.format("%04d-%02d-%02d",
+                    year,
+                    month,
+                    day);
+        } else {
+            appointmentDate = String.format("%04d-%02d-%02d",
+                    tempAppointmentDate / 10000,
+                    (tempAppointmentDate % 10000) / 100,
+                    tempAppointmentDate % 100);
+        }
+
+        date.setText(appointmentDate);
+
+        int tempAppointmentTime = appointment != null ? appointment.getAppointmentTime() : 0;
+
+        if (tempAppointmentTime == 0) {
+            appointmentTime = "16:30";
+        } else {
+            appointmentTime = String.format("%02d:%02d",
+                    tempAppointmentTime / 100,
+                    tempAppointmentTime % 100);
+        }
+
+        time.setText(appointmentTime);
 
         boolean isNewAppointment = getIntent().getBooleanExtra("isNewAppointment", false);
 
@@ -70,31 +115,55 @@ public class AppointmentActivity extends AppCompatActivity {
         }
 
         date.setOnClickListener(v -> {
-            // TODO: Show a date picker dialog
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    AppointmentActivity.this,
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        appointmentDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
+                        date.setText(appointmentDate);
+                    },
+                    appointment != null ? appointment.getAppointmentDate() / 10000 : year,
+                    appointment != null ? (appointment.getAppointmentDate() % 10000) / 100 - 1 : month - 1,
+                    appointment != null ? appointment.getAppointmentDate() % 100 : day
+            );
+
+            datePickerDialog.show();
         });
 
         time.setOnClickListener(v -> {
-            // TODO: Show a time picker dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(
+                    v.getContext(),
+                    (view, selectedHour, selectedMinute) -> {
+                        appointmentTime = String.format("%02d:%02d", selectedHour, selectedMinute);
+                        time.setText(appointmentTime);
+                    },
+                    appointment != null ? appointment.getAppointmentTime() / 100 : hour,
+                    appointment != null ? appointment.getAppointmentTime() % 100 : minute,
+                    true // True for 24-hour format, false for AM/PM format
+            );
+
+            timePickerDialog.show();
         });
 
-        cancelAppointment.setOnClickListener(v -> showConfirmationDialog(
-                this,
-                "Cancel Appointment",
-                "Are you sure you want to cancel this appointment?",
-                "Yes",
-                "No",
-                () -> {
-                    // TODO: Delete the appointment from the database
-                    finish();
-                },
-                () -> {
-                    // Do nothing
-                }
-        ));
+
+        cancelAppointment.setOnClickListener(v ->
+                showConfirmationDialog(
+                        this,
+                        "Cancel Appointment",
+                        "Are you sure you want to cancel this appointment?",
+                        "Yes",
+                        "No",
+                        this::finish,
+                        () -> {
+                            assert appointment != null;
+                            Database.deleteAppointment(appointment);
+                        }
+                ));
 
         startAppointment.setOnClickListener(v -> {
-            // TODO: Update the appointment info to the database
-            String patientName = patientNameInput.getText().toString();
+            if (!isAppointmentValid()) {
+                return;
+            }
+            saveUpdateAppointment();
 
             Intent intent = new Intent(AppointmentActivity.this, CurrentAppointmentActivity.class);
             intent.putExtra("appointment", appointment);
@@ -104,10 +173,7 @@ public class AppointmentActivity extends AppCompatActivity {
         });
 
         saveButton.setOnClickListener(v -> {
-            // TODO: Save / Update the appointment to the database
-            String patientName = patientNameInput.getText().toString();
-
-            finish();
+            saveUpdateAppointment();
         });
 
         cancelButton.setOnClickListener(v -> showConfirmationDialog(
@@ -116,10 +182,20 @@ public class AppointmentActivity extends AppCompatActivity {
                 "Are you sure you want to cancel this appointment?",
                 "Yes",
                 "No",
-                () -> finish(),
+                this::finish,
                 () -> {
                     // Do nothing
                 }
         ));
+    }
+
+    private void saveUpdateAppointment() {
+        // TODO: Save / Update the appointment to the database
+    }
+
+    private boolean isAppointmentValid() {
+        return !patientNameInput.getText().toString().isEmpty() &&
+                !date.getText().toString().isEmpty() &&
+                !time.getText().toString().isEmpty();
     }
 }

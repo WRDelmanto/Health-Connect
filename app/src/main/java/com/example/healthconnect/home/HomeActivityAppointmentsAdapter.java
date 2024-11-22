@@ -38,7 +38,7 @@ public class HomeActivityAppointmentsAdapter extends RecyclerView.Adapter<HomeAc
         return new AppointmentViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     public void onBindViewHolder(@NonNull AppointmentViewHolder holder, int position) {
         Appointment appointment = appointmentList.get(position);
@@ -47,11 +47,14 @@ public class HomeActivityAppointmentsAdapter extends RecyclerView.Adapter<HomeAc
         holder.patientAge.setText(appointment.getPatient().getAge() + " years-old");
         holder.appointmentType.setText(appointment.getAppointmentType());
 
-        holder.appointmentDate.setText(appointment.getAppointmentTime());
+        int hour = appointment.getAppointmentTime() / 100;
+        int minute = appointment.getAppointmentTime() % 100;
+        holder.appointmentTime.setText(String.format("%02d:%02d", hour, minute));
+
         if (position % 2 == 0) {
-            holder.appointmentDate.setBackgroundTintList(AppCompatResources.getColorStateList(holder.itemView.getContext(), R.color.pastel_green));
+            holder.appointmentTime.setBackgroundTintList(AppCompatResources.getColorStateList(holder.itemView.getContext(), R.color.pastel_green));
         } else {
-            holder.appointmentDate.setBackgroundTintList(AppCompatResources.getColorStateList(holder.itemView.getContext(), R.color.bondi_blue)); // Assuming pastel_blue is defined in colors.xml
+            holder.appointmentTime.setBackgroundTintList(AppCompatResources.getColorStateList(holder.itemView.getContext(), R.color.bondi_blue)); // Assuming pastel_blue is defined in colors.xml
         }
 
         holder.patientImage.setImageResource(R.drawable.default_profile_picture);
@@ -73,7 +76,7 @@ public class HomeActivityAppointmentsAdapter extends RecyclerView.Adapter<HomeAc
         TextView patientName;
         TextView patientAge;
         TextView appointmentType;
-        TextView appointmentDate;
+        TextView appointmentTime;
 
         public AppointmentViewHolder(View itemView) {
             super(itemView);
@@ -82,7 +85,7 @@ public class HomeActivityAppointmentsAdapter extends RecyclerView.Adapter<HomeAc
             patientName = itemView.findViewById(R.id.activity_home_item_patient_name);
             patientAge = itemView.findViewById(R.id.activity_home_item_patient_age);
             appointmentType = itemView.findViewById(R.id.activity_home_item_appointment_type);
-            appointmentDate = itemView.findViewById(R.id.activity_home_item_appointment_date);
+            appointmentTime = itemView.findViewById(R.id.activity_home_item_appointment_time);
         }
     }
 }

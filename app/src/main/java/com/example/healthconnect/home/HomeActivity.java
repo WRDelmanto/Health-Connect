@@ -5,6 +5,7 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,6 +29,7 @@ import com.example.healthconnect.utils.FastSharedPreferences;
 import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.utils.database.Database;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements HomeActivityAppointmentsAdapter.OnItemClickListener {
@@ -71,7 +73,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
 
         appointmentHistory.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentHistoryActivity.class)));
 
-        appointments = Database.getTodayAppointments();
+        appointments = new ArrayList<>();
 
         HomeActivityAppointmentsAdapter adapter = new HomeActivityAppointmentsAdapter(appointments, this);
         upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
@@ -83,11 +85,15 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
     protected void onResume() {
         super.onResume();
 
-        // TODO: Set the doctor's image
         doctorImage.setImageResource(R.drawable.default_profile_picture);
         doctorName.setText("Dr. " + FastSharedPreferences.get(this, "doctor_name", ""));
 
-        appointments.clear();
+        try {
+            appointments.clear();
+        } catch (Exception e) {
+            // Do nothing
+        }
+
         appointments.addAll(Database.getTodayAppointments());
 
         RecyclerView.Adapter adapter = ((RecyclerView) findViewById(R.id.home_activity_upcoming_appointments_list)).getAdapter();

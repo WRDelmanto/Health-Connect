@@ -43,12 +43,17 @@ public class PatientHistoryActivityAppointmentsAdapter extends RecyclerView.Adap
         return new AppointmentViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     public void onBindViewHolder(@NonNull AppointmentViewHolder holder, int position) {
         Appointment appointment = appointmentList.get(position);
-
-        holder.appointmentDateTime.setText(appointment.getAppointmentDate() + " - " + appointment.getAppointmentTime());
+        String date = String.format("%04d-%02d-%02d",
+                appointment.getAppointmentDate() / 10000,
+                (appointment.getAppointmentDate() % 10000) / 100,
+                appointment.getAppointmentDate() % 100);
+        int hour = appointment.getAppointmentTime() / 100;
+        int minute = appointment.getAppointmentTime() % 100;
+        holder.appointmentDateTime.setText(date + " - " + String.format("%02d:%02d", hour, minute));
         holder.appointmentType.setText(appointment.getAppointmentType());
         holder.notes.setText(appointment.getNotes());
         holder.medicines.setText(appointment.getMedicines());

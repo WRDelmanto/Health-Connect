@@ -6,11 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 public class Database extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "health_connect.db";
@@ -52,8 +50,8 @@ public class Database extends SQLiteOpenHelper {
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "patient_id INTEGER NOT NULL, " +
                     "appointment_type TEXT NOT NULL, " +
-                    "appointment_date TEXT NOT NULL, " +
-                    "appointment_time TEXT NOT NULL, " +
+                    "appointment_date INTEGER NOT NULL, " + // Format: YYYYMMDD
+                    "appointment_time INTEGER NOT NULL, " + // Format: HHMM
                     "notes TEXT, " +
                     "medicines TEXT NOT NULL, " +
                     "exams TEXT NOT NULL, " +
@@ -195,28 +193,16 @@ public class Database extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                int appointmentId = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
-                int patientId = cursor.getInt(cursor.getColumnIndexOrThrow("patient_id"));
-                String appointmentType = cursor.getString(cursor.getColumnIndexOrThrow("appointment_type"));
-                String appointmentDate = cursor.getString(cursor.getColumnIndexOrThrow("appointment_date"));
-                String appointmentTime = cursor.getString(cursor.getColumnIndexOrThrow("appointment_time"));
-                String notes = cursor.getString(cursor.getColumnIndexOrThrow("notes"));
-                String medicines = cursor.getString(cursor.getColumnIndexOrThrow("medicines"));
-                String exams = cursor.getString(cursor.getColumnIndexOrThrow("exams"));
-                boolean isDone = cursor.getInt(cursor.getColumnIndexOrThrow("is_done")) == 1;
-
-                Patient patient = getPatientById(patientId);
-
                 Appointment appointment = new Appointment(
-                        appointmentId,
-                        patient,
-                        appointmentType,
-                        appointmentDate,
-                        appointmentTime,
-                        notes,
-                        medicines,
-                        exams,
-                        isDone
+                        cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                        getPatientById(cursor.getInt(cursor.getColumnIndexOrThrow("patient_id"))),
+                        cursor.getString(cursor.getColumnIndexOrThrow("appointment_type")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("appointment_date")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("appointment_time")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("notes")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("medicines")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("exams")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("is_done")) == 1
                 );
 
                 appointments.add(appointment);
@@ -224,6 +210,8 @@ public class Database extends SQLiteOpenHelper {
         }
 
         cursor.close();
+        database.close();
+
         return appointments;
     }
 
@@ -231,14 +219,16 @@ public class Database extends SQLiteOpenHelper {
         List<Appointment> todayAppointments = new ArrayList<>();
         SQLiteDatabase database = instance.getReadableDatabase();
 
-        // Get the current date in "YYYY-MM-DD" format
-        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         Cursor cursor = database.query(
                 "appointments",
                 null,
                 "appointment_date = ? AND is_done = ?",
-                new String[]{today, "0"},
+                new String[]{String.valueOf(year + month + day), "0"},
                 null,
                 null,
                 "appointment_time DESC"
@@ -250,8 +240,8 @@ public class Database extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndexOrThrow("id")),
                         getPatientById(cursor.getInt(cursor.getColumnIndexOrThrow("patient_id"))),
                         cursor.getString(cursor.getColumnIndexOrThrow("appointment_type")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("appointment_date")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("appointment_time")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("appointment_date")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("appointment_time")),
                         cursor.getString(cursor.getColumnIndexOrThrow("notes")),
                         cursor.getString(cursor.getColumnIndexOrThrow("medicines")),
                         cursor.getString(cursor.getColumnIndexOrThrow("exams")),
@@ -287,8 +277,8 @@ public class Database extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndexOrThrow("id")),
                         getPatientById(cursor.getInt(cursor.getColumnIndexOrThrow("patient_id"))),
                         cursor.getString(cursor.getColumnIndexOrThrow("appointment_type")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("appointment_date")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("appointment_time")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("appointment_date")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("appointment_time")),
                         cursor.getString(cursor.getColumnIndexOrThrow("notes")),
                         cursor.getString(cursor.getColumnIndexOrThrow("medicines")),
                         cursor.getString(cursor.getColumnIndexOrThrow("exams")),
@@ -324,8 +314,8 @@ public class Database extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndexOrThrow("id")),
                         getPatientById(cursor.getInt(cursor.getColumnIndexOrThrow("patient_id"))),
                         cursor.getString(cursor.getColumnIndexOrThrow("appointment_type")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("appointment_date")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("appointment_time")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("appointment_date")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("appointment_time")),
                         cursor.getString(cursor.getColumnIndexOrThrow("notes")),
                         cursor.getString(cursor.getColumnIndexOrThrow("medicines")),
                         cursor.getString(cursor.getColumnIndexOrThrow("exams")),
@@ -361,8 +351,8 @@ public class Database extends SQLiteOpenHelper {
                     cursor.getInt(cursor.getColumnIndexOrThrow("id")),
                     getPatientById(cursor.getInt(cursor.getColumnIndexOrThrow("patient_id"))), // Assuming you have a method to get Patient by ID
                     cursor.getString(cursor.getColumnIndexOrThrow("appointment_type")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("appointment_date")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("appointment_time")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("appointment_date")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("appointment_time")),
                     cursor.getString(cursor.getColumnIndexOrThrow("notes")),
                     cursor.getString(cursor.getColumnIndexOrThrow("medicines")),
                     cursor.getString(cursor.getColumnIndexOrThrow("exams")),
@@ -414,6 +404,18 @@ public class Database extends SQLiteOpenHelper {
         database.update(
                 "appointments",
                 values,
+                "id = ?",
+                new String[]{String.valueOf(appointment.getId())}
+        );
+
+        database.close();
+    }
+
+    public static void deleteAppointment(Appointment appointment) {
+        SQLiteDatabase database = instance.getWritableDatabase();
+
+        database.delete(
+                "appointments",
                 "id = ?",
                 new String[]{String.valueOf(appointment.getId())}
         );

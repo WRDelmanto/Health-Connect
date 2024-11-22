@@ -23,6 +23,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/patient_name_title"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +52,7 @@
         android:text="@string/appointment_date"
         android:textColor="@color/black"
         android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@id/appointment_activity_appointment_time_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appointment_activity_patient_name" />
 
@@ -64,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="@id/appointment_activity_appointment_date_title"
         app:layout_constraintStart_toStartOf="@id/appointment_activity_appointment_date_title"
         app:layout_constraintTop_toBottomOf="@id/appointment_activity_appointment_date_title"
-        tools:text="15/11/2024" />
+        tools:text="2024-12-06" />
 
     <TextView
         android:id="@+id/appointment_activity_appointment_time_title"
@@ -75,8 +77,9 @@
         android:text="@string/appointment_time"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appointment_activity_appointment_date" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/appointment_activity_appointment_date_title"
+        app:layout_constraintTop_toBottomOf="@id/appointment_activity_patient_name" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/appointment_activity_appointment_time"
@@ -99,7 +102,7 @@
         app:layout_constraintBottom_toTopOf="@id/appointment_activity_save_cancel_buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appointment_activity_appointment_time">
+        app:layout_constraintTop_toBottomOf="@id/appointment_activity_appointment_date">
 
         <ImageView
             android:id="@+id/appointment_activity_cancel_appointment"
