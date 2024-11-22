@@ -34,11 +34,15 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements HomeActivityAppointmentsAdapter.OnItemClickListener {
     ImageView doctorImage;
+    ImageButton editButton;
     TextView doctorName;
     TextView appointmentsCounter;
     TextView nextAppointment;
 
     List<Appointment> appointments;
+
+    RecyclerView upcomingAppointments;
+    HomeActivityAppointmentsAdapter adapter;
 
     @SuppressLint({"SetTextI18n", "SourceLockedOrientationActivity"})
     @Override
@@ -54,7 +58,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
         });
 
         doctorImage = findViewById(R.id.home_activity_doctor_picture);
-        ImageButton editButton = findViewById(R.id.home_activity_edit_doctor_info);
+        editButton = findViewById(R.id.home_activity_edit_doctor_info);
         doctorName = findViewById(R.id.home_activity_doctor_name);
         appointmentsCounter = findViewById(R.id.home_activity_doctor_appointments_counter);
         nextAppointment = findViewById(R.id.home_activity_doctor_next_appointment);
@@ -63,24 +67,21 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
         LinearLayout patientsRecords = findViewById(R.id.home_activity_patients_records_layout);
         LinearLayout appointmentHistory = findViewById(R.id.home_activity_appointment_history_layout);
 
-        RecyclerView upcomingAppointments = findViewById(R.id.home_activity_upcoming_appointments_list);
-
-        editButton.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, DoctorProfileActivity.class)));
-
-        appointmentsScheduling.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentSchedulingActivity.class)));
-
-        patientsRecords.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, PatientRecordsActivity.class)));
-
-        appointmentHistory.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentHistoryActivity.class)));
+        upcomingAppointments = findViewById(R.id.home_activity_upcoming_appointments_list);
 
         appointments = new ArrayList<>();
 
-        HomeActivityAppointmentsAdapter adapter = new HomeActivityAppointmentsAdapter(appointments, this);
+        adapter = new HomeActivityAppointmentsAdapter(appointments, this);
         upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
         upcomingAppointments.setAdapter(adapter);
+
+        editButton.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, DoctorProfileActivity.class)));
+        appointmentsScheduling.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentSchedulingActivity.class)));
+        patientsRecords.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, PatientRecordsActivity.class)));
+        appointmentHistory.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AppointmentHistoryActivity.class)));
     }
 
-    @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
+    @SuppressLint({"NotifyDataSetChanged", "SetTextI18n", "DefaultLocale"})
     @Override
     protected void onResume() {
         super.onResume();
@@ -91,22 +92,23 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
         try {
             appointments.clear();
         } catch (Exception e) {
-            // Do nothing
+            Log.e("HomeActivity", "Error clearing appointments: ", e);
         }
 
         appointments.addAll(Database.getTodayAppointments());
-
-        RecyclerView.Adapter adapter = ((RecyclerView) findViewById(R.id.home_activity_upcoming_appointments_list)).getAdapter();
 
         if (adapter != null) {
             adapter.notifyDataSetChanged();
         }
 
-        appointmentsCounter.setText("Appointments today: " + appointments.size());
         if (!appointments.isEmpty()) {
-            nextAppointment.setText("Next appointment: " + appointments.get(0).getAppointmentTime());
+            appointmentsCounter.setText("Appointments today: " + appointments.size());
+            nextAppointment.setText("Next appointment: " + String.format("%02d:%02d",
+                    appointments.get(0).getAppointmentTime() / 100,
+                    appointments.get(0).getAppointmentTime() % 100));
         } else {
-            nextAppointment.setText("Next appointment: None");
+            appointmentsCounter.setText("");
+            nextAppointment.setText("");
         }
     }
 

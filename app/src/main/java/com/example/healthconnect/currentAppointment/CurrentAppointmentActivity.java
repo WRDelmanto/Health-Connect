@@ -26,7 +26,7 @@ import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.utils.database.Database;
 
 public class CurrentAppointmentActivity extends AppCompatActivity {
-    @SuppressLint({"SourceLockedOrientationActivity", "SetTextI18n"})
+    @SuppressLint({"SourceLockedOrientationActivity", "SetTextI18n", "DefaultLocale"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +66,7 @@ public class CurrentAppointmentActivity extends AppCompatActivity {
         patientName.setText(appointment != null ? appointment.getPatient().getName() : "");
         patientAge.setText(appointment != null ? appointment.getPatient().getAge() + " years-old" : "");
         appointmentType.setText(appointment != null ? appointment.getAppointmentType() : "");
-        appointmentTime.setText(appointment != null ? appointment.getAppointmentTime() : 0);
+        appointmentTime.setText(appointment != null ? String.format("%02d:%02d", appointment.getAppointmentTime() / 100, appointment.getAppointmentTime() % 100) : "");
         notes.setText(appointment != null ? appointment.getNotes() : "");
         medicines.setText(appointment != null ? appointment.getMedicines() : "");
         exams.setText(appointment != null ? appointment.getExams() : "");

@@ -1,6 +1,7 @@
 package com.example.healthconnect.patientRecords;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PatientRecordsActivityPatientAdapter extends RecyclerView.Adapter<PatientRecordsActivityPatientAdapter.PatientViewHolder> {
-
     private final List<Patient> patientList;
     private final List<Patient> patientListFull;
     private final OnItemClickListener listener;
@@ -28,7 +28,7 @@ public class PatientRecordsActivityPatientAdapter extends RecyclerView.Adapter<P
 
     public PatientRecordsActivityPatientAdapter(List<Patient> patientList, OnItemClickListener listener) {
         this.patientList = patientList;
-        this.patientListFull = new ArrayList<>(patientList);
+        this.patientListFull = new ArrayList<>();
         this.listener = listener;
     }
 
@@ -94,5 +94,14 @@ public class PatientRecordsActivityPatientAdapter extends RecyclerView.Adapter<P
             patientGenderAge = itemView.findViewById(R.id.activity_patient_records_item_patient_gender_age);
             patientPhoneNumberEmail = itemView.findViewById(R.id.activity_patient_records_item_patient_phone_number_email);
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updatePatientList(List<Patient> newPatientList) {
+        patientListFull.clear();
+        patientListFull.addAll(newPatientList);
+
+        patientList.clear();
+        patientList.addAll(patientListFull);
     }
 }

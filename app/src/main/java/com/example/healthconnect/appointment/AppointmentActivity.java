@@ -86,7 +86,7 @@ public class AppointmentActivity extends AppCompatActivity {
             appointmentDate = String.format("%04d-%02d-%02d",
                     year,
                     month + 1,
-                    day - 1
+                    day
             );
         } else {
             appointmentDate = String.format("%04d-%02d-%02d",
@@ -151,7 +151,7 @@ public class AppointmentActivity extends AppCompatActivity {
                     },
                     appointment != null ? appointment.getAppointmentDate() / 10000 : year,
                     appointment != null ? (appointment.getAppointmentDate() % 10000) / 100 - 1 : month,
-                    appointment != null ? appointment.getAppointmentDate() % 100 : day - 1
+                    appointment != null ? appointment.getAppointmentDate() % 100 : day
             );
 
             datePickerDialog.show();
@@ -241,7 +241,8 @@ public class AppointmentActivity extends AppCompatActivity {
                     false
             );
 
-            Database.addAppointment(appointment);
+            long appointmentId = Database.addAppointment(appointment);
+            appointment.setId(Integer.parseInt(String.valueOf(appointmentId)));
         } else {
             appointment.setPatient(Database.getPatientByName(patientNameInput.getText().toString()));
             appointment.setAppointmentDate(Integer.parseInt(appointmentDate.replace("-", "")));

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,9 +26,15 @@ import com.example.healthconnect.patientProfile.PatientProfileActivity;
 import com.example.healthconnect.utils.database.Database;
 import com.example.healthconnect.utils.database.Patient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PatientRecordsActivity extends AppCompatActivity implements PatientRecordsActivityPatientAdapter.OnItemClickListener {
+    List<Patient> patients;
+
+    RecyclerView patientsList;
+    PatientRecordsActivityPatientAdapter adapter;
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +55,13 @@ public class PatientRecordsActivity extends AppCompatActivity implements Patient
         statusBarIcon.setImageResource(R.drawable.patient_white);
         statusBarTitle.setText(getString(R.string.patients_records));
 
-        EditText searchBar = findViewById(R.id.search_bar_input);
-        RecyclerView patientsList = findViewById(R.id.patient_records_activity_patient_list);
         ImageView addPatientButton = findViewById(R.id.patient_records_activity_add_appointment);
-
         addPatientButton.setOnClickListener(view -> startActivity(new Intent(PatientRecordsActivity.this, EditablePatientProfileActivity.class)));
 
-        List<Patient> patients = Database.getAllPatients();
+        patients = new ArrayList<>();
+        adapter = new PatientRecordsActivityPatientAdapter(patients, this);
 
-        PatientRecordsActivityPatientAdapter adapter = new PatientRecordsActivityPatientAdapter(patients, this);
-        patientsList.setLayoutManager(new LinearLayoutManager(this));
-        patientsList.setAdapter(adapter);
+        EditText searchBar = findViewById(R.id.search_bar_input);
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -76,6 +79,29 @@ public class PatientRecordsActivity extends AppCompatActivity implements Patient
                 adapter.filter(editable.toString());
             }
         });
+
+        patientsList = findViewById(R.id.patient_records_activity_patient_list);
+        patientsList.setLayoutManager(new LinearLayoutManager(this));
+        patientsList.setAdapter(adapter);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        try {
+            patients.clear();
+        } catch (Exception e) {
+            Log.e("PatientRecordsActivity", "Error clearing appointments: ", e);
+        }
+
+        patients.addAll(Database.getAllPatients());
+
+        if (adapter != null) {
+            adapter.updatePatientList(patients);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override

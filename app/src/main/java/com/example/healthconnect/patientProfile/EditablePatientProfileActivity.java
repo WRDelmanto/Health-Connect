@@ -5,6 +5,7 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -109,14 +110,16 @@ public class EditablePatientProfileActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedGender = genderOptions[position];
-                assert patient != null;
-                patient.setGender(selectedGender);
+                if (patient != null) {
+                    patient.setGender(selectedGender);
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                assert patient != null;
-                patient.setGender(genderOptions[0]);
+                if (patient != null) {
+                    patient.setGender(genderOptions[0]);
+                }
             }
         });
 
@@ -138,6 +141,7 @@ public class EditablePatientProfileActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> {
             if (isPatientProfileValid()) {
                 if (patient != null) {
+                    Log.d("EditablePatientProfile", "Updating existing patient");
                     patient.setName(patientName.getText().toString());
                     patient.setEmail(patientEmail.getText().toString());
                     patient.setDateOfBirth(Integer.parseInt(dateOfBirth.replace("-", "")));
@@ -146,7 +150,23 @@ public class EditablePatientProfileActivity extends AppCompatActivity {
                     patient.setWeight(Double.parseDouble(patientWeight.getText().toString()));
 
                     Database.updatePatient(patient);
+                } else {
+                    Log.d("EditablePatientProfile", "Creating new patient");
+                    Patient newPatient = new Patient(
+                            0,
+                            patientName.getText().toString(),
+                            Integer.parseInt(dateOfBirth.replace("-", "")),
+                            genderOptions[patientGender.getSelectedItemPosition()],
+                            patientPhoneNumber.getText().toString(),
+                            patientEmail.getText().toString(),
+                            Double.parseDouble(patientHeight.getText().toString()),
+                            Double.parseDouble(patientWeight.getText().toString())
+                    );
+
+                    Database.addPatient(newPatient);
                 }
+
+                Log.d("EditablePatientProfile", Database.getPatientByName(patientName.getText().toString()).toString());
 
                 finish();
             } else {

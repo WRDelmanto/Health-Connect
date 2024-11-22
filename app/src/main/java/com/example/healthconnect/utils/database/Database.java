@@ -98,6 +98,7 @@ public class Database extends SQLiteOpenHelper {
                 ));
             } while (cursor.moveToNext());
         }
+
         cursor.close();
 
         return patients;
@@ -261,10 +262,10 @@ public class Database extends SQLiteOpenHelper {
                 "appointments",
                 null,
                 "appointment_date = ? AND is_done = ?",
-                new String[]{String.valueOf(year + month + day), "0"},
+                new String[]{String.valueOf(year * 10000 + month * 100 + day), "0"},
                 null,
                 null,
-                "appointment_time DESC"
+                "appointment_time ASC"
         );
 
         if (cursor.moveToFirst()) {
