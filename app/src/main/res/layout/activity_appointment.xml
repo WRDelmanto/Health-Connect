@@ -30,14 +30,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appointment_activity_status_bar" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/appointment_activity_patient_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="6dp"
         android:autofillHints="false"
+        android:background="@drawable/rounded_button"
+        android:completionThreshold="1"
+        android:dropDownWidth="match_parent"
+        android:dropDownHeight="wrap_content"
+        android:hint="@string/hint_patient_name"
         android:inputType="textPersonName"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appointment_activity_patient_name_title"

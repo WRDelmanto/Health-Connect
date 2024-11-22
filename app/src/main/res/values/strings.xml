@@ -34,6 +34,7 @@
     <string name="doctor_profile">Doctor Profile</string>
     <string name="menu_arrow">Menu Arrow</string>
     <string name="select_date">Select Date</string>
+    <string name="hint_patient_name">Please insert a name</string>
 
     <string name="cancel_appointment">Cancel\nAppointment</string>
     <string name="start_appointment">Start\nAppointment</string>

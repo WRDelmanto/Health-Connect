@@ -136,6 +136,39 @@ public class Database extends SQLiteOpenHelper {
         return patient;
     }
 
+    public static Patient getPatientByName(String patientName) {
+        SQLiteDatabase database = getInstance().getReadableDatabase();
+
+        Cursor cursor = database.query(
+                "patients",
+                null,
+                "name = ?",
+                new String[]{patientName},
+                null,
+                null,
+                null
+        );
+
+        Patient patient = null;
+
+        if (cursor.moveToFirst()) {
+            patient = new Patient(
+                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("name")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("date_of_birth")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("gender")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("phone_number")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("email")),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow("height")),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow("weight"))
+            );
+        }
+
+        cursor.close();
+
+        return patient;
+    }
+
     public static long addPatient(Patient patient) {
         SQLiteDatabase database = getInstance().getWritableDatabase();
 

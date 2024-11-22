@@ -10,7 +10,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,11 +26,14 @@ import com.example.healthconnect.R;
 import com.example.healthconnect.currentAppointment.CurrentAppointmentActivity;
 import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.utils.database.Database;
+import com.example.healthconnect.utils.database.Patient;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AppointmentActivity extends AppCompatActivity {
-    EditText patientNameInput;
+    AutoCompleteTextView patientNameInput;
     AppCompatButton date;
     AppCompatButton time;
 
@@ -79,8 +83,9 @@ public class AppointmentActivity extends AppCompatActivity {
         if (tempAppointmentDate == 0) {
             appointmentDate = String.format("%04d-%02d-%02d",
                     year,
-                    month,
-                    day);
+                    month + 1,
+                    day - 1
+            );
         } else {
             appointmentDate = String.format("%04d-%02d-%02d",
                     tempAppointmentDate / 10000,
@@ -114,6 +119,27 @@ public class AppointmentActivity extends AppCompatActivity {
             cancelButton.setVisibility(GONE);
         }
 
+        List<String> patients = new ArrayList<>();
+        for (Patient patient : Database.getAllPatients()) {
+            patients.add(patient.getName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                patients
+        );
+
+        patientNameInput.setAdapter(adapter);
+
+        patientNameInput.setOnItemClickListener((parent, view, position, id) -> {
+            Patient selectedPatient = Database.getPatientByName(parent.getItemAtPosition(position).toString());
+
+            if (selectedPatient != null) {
+                patientNameInput.setText(selectedPatient.getName());
+            }
+        });
+
         date.setOnClickListener(v -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     AppointmentActivity.this,
@@ -122,8 +148,8 @@ public class AppointmentActivity extends AppCompatActivity {
                         date.setText(appointmentDate);
                     },
                     appointment != null ? appointment.getAppointmentDate() / 10000 : year,
-                    appointment != null ? (appointment.getAppointmentDate() % 10000) / 100 - 1 : month - 1,
-                    appointment != null ? appointment.getAppointmentDate() % 100 : day
+                    appointment != null ? (appointment.getAppointmentDate() % 10000) / 100 - 1 : month,
+                    appointment != null ? appointment.getAppointmentDate() % 100 : day - 1
             );
 
             datePickerDialog.show();
@@ -163,6 +189,7 @@ public class AppointmentActivity extends AppCompatActivity {
             if (!isAppointmentValid()) {
                 return;
             }
+
             saveUpdateAppointment();
 
             Intent intent = new Intent(AppointmentActivity.this, CurrentAppointmentActivity.class);
@@ -173,7 +200,12 @@ public class AppointmentActivity extends AppCompatActivity {
         });
 
         saveButton.setOnClickListener(v -> {
+            if (!isAppointmentValid()) {
+                return;
+            }
+
             saveUpdateAppointment();
+            finish();
         });
 
         cancelButton.setOnClickListener(v -> showConfirmationDialog(
@@ -190,12 +222,36 @@ public class AppointmentActivity extends AppCompatActivity {
     }
 
     private void saveUpdateAppointment() {
-        // TODO: Save / Update the appointment to the database
+        if (!isAppointmentValid()) {
+            return;
+        }
+
+        if (appointment == null) {
+            appointment = new Appointment(
+                    0,
+                    Database.getPatientByName(patientNameInput.getText().toString()),
+                    "",
+                    Integer.parseInt(appointmentDate.replace("-", "")),
+                    Integer.parseInt(appointmentTime.replace(":", "")),
+                    "",
+                    "",
+                    "",
+                    false
+            );
+
+            Database.addAppointment(appointment);
+        } else {
+            appointment.setPatient(Database.getPatientByName(patientNameInput.getText().toString()));
+            appointment.setAppointmentDate(Integer.parseInt(appointmentDate.replace("-", "")));
+            appointment.setAppointmentTime(Integer.parseInt(appointmentTime.replace(":", "")));
+
+            Database.updateAppointment(appointment);
+        }
     }
 
     private boolean isAppointmentValid() {
         return !patientNameInput.getText().toString().isEmpty() &&
-                !date.getText().toString().isEmpty() &&
-                !time.getText().toString().isEmpty();
+                !appointmentDate.isEmpty() &&
+                !appointmentTime.isEmpty();
     }
 }
