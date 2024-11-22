@@ -55,8 +55,10 @@ public class AppointmentActivity extends AppCompatActivity {
             return insets;
         });
 
+        ImageView statusBackIcon = findViewById(R.id.status_bar_back_arrow_icon);
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
+        statusBackIcon.setOnClickListener(v -> finish());
         statusBarIcon.setImageResource(R.drawable.scheduling_white);
         statusBarTitle.setText(getString(R.string.appointment));
 
