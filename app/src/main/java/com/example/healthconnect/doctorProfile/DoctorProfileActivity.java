@@ -1,0 +1,62 @@
+package com.example.healthconnect.doctorProfile;
+
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.example.healthconnect.R;
+import com.example.healthconnect.utils.FastSharedPreferences;
+
+public class DoctorProfileActivity extends AppCompatActivity {
+    String doctorName;
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_doctor_profile);
+        setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        ImageView statusBackIcon = findViewById(R.id.status_bar_back_arrow_icon);
+        ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
+        TextView statusBarTitle = findViewById(R.id.status_bar_title);
+        statusBackIcon.setOnClickListener(v -> finish());
+        statusBarIcon.setImageResource(R.drawable.doctor_white);
+        statusBarTitle.setText(getString(R.string.doctor_profile));
+
+        ImageView doctorPicture = findViewById(R.id.doctor_profile_activity_doctor_picture);
+        EditText doctorNameInput = findViewById(R.id.doctor_profile_activity_doctor_name);
+        AppCompatButton saveButton = findViewById(R.id.doctor_profile_activity_save_button);
+
+        doctorPicture.setImageResource(R.drawable.default_profile_picture);
+
+        doctorName = (String) FastSharedPreferences.get(this, "doctor_name", "");
+        doctorNameInput.setText(doctorName);
+
+        saveButton.setOnClickListener(v -> {
+            // TODO: Save picture to database
+
+            doctorName = doctorNameInput.getText().toString();
+            FastSharedPreferences.put(this, "doctor_name", doctorName);
+
+            finish();
+        });
+    }
+}

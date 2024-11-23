@@ -3,34 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="wrap_content"
+    android:paddingVertical="12dp">
 
     <ImageView
-        android:id="@+id/home_activity_patient_item_image"
+        android:id="@+id/activity_home_item_patient_picture"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/rounded_background_profile_picture"
-        android:contentDescription="@string/home_activity_patient_item_picture_content_description"
+        android:contentDescription="@string/patient_picture"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/home_activity_patient_item_info_layout"
+        app:layout_constraintEnd_toStartOf="@id/activity_home_item_patient_info_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/default_profile_picture" />
 
     <LinearLayout
-        android:id="@+id/home_activity_patient_item_info_layout"
+        android:id="@+id/activity_home_item_patient_info_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/home_activity_patient_item_appointment_date"
-        app:layout_constraintStart_toEndOf="@id/home_activity_patient_item_image"
+        app:layout_constraintEnd_toStartOf="@id/activity_home_item_appointment_time"
+        app:layout_constraintStart_toEndOf="@id/activity_home_item_patient_picture"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/home_activity_patient_item_patient_name"
+            android:id="@+id/activity_home_item_patient_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -38,33 +39,33 @@
             tools:text="Mr. Adam Smith" />
 
         <TextView
-            android:id="@+id/home_activity_patient_item_patient_age"
+            android:id="@+id/activity_home_item_patient_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="72 years-old" />
 
         <TextView
-            android:id="@+id/home_activity_patient_item_appointment_type"
+            android:id="@+id/activity_home_item_appointment_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Regular consultation" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/home_activity_patient_item_appointment_date"
+        android:id="@+id/activity_home_item_appointment_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:background="@drawable/date_background"
-        android:paddingHorizontal="5dp"
+        android:paddingHorizontal="10dp"
         android:paddingVertical="8dp"
         android:textColor="@color/white"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/home_activity_patient_item_info_layout"
+        app:layout_constraintStart_toEndOf="@id/activity_home_item_patient_info_layout"
         app:layout_constraintTop_toTopOf="parent"
         tools:backgroundTint="@color/pastel_green"
         tools:text="09:30" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

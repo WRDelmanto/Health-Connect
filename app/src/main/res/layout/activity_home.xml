@@ -23,7 +23,7 @@
             android:layout_marginVertical="20dp"
             android:layout_marginStart="30dp"
             android:background="@drawable/rounded_background_profile_picture"
-            android:contentDescription="@string/home_activity_doctor_picture"
+            android:contentDescription="@string/doctor_picture"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,6 @@
             tools:src="@drawable/default_profile_picture" />
 
         <LinearLayout
-            android:id="@+id/home_activity_summary_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="20dp"
@@ -42,10 +41,9 @@
             app:layout_constraintTop_toTopOf="@id/home_activity_doctor_picture">
 
             <TextView
-                android:id="@+id/home_activity_welcome_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/home_activity_welcome_back"
+                android:text="@string/welcome_back"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -78,6 +76,17 @@
                 android:textStyle="bold"
                 tools:text="Next appointment: 09:30 AM" />
         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/home_activity_edit_doctor_info"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/rounded_button"
+            android:contentDescription="@string/edit"
+            android:src="@drawable/edit_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -104,20 +113,18 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/home_activity_appointments_scheduling"
                 android:layout_width="86dp"
                 android:layout_height="86dp"
                 android:background="@drawable/home_activity_main_category_background"
-                android:backgroundTint="@color/bondi_blue"
-                android:contentDescription="@string/home_activity_appointments_scheduling_content_description"
+                android:contentDescription="@string/appointments_scheduling"
+                android:padding="6dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/appointments_scheduling_icon" />
+                android:src="@drawable/card_appointment_scheduling" />
 
             <TextView
-                android:id="@+id/home_activity_appointments_scheduling_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/home_activity_appointments_scheduling"
+                android:text="@string/appointments_scheduling_two_lines"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -136,20 +143,18 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/home_activity_patients_records"
                 android:layout_width="86dp"
                 android:layout_height="86dp"
                 android:background="@drawable/home_activity_main_category_background"
-                android:backgroundTint="@color/bondi_blue"
-                android:contentDescription="@string/home_activity_patients_records_content_description"
+                android:contentDescription="@string/patients_records"
+                android:padding="6dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/patients_records_icon" />
+                android:src="@drawable/card_patients_records" />
 
             <TextView
-                android:id="@+id/home_activity_patients_records_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/home_activity_patients_records"
+                android:text="@string/patients_records_two_lines"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -161,27 +166,25 @@
             android:layout_weight="1" />
 
         <LinearLayout
-            android:id="@+id/home_activity_consultation_history_layout"
+            android:id="@+id/home_activity_appointment_history_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/home_activity_consultation_history"
                 android:layout_width="86dp"
                 android:layout_height="86dp"
                 android:background="@drawable/home_activity_main_category_background"
-                android:backgroundTint="@color/bondi_blue"
-                android:contentDescription="@string/home_activity_consultation_history_content_description"
+                android:contentDescription="@string/appointment_history"
+                android:padding="6dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/consultation_history_icon" />
+                android:src="@drawable/card_appointment_history" />
 
             <TextView
-                android:id="@+id/home_activity_consultation_history_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/home_activity_consultation_history"
+                android:text="@string/appointment_history_two_lines"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -199,7 +202,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="@string/home_activity_upcoming_appointments"
+        android:text="@string/upcoming_appointments"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -215,6 +218,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/home_activity_upcoming_appointments">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@id/home_activity_upcoming_appointments" />
 </androidx.constraintlayout.widget.ConstraintLayout>

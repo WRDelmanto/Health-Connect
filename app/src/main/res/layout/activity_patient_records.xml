@@ -5,10 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".appointmentScheduling.AppointmentSchedulingActivity">
+    tools:context=".patientRecords.PatientRecordsActivity">
 
     <include
-        android:id="@+id/appointment_scheduling_activity_status_bar"
+        android:id="@+id/patient_records_activity_status_bar"
         layout="@layout/status_bar"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -16,30 +16,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/appointment_scheduling_activity_calendar"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/patient_records_activity_search_bar"
+        layout="@layout/search_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Calendar"
-        android:textColor="@color/black"
-        android:textSize="36sp"
+        android:layout_marginHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appointment_scheduling_activity_status_bar" />
+        app:layout_constraintTop_toBottomOf="@id/patient_records_activity_status_bar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/appointment_scheduling_activity_appointments_list"
+        android:id="@+id/patient_records_activity_patient_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appointment_scheduling_activity_calendar" />
+        app:layout_constraintTop_toBottomOf="@id/patient_records_activity_search_bar" />
 
     <ImageView
-        android:id="@+id/appointment_scheduling_activity_add_appointment"
+        android:id="@+id/patient_records_activity_add_appointment"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_margin="20dp"
