@@ -42,6 +42,8 @@ public class AppointmentActivity extends AppCompatActivity {
     String appointmentDate;
     String appointmentTime;
 
+    int newPatientId;
+
     @SuppressLint({"SourceLockedOrientationActivity", "DefaultLocale"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +141,7 @@ public class AppointmentActivity extends AppCompatActivity {
 
             if (selectedPatient != null) {
                 patientNameInput.setText(selectedPatient.getName());
+                newPatientId = selectedPatient.getId();
             }
         });
 
@@ -192,7 +195,7 @@ public class AppointmentActivity extends AppCompatActivity {
 
 
         startAppointment.setOnClickListener(v -> {
-            if (!isAppointmentValid()) {
+            if (!isAppointmentValid() || Database.getPatientById(newPatientId) == null) {
                 return;
             }
 
@@ -206,7 +209,7 @@ public class AppointmentActivity extends AppCompatActivity {
         });
 
         saveButton.setOnClickListener(v -> {
-            if (!isAppointmentValid()) {
+            if (!isAppointmentValid() || Database.getPatientById(newPatientId) == null) {
                 return;
             }
 
@@ -228,10 +231,6 @@ public class AppointmentActivity extends AppCompatActivity {
     }
 
     private void saveUpdateAppointment() {
-        if (!isAppointmentValid()) {
-            return;
-        }
-
         if (appointment == null) {
             appointment = new Appointment(
                     0,
