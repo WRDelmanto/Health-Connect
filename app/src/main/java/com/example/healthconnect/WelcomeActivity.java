@@ -35,9 +35,9 @@ public class WelcomeActivity extends AppCompatActivity {
         Database.initializeInstance(this);
 
         // Generate mock data (only if needed)
-//        if (Database.getAllPatients().isEmpty()) {
-//            MockDataGenerator.generateMockData();
-//        }
+        if (Database.getAllPatients().isEmpty()) {
+            MockDataGenerator.generateMockData();
+        }
 
         final int COUNTDOWN_TIMER_IN_SECONDS = 3;
 

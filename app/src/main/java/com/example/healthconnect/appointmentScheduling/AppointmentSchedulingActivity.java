@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -29,8 +28,18 @@ import java.util.Calendar;
 import java.util.List;
 
 public class AppointmentSchedulingActivity extends AppCompatActivity implements AppointmentSchedulingActivityAppoitmentsAdapter.OnItemClickListener {
+    AppCompatButton sunday;
+    AppCompatButton monday;
+    AppCompatButton tuesday;
+    AppCompatButton wednesday;
+    AppCompatButton thursday;
+    AppCompatButton friday;
+    AppCompatButton saturday;
+
     List<Appointment> appointments;
     AppointmentSchedulingActivityAppoitmentsAdapter adapter;
+
+    int selectedDate;
 
     @SuppressLint({"SourceLockedOrientationActivity", "SetTextI18n", "UseCompatLoadingForColorStateLists"})
     @Override
@@ -60,22 +69,16 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
         statusBarIcon.setImageResource(R.drawable.scheduling_white);
         statusBarTitle.setText(getString(R.string.appointments_scheduling));
 
-        LinearLayout sundayLayout = findViewById(R.id.vertical_calendar_sunday_layout);
-        AppCompatButton sunday = findViewById(R.id.vertical_calendar_sunday);
-        LinearLayout mondayLayout = findViewById(R.id.vertical_calendar_monday_layout);
-        AppCompatButton monday = findViewById(R.id.vertical_calendar_monday);
-        LinearLayout tuesdayLayout = findViewById(R.id.vertical_calendar_tuesday_layout);
-        AppCompatButton tuesday = findViewById(R.id.vertical_calendar_tuesday);
-        LinearLayout wednesdayLayout = findViewById(R.id.vertical_calendar_wednesday_layout);
-        AppCompatButton wednesday = findViewById(R.id.vertical_calendar_wednesday);
-        LinearLayout thursdayLayout = findViewById(R.id.vertical_calendar_thursday_layout);
-        AppCompatButton thursday = findViewById(R.id.vertical_calendar_thursday);
-        LinearLayout fridayLayout = findViewById(R.id.vertical_calendar_friday_layout);
-        AppCompatButton friday = findViewById(R.id.vertical_calendar_friday);
-        LinearLayout saturdayLayout = findViewById(R.id.vertical_calendar_saturday_layout);
-        AppCompatButton saturday = findViewById(R.id.vertical_calendar_saturday);
+        sunday = findViewById(R.id.vertical_calendar_sunday);
+        monday = findViewById(R.id.vertical_calendar_monday);
+        tuesday = findViewById(R.id.vertical_calendar_tuesday);
+        wednesday = findViewById(R.id.vertical_calendar_wednesday);
+        thursday = findViewById(R.id.vertical_calendar_thursday);
+        friday = findViewById(R.id.vertical_calendar_friday);
+        saturday = findViewById(R.id.vertical_calendar_saturday);
         TextView monthYear = findViewById(R.id.appointment_scheduling_activity_vertical_calendar_month_year);
 
+        selectedDate = year * 10000 + month * 100 + dayOfMonth;
         monthYear.setText(months[month] + ", " + year);
 
         switch (dayOfWeek) {
@@ -135,6 +138,55 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
             }
         }
 
+        sunday.setOnClickListener(v -> {
+            resetBackgroundColor();
+            sunday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
+            selectedDate = year * 10000 + month * 100 + Integer.parseInt(sunday.getText().toString());
+            onResume();
+        });
+
+        monday.setOnClickListener(v -> {
+            resetBackgroundColor();
+            monday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
+            selectedDate = year * 10000 + month * 100 + Integer.parseInt(monday.getText().toString());
+            onResume();
+        });
+
+        tuesday.setOnClickListener(v -> {
+            resetBackgroundColor();
+            tuesday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
+            selectedDate = year * 10000 + month * 100 + Integer.parseInt(tuesday.getText().toString());
+            onResume();
+        });
+
+        wednesday.setOnClickListener(v -> {
+            resetBackgroundColor();
+            wednesday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
+            selectedDate = year * 10000 + month * 100 + Integer.parseInt(wednesday.getText().toString());
+            onResume();
+        });
+
+        thursday.setOnClickListener(v -> {
+            resetBackgroundColor();
+            thursday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
+            selectedDate = year * 10000 + month * 100 + Integer.parseInt(thursday.getText().toString());
+            onResume();
+        });
+
+        friday.setOnClickListener(v -> {
+            resetBackgroundColor();
+            friday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
+            selectedDate = year * 10000 + month * 100 + Integer.parseInt(friday.getText().toString());
+            onResume();
+        });
+
+        saturday.setOnClickListener(v -> {
+            resetBackgroundColor();
+            saturday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
+            selectedDate = year * 10000 + month * 100 + Integer.parseInt(saturday.getText().toString());
+            onResume();
+        });
+
         RecyclerView upcomingAppointments = findViewById(R.id.appointment_scheduling_activity_appointments_list);
         ImageView addAppointment = findViewById(R.id.appointment_scheduling_activity_add_appointment);
 
@@ -162,7 +214,7 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
             Log.e("AppointmentSchedulingActivity", "Error clearing appointments: ", e);
         }
 
-        appointments.addAll(Database.getAllNotDoneAppointments());
+        appointments.addAll(Database.getAllNotDoneAppointmentsByDate(selectedDate));
 
         if (adapter != null) {
             adapter.notifyDataSetChanged();
@@ -174,5 +226,16 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
         Intent intent = new Intent(AppointmentSchedulingActivity.this, AppointmentActivity.class);
         intent.putExtra("appointment", appointment);
         startActivity(intent);
+    }
+
+    @SuppressLint("UseCompatLoadingForColorStateLists")
+    private void resetBackgroundColor() {
+        sunday.setBackgroundTintList(getResources().getColorStateList(R.color.bondi_blue));
+        monday.setBackgroundTintList(getResources().getColorStateList(R.color.bondi_blue));
+        tuesday.setBackgroundTintList(getResources().getColorStateList(R.color.bondi_blue));
+        wednesday.setBackgroundTintList(getResources().getColorStateList(R.color.bondi_blue));
+        thursday.setBackgroundTintList(getResources().getColorStateList(R.color.bondi_blue));
+        friday.setBackgroundTintList(getResources().getColorStateList(R.color.bondi_blue));
+        saturday.setBackgroundTintList(getResources().getColorStateList(R.color.bondi_blue));
     }
 }
