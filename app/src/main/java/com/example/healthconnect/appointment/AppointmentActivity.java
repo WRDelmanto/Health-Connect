@@ -42,7 +42,7 @@ public class AppointmentActivity extends AppCompatActivity {
     String appointmentDate;
     String appointmentTime;
 
-    int newPatientId;
+    int patientId;
 
     @SuppressLint({"SourceLockedOrientationActivity", "DefaultLocale"})
     @Override
@@ -81,6 +81,8 @@ public class AppointmentActivity extends AppCompatActivity {
 
         appointment = (Appointment) getIntent().getSerializableExtra("appointment");
         patientNameInput.setText(appointment != null ? appointment.getPatient().getName() : "");
+
+        patientId = appointment != null ? appointment.getPatient().getId() : 0;
 
         int tempAppointmentDate = appointment != null ? appointment.getAppointmentDate() : 0;
 
@@ -141,7 +143,7 @@ public class AppointmentActivity extends AppCompatActivity {
 
             if (selectedPatient != null) {
                 patientNameInput.setText(selectedPatient.getName());
-                newPatientId = selectedPatient.getId();
+                patientId = selectedPatient.getId();
             }
         });
 
@@ -195,7 +197,7 @@ public class AppointmentActivity extends AppCompatActivity {
 
 
         startAppointment.setOnClickListener(v -> {
-            if (!isAppointmentValid() || Database.getPatientById(newPatientId) == null) {
+            if (!isAppointmentValid() || Database.getPatientById(patientId) == null) {
                 return;
             }
 
@@ -209,7 +211,7 @@ public class AppointmentActivity extends AppCompatActivity {
         });
 
         saveButton.setOnClickListener(v -> {
-            if (!isAppointmentValid() || Database.getPatientById(newPatientId) == null) {
+            if (!isAppointmentValid() || Database.getPatientById(patientId) == null) {
                 return;
             }
 

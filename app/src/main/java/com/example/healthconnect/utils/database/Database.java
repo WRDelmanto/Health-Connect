@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -212,15 +211,15 @@ public class Database extends SQLiteOpenHelper {
         database.close();
     }
 
-    public static List<Appointment> getAllAppointments() {
+    public static List<Appointment> getAllNotDoneAppointments() {
         List<Appointment> appointments = new ArrayList<>();
         SQLiteDatabase database = getInstance().getReadableDatabase();
 
         Cursor cursor = database.query(
                 "appointments",
                 null,
-                null,
-                null,
+                "is_done = ?",
+                new String[]{"0"},
                 null,
                 null,
                 "appointment_date DESC, appointment_time DESC"
