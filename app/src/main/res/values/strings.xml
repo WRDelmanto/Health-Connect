@@ -42,4 +42,12 @@
     <string name="appointments_scheduling_two_lines">Appointment\nScheduling</string>
     <string name="patients_records_two_lines">Patients\nRecords</string>
     <string name="appointment_history_two_lines">Appointment\nHistory</string>
+
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
 </resources>
