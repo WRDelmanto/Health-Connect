@@ -256,7 +256,7 @@ public class Database extends SQLiteOpenHelper {
 
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         Cursor cursor = database.query(
@@ -448,8 +448,6 @@ public class Database extends SQLiteOpenHelper {
 
     public static void deleteAppointment(Appointment appointment) {
         SQLiteDatabase database = instance.getWritableDatabase();
-
-        Log.d("Database", "Deleting appointment: " + appointment.getId());
 
         database.delete(
                 "appointments",
