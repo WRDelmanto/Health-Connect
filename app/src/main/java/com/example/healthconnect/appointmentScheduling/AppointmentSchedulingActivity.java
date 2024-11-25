@@ -84,58 +84,74 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
         switch (dayOfWeek) {
             case Calendar.SUNDAY:
                 sunday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
-                sunday.setText(dayOfMonth);
+                sunday.setText(String.valueOf(dayOfMonth));
+                monday.setText(String.valueOf(dayOfMonth + 1));
+                tuesday.setText(String.valueOf(dayOfMonth + 2));
+                wednesday.setText(String.valueOf(dayOfMonth + 3));
+                thursday.setText(String.valueOf(dayOfMonth + 4));
+                friday.setText(String.valueOf(dayOfMonth + 5));
+                saturday.setText(String.valueOf(dayOfMonth + 6));
                 break;
             case Calendar.MONDAY:
                 monday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
+                sunday.setText(String.valueOf(dayOfMonth - 1));
                 monday.setText(String.valueOf(dayOfMonth));
+                tuesday.setText(String.valueOf(dayOfMonth + 1));
+                wednesday.setText(String.valueOf(dayOfMonth + 2));
+                thursday.setText(String.valueOf(dayOfMonth + 3));
+                friday.setText(String.valueOf(dayOfMonth + 4));
+                saturday.setText(String.valueOf(dayOfMonth + 5));
                 break;
             case Calendar.TUESDAY:
                 tuesday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
-                tuesday.setText(dayOfMonth);
+                sunday.setText(String.valueOf(dayOfMonth - 2));
+                monday.setText(String.valueOf(dayOfMonth - 1));
+                tuesday.setText(String.valueOf(dayOfMonth));
+                wednesday.setText(String.valueOf(dayOfMonth + 1));
+                thursday.setText(String.valueOf(dayOfMonth + 2));
+                friday.setText(String.valueOf(dayOfMonth + 3));
+                saturday.setText(String.valueOf(dayOfMonth + 4));
                 break;
             case Calendar.WEDNESDAY:
                 wednesday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
-                wednesday.setText(dayOfMonth);
+                sunday.setText(String.valueOf(dayOfMonth - 3));
+                monday.setText(String.valueOf(dayOfMonth - 2));
+                tuesday.setText(String.valueOf(dayOfMonth - 1));
+                wednesday.setText(String.valueOf(dayOfMonth));
+                thursday.setText(String.valueOf(dayOfMonth + 1));
+                friday.setText(String.valueOf(dayOfMonth + 2));
+                saturday.setText(String.valueOf(dayOfMonth + 3));
                 break;
             case Calendar.THURSDAY:
                 thursday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
-                thursday.setText(dayOfMonth);
+                sunday.setText(String.valueOf(dayOfMonth - 4));
+                monday.setText(String.valueOf(dayOfMonth - 3));
+                tuesday.setText(String.valueOf(dayOfMonth - 2));
+                wednesday.setText(String.valueOf(dayOfMonth - 1));
+                thursday.setText(String.valueOf(dayOfMonth));
+                friday.setText(String.valueOf(dayOfMonth + 1));
+                saturday.setText(String.valueOf(dayOfMonth + 2));
                 break;
             case Calendar.FRIDAY:
                 friday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
-                friday.setText(dayOfMonth);
+                sunday.setText(String.valueOf(dayOfMonth - 5));
+                monday.setText(String.valueOf(dayOfMonth - 4));
+                tuesday.setText(String.valueOf(dayOfMonth - 3));
+                wednesday.setText(String.valueOf(dayOfMonth - 2));
+                thursday.setText(String.valueOf(dayOfMonth - 1));
+                friday.setText(String.valueOf(dayOfMonth));
+                saturday.setText(String.valueOf(dayOfMonth + 1));
                 break;
             case Calendar.SATURDAY:
                 saturday.setBackgroundTintList(getResources().getColorStateList(R.color.black));
-                saturday.setText(dayOfMonth);
+                sunday.setText(String.valueOf(dayOfMonth - 6));
+                monday.setText(String.valueOf(dayOfMonth - 5));
+                tuesday.setText(String.valueOf(dayOfMonth - 4));
+                wednesday.setText(String.valueOf(dayOfMonth - 3));
+                thursday.setText(String.valueOf(dayOfMonth - 2));
+                friday.setText(String.valueOf(dayOfMonth - 1));
+                saturday.setText(String.valueOf(dayOfMonth));
                 break;
-        }
-
-        for (int i = dayOfWeek + 1; i <= 7; i++) {
-            switch (i) {
-                case Calendar.SUNDAY:
-                    sunday.setText(String.valueOf(++dayOfMonth));
-                    break;
-                case Calendar.MONDAY:
-                    monday.setText(String.valueOf(++dayOfMonth));
-                    break;
-                case Calendar.TUESDAY:
-                    tuesday.setText(String.valueOf(++dayOfMonth));
-                    break;
-                case Calendar.WEDNESDAY:
-                    wednesday.setText(String.valueOf(++dayOfMonth));
-                    break;
-                case Calendar.THURSDAY:
-                    thursday.setText(String.valueOf(++dayOfMonth));
-                    break;
-                case Calendar.FRIDAY:
-                    friday.setText(String.valueOf(++dayOfMonth));
-                    break;
-                case Calendar.SATURDAY:
-                    saturday.setText(String.valueOf(++dayOfMonth));
-                    break;
-            }
         }
 
         sunday.setOnClickListener(v -> {
