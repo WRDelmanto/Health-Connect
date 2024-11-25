@@ -222,7 +222,7 @@ public class AppointmentActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(v -> showConfirmationDialog(
                 this,
                 "Cancel Appointment",
-                "Are you sure you want to cancel this appointment?",
+                "Are you sure you want to cancel this action?\nUnsaved changes will be lost.",
                 "Yes",
                 "No",
                 this::finish,
