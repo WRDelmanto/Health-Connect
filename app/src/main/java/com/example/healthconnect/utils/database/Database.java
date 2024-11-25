@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -447,6 +448,8 @@ public class Database extends SQLiteOpenHelper {
 
     public static void deleteAppointment(Appointment appointment) {
         SQLiteDatabase database = instance.getWritableDatabase();
+
+        Log.d("Database", "Deleting appointment: " + appointment.getId());
 
         database.delete(
                 "appointments",

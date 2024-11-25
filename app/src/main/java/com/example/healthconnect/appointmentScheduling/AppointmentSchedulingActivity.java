@@ -5,6 +5,7 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,9 +22,13 @@ import com.example.healthconnect.appointment.AppointmentActivity;
 import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.utils.database.Database;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentSchedulingActivity extends AppCompatActivity implements AppointmentSchedulingActivityAppoitmentsAdapter.OnItemClickListener {
+    List<Appointment> appointments;
+    AppointmentSchedulingActivityAppoitmentsAdapter adapter;
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +52,9 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
         RecyclerView upcomingAppointments = findViewById(R.id.appointment_scheduling_activity_appointments_list);
         ImageView addAppointment = findViewById(R.id.appointment_scheduling_activity_add_appointment);
 
-        List<Appointment> appointments = Database.getAllAppointments();
+        appointments = new ArrayList<>();
 
-        AppointmentSchedulingActivityAppoitmentsAdapter adapter = new AppointmentSchedulingActivityAppoitmentsAdapter(appointments, this);
+        adapter = new AppointmentSchedulingActivityAppoitmentsAdapter(appointments, this);
         upcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
         upcomingAppointments.setAdapter(adapter);
 
@@ -58,6 +63,24 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
             intent.putExtra("isNewAppointment", true);
             startActivity(intent);
         });
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        try {
+            appointments.clear();
+        } catch (Exception e) {
+            Log.e("AppointmentSchedulingActivity", "Error clearing appointments: ", e);
+        }
+
+        appointments.addAll(Database.getAllAppointments());
+
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override

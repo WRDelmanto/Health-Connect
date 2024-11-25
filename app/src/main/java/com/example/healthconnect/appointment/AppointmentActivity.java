@@ -180,12 +180,16 @@ public class AppointmentActivity extends AppCompatActivity {
                         "Are you sure you want to cancel this appointment?",
                         "Yes",
                         "No",
-                        this::finish,
                         () -> {
-                            assert appointment != null;
                             Database.deleteAppointment(appointment);
+                            finish();
+                        },
+                        () -> {
+                            // Do nothing
                         }
-                ));
+                )
+        );
+
 
         startAppointment.setOnClickListener(v -> {
             if (!isAppointmentValid()) {

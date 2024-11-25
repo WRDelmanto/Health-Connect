@@ -44,7 +44,7 @@ public class AppointmentSchedulingActivityAppoitmentsAdapter extends RecyclerVie
 
         holder.patientName.setText(appointment.getPatient().getName());
         holder.patientAge.setText(appointment.getPatient().getAge() + " years-old");
-        holder.appointmentType.setText(appointment.getAppointmentType());
+        holder.appointmentType.setText("Regular Consultation");
         int hour = appointment.getAppointmentTime() / 100;
         int minute = appointment.getAppointmentTime() % 100;
         holder.appointmentTime.setText(String.format("%02d:%02d", hour, minute));
