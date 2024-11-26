@@ -230,7 +230,7 @@ public class AppointmentSchedulingActivity extends AppCompatActivity implements 
             Log.e("AppointmentSchedulingActivity", "Error clearing appointments: ", e);
         }
 
-        appointments.addAll(Database.getAllNotDoneAppointmentsByDate(selectedDate));
+        appointments.addAll(Database.getAllNotDoneAppointmentsByDate(selectedDate + 100));
 
         if (adapter != null) {
             adapter.notifyDataSetChanged();
