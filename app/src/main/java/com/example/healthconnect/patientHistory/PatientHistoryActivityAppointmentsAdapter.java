@@ -54,7 +54,7 @@ public class PatientHistoryActivityAppointmentsAdapter extends RecyclerView.Adap
         int hour = appointment.getAppointmentTime() / 100;
         int minute = appointment.getAppointmentTime() % 100;
         holder.appointmentDateTime.setText(date + " - " + String.format("%02d:%02d", hour, minute));
-        holder.appointmentType.setText(appointment.getAppointmentType());
+        holder.appointmentType.setText("Regular Consultation");
         holder.notes.setText(appointment.getNotes());
         holder.medicines.setText(appointment.getMedicines());
         holder.exams.setText(appointment.getExams());

@@ -65,7 +65,7 @@ public class CurrentAppointmentActivity extends AppCompatActivity {
         patientPicture.setImageResource(R.drawable.default_profile_picture);
         patientName.setText(appointment != null ? appointment.getPatient().getName() : "");
         patientAge.setText(appointment != null ? appointment.getPatient().getAge() + " years-old" : "");
-        appointmentType.setText(appointment != null ? appointment.getAppointmentType() : "");
+        appointmentType.setText(appointment != null ? "Regular Consultation" : "");
         appointmentTime.setText(appointment != null ? String.format("%02d:%02d", appointment.getAppointmentTime() / 100, appointment.getAppointmentTime() % 100) : "");
         notes.setText(appointment != null ? appointment.getNotes() : "");
         medicines.setText(appointment != null ? appointment.getMedicines() : "");
@@ -81,7 +81,17 @@ public class CurrentAppointmentActivity extends AppCompatActivity {
             previousAppointmentTitle.setVisibility(VISIBLE);
             previousAppointmentLayout.setVisibility(VISIBLE);
 
-            previousAppointmentDateTime.setText(previousAppointment.getAppointmentDate() + " - " + previousAppointment.getAppointmentTime());
+            previousAppointmentDateTime.setText(
+                    String.format("%04d-%02d-%02d",
+                            previousAppointment.getAppointmentDate() / 10000,
+                            (previousAppointment.getAppointmentDate() % 10000) / 100,
+                            previousAppointment.getAppointmentDate() % 100) +
+                            " - " +
+                            String.format(
+                                    "%02d:%02d", previousAppointment.getAppointmentTime() / 100,
+                                    previousAppointment.getAppointmentTime() % 100)
+            );
+
             previousAppointmentType.setText(previousAppointment.getAppointmentType());
         } else {
             previousAppointmentTitle.setVisibility(GONE);

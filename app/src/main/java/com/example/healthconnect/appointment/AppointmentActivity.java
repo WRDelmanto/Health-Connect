@@ -42,6 +42,8 @@ public class AppointmentActivity extends AppCompatActivity {
     String appointmentDate;
     String appointmentTime;
 
+    int patientId;
+
     @SuppressLint({"SourceLockedOrientationActivity", "DefaultLocale"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,8 @@ public class AppointmentActivity extends AppCompatActivity {
 
         appointment = (Appointment) getIntent().getSerializableExtra("appointment");
         patientNameInput.setText(appointment != null ? appointment.getPatient().getName() : "");
+
+        patientId = appointment != null ? appointment.getPatient().getId() : 0;
 
         int tempAppointmentDate = appointment != null ? appointment.getAppointmentDate() : 0;
 
@@ -139,6 +143,7 @@ public class AppointmentActivity extends AppCompatActivity {
 
             if (selectedPatient != null) {
                 patientNameInput.setText(selectedPatient.getName());
+                patientId = selectedPatient.getId();
             }
         });
 
@@ -180,15 +185,19 @@ public class AppointmentActivity extends AppCompatActivity {
                         "Are you sure you want to cancel this appointment?",
                         "Yes",
                         "No",
-                        this::finish,
                         () -> {
-                            assert appointment != null;
                             Database.deleteAppointment(appointment);
+                            finish();
+                        },
+                        () -> {
+                            // Do nothing
                         }
-                ));
+                )
+        );
+
 
         startAppointment.setOnClickListener(v -> {
-            if (!isAppointmentValid()) {
+            if (!isAppointmentValid() || Database.getPatientById(patientId) == null) {
                 return;
             }
 
@@ -202,7 +211,7 @@ public class AppointmentActivity extends AppCompatActivity {
         });
 
         saveButton.setOnClickListener(v -> {
-            if (!isAppointmentValid()) {
+            if (!isAppointmentValid() || Database.getPatientById(patientId) == null) {
                 return;
             }
 
@@ -213,7 +222,7 @@ public class AppointmentActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(v -> showConfirmationDialog(
                 this,
                 "Cancel Appointment",
-                "Are you sure you want to cancel this appointment?",
+                "Are you sure you want to cancel this action?\nUnsaved changes will be lost.",
                 "Yes",
                 "No",
                 this::finish,
@@ -224,10 +233,6 @@ public class AppointmentActivity extends AppCompatActivity {
     }
 
     private void saveUpdateAppointment() {
-        if (!isAppointmentValid()) {
-            return;
-        }
-
         if (appointment == null) {
             appointment = new Appointment(
                     0,

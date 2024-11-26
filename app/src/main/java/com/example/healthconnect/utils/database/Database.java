@@ -211,18 +211,18 @@ public class Database extends SQLiteOpenHelper {
         database.close();
     }
 
-    public static List<Appointment> getAllAppointments() {
+    public static List<Appointment> getAllNotDoneAppointmentsByDate(int date) {
         List<Appointment> appointments = new ArrayList<>();
         SQLiteDatabase database = getInstance().getReadableDatabase();
 
         Cursor cursor = database.query(
                 "appointments",
                 null,
+                "appointment_date = ? AND is_done = ?",
+                new String[]{String.valueOf(date), "0"},
                 null,
                 null,
-                null,
-                null,
-                "appointment_date DESC, appointment_time DESC"
+                "appointment_time ASC"
         );
 
         if (cursor.moveToFirst()) {
@@ -255,7 +255,7 @@ public class Database extends SQLiteOpenHelper {
 
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         Cursor cursor = database.query(

@@ -70,7 +70,7 @@ public class AppointmentHistoryActivityAppointmentsAdapter extends RecyclerView.
                 appointment.getAppointmentDate() % 100);
         int hour = appointment.getAppointmentTime() / 100;
         int minute = appointment.getAppointmentTime() % 100;
-        holder.appointmentTypeDateTime.setText(appointment.getAppointmentType() + " | " + date + " - " + String.format("%02d:%02d", hour, minute));
+        holder.appointmentTypeDateTime.setText("Regular Consultation" + " | " + date + " - " + String.format("%02d:%02d", hour, minute));
 
         holder.patientImage.setImageResource(R.drawable.default_profile_picture);
 
