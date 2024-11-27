@@ -87,7 +87,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="8dp"
         android:autofillHints="false"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
