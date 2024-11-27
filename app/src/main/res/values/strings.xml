@@ -13,6 +13,7 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="edit">Edit</string>
+    <string name="login">Log In</string>
     <string name="appointment">Appointment</string>
     <string name="appointment_date">Appointment Date*</string>
     <string name="appointment_time">Appointment Time*</string>

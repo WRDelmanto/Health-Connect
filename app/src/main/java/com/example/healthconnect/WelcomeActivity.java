@@ -17,7 +17,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.healthconnect.doctorProfile.DoctorProfileActivity;
 import com.example.healthconnect.home.HomeActivity;
+import com.example.healthconnect.utils.FastSharedPreferences;
 import com.example.healthconnect.utils.database.Database;
 import com.example.healthconnect.utils.database.MockDataGenerator;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -75,7 +77,10 @@ public class WelcomeActivity extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     progressIndicator.setProgress(100);
-                    startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
+
+                    //startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
+                    callLogin(WelcomeActivity.this);
+
                     finish();
                 }
             }.start();
@@ -91,8 +96,21 @@ public class WelcomeActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void unused) {
-            startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
+            //startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
+            callLogin(WelcomeActivity.this);
             finish();
+        }
+    }
+
+    static void callLogin(WelcomeActivity welcomeActivity){
+        //Check whether we have a doctor profile. If there is one, open Logon Activity
+        String doctorName = (String) FastSharedPreferences.get(welcomeActivity, "doctor_name", "");
+        if (!doctorName.isEmpty()){
+            welcomeActivity.startActivity(new Intent(welcomeActivity, LoginActivity.class));
+        }
+        //otherwise, open Doctor Profile Activity to create one.
+        else {
+            welcomeActivity.startActivity(new Intent(welcomeActivity, DoctorProfileActivity.class));
         }
     }
 }
