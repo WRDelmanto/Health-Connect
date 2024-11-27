@@ -4,6 +4,8 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -29,11 +31,13 @@ import com.example.healthconnect.utils.FastSharedPreferences;
 import com.example.healthconnect.utils.database.Appointment;
 import com.example.healthconnect.utils.database.Database;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements HomeActivityAppointmentsAdapter.OnItemClickListener {
     ImageView doctorImage;
+    String doctorImageStr;
     ImageButton editButton;
     TextView doctorName;
     TextView appointmentsCounter;
@@ -86,7 +90,19 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
     protected void onResume() {
         super.onResume();
 
-        doctorImage.setImageResource(R.drawable.default_profile_picture);
+        //doctorImage.setImageResource(R.drawable.default_profile_picture);
+        doctorImageStr = (String) FastSharedPreferences.get(this, "doctor_picture", "");
+        if (doctorImageStr != null) {
+            // Display the saved image
+            File imgFile = new File(doctorImageStr);
+            if (imgFile.exists()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                doctorImage.setImageBitmap(bitmap);
+            }
+        } else {
+            // Set a placeholder if no image is saved
+            doctorImage.setImageResource(R.drawable.default_profile_picture);
+        }
         doctorName.setText("Dr. " + FastSharedPreferences.get(this, "doctor_name", ""));
 
         try {

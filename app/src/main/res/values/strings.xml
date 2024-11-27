@@ -8,6 +8,8 @@
     <string name="patients_history">Patients History</string>
     <string name="appointment_history">Appointment History</string>
     <string name="name">Name*</string>
+    <string name="email">Email*</string>
+    <string name="password">Password*</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="edit">Edit</string>
