@@ -92,17 +92,17 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAppoi
 
         //doctorImage.setImageResource(R.drawable.default_profile_picture);
         doctorImageStr = (String) FastSharedPreferences.get(this, "doctor_picture", "");
-        if (doctorImageStr != null) {
-            // Display the saved image
+
+        if (!doctorImageStr.equals("")) {
             File imgFile = new File(doctorImageStr);
             if (imgFile.exists()) {
                 Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                 doctorImage.setImageBitmap(bitmap);
             }
         } else {
-            // Set a placeholder if no image is saved
             doctorImage.setImageResource(R.drawable.default_profile_picture);
         }
+
         doctorName.setText("Dr. " + FastSharedPreferences.get(this, "doctor_name", ""));
 
         try {

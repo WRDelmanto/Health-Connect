@@ -18,7 +18,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.doctorProfile.DoctorProfileActivity;
-import com.example.healthconnect.home.HomeActivity;
+import com.example.healthconnect.login.LoginActivity;
 import com.example.healthconnect.utils.FastSharedPreferences;
 import com.example.healthconnect.utils.database.Database;
 import com.example.healthconnect.utils.database.MockDataGenerator;
@@ -78,8 +78,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 public void onFinish() {
                     progressIndicator.setProgress(100);
 
-                    //startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
-                    callLogin(WelcomeActivity.this);
+                    onFinishLoading();
 
                     finish();
                 }
@@ -96,21 +95,18 @@ public class WelcomeActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void unused) {
-            //startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
-            callLogin(WelcomeActivity.this);
+            onFinishLoading();
             finish();
         }
     }
 
-    static void callLogin(WelcomeActivity welcomeActivity){
-        //Check whether we have a doctor profile. If there is one, open Logon Activity
-        String doctorName = (String) FastSharedPreferences.get(welcomeActivity, "doctor_name", "");
-        if (!doctorName.isEmpty()){
-            welcomeActivity.startActivity(new Intent(welcomeActivity, LoginActivity.class));
-        }
-        //otherwise, open Doctor Profile Activity to create one.
-        else {
-            welcomeActivity.startActivity(new Intent(welcomeActivity, DoctorProfileActivity.class));
+    private void onFinishLoading() {
+        if (!FastSharedPreferences.get(WelcomeActivity.this, "doctor_name", "").equals("")) {
+            startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+        } else {
+            Intent intent = new Intent(WelcomeActivity.this, DoctorProfileActivity.class);
+            intent.putExtra("isFirstTime", true);
+            startActivity(intent);
         }
     }
 }

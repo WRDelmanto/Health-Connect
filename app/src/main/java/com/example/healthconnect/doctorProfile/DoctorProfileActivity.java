@@ -2,11 +2,8 @@ package com.example.healthconnect.doctorProfile;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -16,26 +13,29 @@ import android.provider.MediaStore;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.R;
+import com.example.healthconnect.home.HomeActivity;
 import com.example.healthconnect.utils.FastSharedPreferences;
+import com.example.healthconnect.utils.FastToast;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class DoctorProfileActivity extends AppCompatActivity {
+    EditText doctorNameInput;
+    EditText doctorEmailInput;
+    EditText doctorPasswordInput;
+
     String doctorName;
     String doctorEmail;
     String doctorPassword;
@@ -44,6 +44,8 @@ public class DoctorProfileActivity extends AppCompatActivity {
     static final int PICK_IMAGE_REQUEST = 1;
     Uri imageUri;
     ImageView doctorPicture;
+
+    boolean isFirstTime = false;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -58,7 +60,6 @@ public class DoctorProfileActivity extends AppCompatActivity {
             return insets;
         });
 
-        //STATUS BAR
         ImageView statusBackIcon = findViewById(R.id.status_bar_back_arrow_icon);
         ImageView statusBarIcon = findViewById(R.id.status_bar_icon);
         TextView statusBarTitle = findViewById(R.id.status_bar_title);
@@ -66,27 +67,25 @@ public class DoctorProfileActivity extends AppCompatActivity {
         statusBarIcon.setImageResource(R.drawable.doctor_white);
         statusBarTitle.setText(getString(R.string.doctor_profile));
 
-
-        //DOCTOR'S PROFILE: Picture + Name + Email + Password
         doctorPicture = findViewById(R.id.doctor_profile_activity_doctor_picture);
-        EditText doctorNameInput = findViewById(R.id.doctor_profile_activity_doctor_name);
-        EditText doctorEmailInput = findViewById(R.id.doctor_profile_activity_doctor_email);
-        EditText doctorPasswordInput = findViewById(R.id.doctor_profile_activity_doctor_password);
+        doctorNameInput = findViewById(R.id.doctor_profile_activity_doctor_name);
+        doctorEmailInput = findViewById(R.id.doctor_profile_activity_doctor_email);
+        doctorPasswordInput = findViewById(R.id.doctor_profile_activity_doctor_password);
         AppCompatButton saveButton = findViewById(R.id.doctor_profile_activity_save_button);
 
         doctorName = (String) FastSharedPreferences.get(this, "doctor_name", "");
         doctorEmail = (String) FastSharedPreferences.get(this, "doctor_email", "");
         doctorPassword = (String) FastSharedPreferences.get(this, "doctor_password", "");
         doctorPictureStr = (String) FastSharedPreferences.get(this, "doctor_picture", "");
-        if (doctorPictureStr != null) {
-            // Display the saved image
+
+        if (!doctorPictureStr.equals("")) {
             File imgFile = new File(doctorPictureStr);
+
             if (imgFile.exists()) {
                 Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                 doctorPicture.setImageBitmap(bitmap);
             }
         } else {
-            // Set a placeholder if no image is saved
             doctorPicture.setImageResource(R.drawable.default_profile_picture);
         }
 
@@ -96,19 +95,33 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
         doctorPicture.setOnClickListener(v -> openImagePicker());
 
+        isFirstTime = getIntent().getBooleanExtra("isFirstTime", false);
+
         saveButton.setOnClickListener(v -> {
-            doctorPictureStr = saveImageLocally(imageUri); // Save image locally
+            if (!isDoctorProfileValid()) {
+                FastToast.show(this, "Please fill all fields");
+                return;
+            }
+
+            if (!doctorPictureStr.equals("")) {
+                doctorPictureStr = saveImageLocally(imageUri);
+            }
 
             doctorName = doctorNameInput.getText().toString();
             doctorEmail = doctorEmailInput.getText().toString();
             doctorPassword = doctorPasswordInput.getText().toString();
+
             FastSharedPreferences.put(this, "doctor_name", doctorName);
-            FastSharedPreferences.put(this,"doctor_email", doctorEmail);
-            FastSharedPreferences.put(this,"doctor_password", doctorPassword);
+            FastSharedPreferences.put(this, "doctor_email", doctorEmail);
+            FastSharedPreferences.put(this, "doctor_password", doctorPassword);
             FastSharedPreferences.put(this, "doctor_picture", doctorPictureStr);
 
             doctorPassword = (String) FastSharedPreferences.get(this, "doctor_password", "");
             doctorPictureStr = (String) FastSharedPreferences.get(this, "doctor_picture", null);
+
+            if (isFirstTime) {
+                startActivity(new Intent(DoctorProfileActivity.this, HomeActivity.class));
+            }
 
             finish();
         });
@@ -148,15 +161,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void checkPermissions() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-        }
+    private boolean isDoctorProfileValid() {
+        return !doctorNameInput.getText().toString().equals("") && !doctorEmailInput.getText().toString().equals("") && !doctorPasswordInput.getText().toString().equals("");
     }
-
-
-
-
-
-
 }

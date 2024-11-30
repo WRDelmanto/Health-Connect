@@ -1,11 +1,8 @@
-package com.example.healthconnect;
+package com.example.healthconnect.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +11,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.healthconnect.R;
 import com.example.healthconnect.home.HomeActivity;
 import com.example.healthconnect.utils.FastSharedPreferences;
+import com.example.healthconnect.utils.FastToast;
 
 public class LoginActivity extends AppCompatActivity {
+    EditText loginEmailEDT;
+    EditText loginPasswordEDT;
+
+    String doctorEmail;
+    String doctorPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,30 +36,22 @@ public class LoginActivity extends AppCompatActivity {
 
         AppCompatButton loginButton = findViewById(R.id.login_activity_button);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               if (checkLoginCredentials()){
-                   startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-               } else {
-                   Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
-               }
+        loginEmailEDT = findViewById(R.id.login_activity_email);
+        loginPasswordEDT = findViewById(R.id.login_activity_password);
+
+        doctorEmail = (String) FastSharedPreferences.get(this, "doctor_email", "");
+        doctorPassword = (String) FastSharedPreferences.get(this, "doctor_password", "");
+
+        loginButton.setOnClickListener(view -> {
+            if (areCredentialsValid()) {
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            } else {
+                FastToast.show(getApplicationContext(), "Invalid credentials");
             }
         });
     }
 
-    boolean checkLoginCredentials(){
-
-        EditText loginEmailEDT = findViewById(R.id.login_activity_email);
-        EditText loginPasswordEDT = findViewById(R.id.login_activity_password);
-
-        String loginEmail = loginEmailEDT.getText().toString();
-        String loginPassword = loginPasswordEDT.getText().toString();
-
-        String doctorEmail = (String) FastSharedPreferences.get(this, "doctor_email", "");
-        String doctorPassword = (String) FastSharedPreferences.get(this, "doctor_password", "");
-
-        return  (doctorEmail.equalsIgnoreCase(loginEmail) && doctorPassword.equals(loginPassword));
-
+    boolean areCredentialsValid() {
+        return (doctorEmail.equals(loginEmailEDT.getText().toString()) && doctorPassword.equals(loginPasswordEDT.getText().toString()));
     }
 }
