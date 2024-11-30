@@ -1,15 +1,16 @@
 package com.example.healthconnect.utils;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 public class FastSharedPreferences {
     private static SharedPreferences sharedPreferences;
 
     private static void configure(Context context) {
         if (sharedPreferences == null) {
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            sharedPreferences = context.getSharedPreferences("FastSharedPreferences", MODE_PRIVATE);
         }
     }
 
