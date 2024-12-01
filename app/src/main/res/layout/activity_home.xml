@@ -124,8 +124,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/appointments_scheduling_two_lines"
-                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -154,8 +154,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/patients_records_two_lines"
-                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -184,8 +184,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/appointment_history_two_lines"
-                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
         </LinearLayout>
