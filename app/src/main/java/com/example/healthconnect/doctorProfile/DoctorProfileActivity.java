@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -103,6 +104,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
                 return;
             }
 
+            Log.d("DoctorProfileActivity",doctorPictureStr);
             if (!doctorPictureStr.equals("")) {
                 doctorPictureStr = saveImageLocally(imageUri);
             }
@@ -140,6 +142,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             doctorPicture.setImageURI(imageUri); // Show selected image
+            doctorPictureStr = imageUri.toString();
         }
     }
 
